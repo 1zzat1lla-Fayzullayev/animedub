@@ -78,7 +78,6 @@ function Admin() {
 						console.log(data)
 						setEditIndex(null)
 						setFormSlider({ title: '', description: '', picture: '' })
-						handleCloseModal(tab)
 					}
 				} else {
 					const { data, error } = await supabase
@@ -89,7 +88,6 @@ function Admin() {
 					if (data) {
 						console.log(data)
 						setFormSlider({ title: '', description: '', picture: '' })
-						handleCloseModal(tab)
 					}
 				}
 			} else if (tab === 2) {
@@ -142,7 +140,6 @@ function Admin() {
 							cardlanguage: '',
 							cardage: 0,
 						})
-						handleCloseModal(tab)
 					}
 				} else {
 					const { data, error } = await supabase
@@ -171,11 +168,11 @@ function Admin() {
 							cardlanguage: '',
 							cardage: 0,
 						})
-						handleCloseModal(tab)
 					}
 				}
 			}
 			handleCloseModal(tab)
+			window.location.reload()
 		} catch (error) {
 			console.error('Error submitting form:', error.message)
 		}
@@ -203,6 +200,8 @@ function Admin() {
 				cardlanguage: data.cardlanguage,
 				cardage: data.cardage,
 			})
+			const modal = document.getElementById(`my_modal_${tab}`)
+			if (modal) modal.showModal()
 		}
 	}
 
@@ -337,45 +336,47 @@ function Admin() {
 									<h2 className='text-white font-bold font-Inter text-[25px] my-[15px]'>
 										Swiper Section
 									</h2>
-									<table className='table'>
-										<thead>
-											<tr className='text-white font-Montserrat'>
-												<th>Name</th>
-												<th>Description</th>
-												<th>Picture</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody className='overflow-y-scroll'>
-											{sliderData.map((item, index) => (
-												<tr key={item.id} className='text-white font-Inter'>
-													<td>{item.title}</td>
-													<td>{item.description}</td>
-													<td>
-														<img
-															src={item.picture}
-															alt=''
-															className='w-[100px]'
-														/>
-													</td>
-													<td className='flex justify-center items-center gap-2'>
-														<button
-															className='bg-[orange] p-2 rounded-[6px]'
-															onClick={() => handleEdit(index, item)}
-														>
-															Edit
-														</button>
-														<button
-															className='bg-red-500 p-2 rounded-[6px]'
-															onClick={() => handleDelete(item.id, index)}
-														>
-															Delete
-														</button>
-													</td>
+									<div className='overflow-y-scroll h-[450px]'>
+										<table className='table'>
+											<thead>
+												<tr className='text-white font-Montserrat'>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Picture</th>
+													<th>Action</th>
 												</tr>
-											))}
-										</tbody>
-									</table>
+											</thead>
+											<tbody>
+												{sliderData.map((item, index) => (
+													<tr key={item.id} className='text-white font-Inter'>
+														<td>{item.title}</td>
+														<td>{item.description}</td>
+														<td>
+															<img
+																src={item.picture}
+																alt=''
+																className='w-[100px]'
+															/>
+														</td>
+														<td className='flex justify-center items-center gap-2'>
+															<button
+																className='bg-[orange] p-2 rounded-[6px]'
+																onClick={() => handleEdit(index, item)}
+															>
+																Edit
+															</button>
+															<button
+																className='bg-red-500 p-2 rounded-[6px]'
+																onClick={() => handleDelete(item.id, index)}
+															>
+																Delete
+															</button>
+														</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+									</div>
 								</div>
 							)}
 							{tab === 2 && (
@@ -479,6 +480,67 @@ function Admin() {
 											/>
 										</div>
 									</dialog>
+									<h2 className='text-white font-bold font-Inter text-[25px] my-[15px]'>
+										Card Section
+									</h2>
+									<div className='overflow-y-scroll h-[450px]'>
+										<table className='table'>
+											<thead>
+												<tr className='text-white font-Montserrat'>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Picture</th>
+													<th>Year</th>
+													<th>State</th>
+													<th>Genre</th>
+													<th>Language</th>
+													<th>Age</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												{cardData.map((item, index) => (
+													<tr key={item.id} className='text-white font-Inter'>
+														<td>{item.cardname}</td>
+														<td>{item.carddescreption}</td>
+														<td>
+															<img
+																src={item.cardpicture}
+																alt='404'
+																className='w-[100px]'
+															/>
+														</td>
+														<td>{item.cardyear}</td>
+														<td>{item.cardstate}</td>
+														<td>{item.cardgenre}</td>
+														<td>{item.cardlanguage}</td>
+														<td>{item.cardage}</td>
+														<td>
+															<img
+																src={item.picture}
+																alt=''
+																className='w-[100px]'
+															/>
+														</td>
+														<td className='flex justify-center items-center gap-2'>
+															<button
+																className='bg-[orange] p-2 rounded-[6px]'
+																onClick={() => handleEdit(index, item)}
+															>
+																Edit
+															</button>
+															<button
+																className='bg-red-500 p-2 rounded-[6px]'
+																onClick={() => handleDelete(item.id, index)}
+															>
+																Delete
+															</button>
+														</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+									</div>
 								</div>
 							)}
 						</div>

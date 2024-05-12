@@ -4,9 +4,14 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import supabase from '../supabase/data'
 import Slider from 'react-slick'
+import SingleCard from '../components/SingleCard'
+import { Link } from 'react-router-dom'
 
 function SliderCard() {
 	const [card, setCard] = useState([])
+	const [selectedCard, setSelectedCard] = useState(null)
+
+	console.log(selectedCard)
 
 	useEffect(() => {
 		getCard()
@@ -73,16 +78,24 @@ function SliderCard() {
 		settings.slidesToShow = calculateSlidesToShow()
 	})
 
+	const handleCardClick = clickedCard => {
+		setSelectedCard(clickedCard)
+	}
+
 	return (
 		<div className='slider-container'>
 			{card.length > 0 && (
-				<Slider {...settings} className='mySwiper'>
-					{card.map((item, index) => (
-						<div key={index}>
-							<Card card={item} />
-						</div>
-					))}
-				</Slider>
+				<>
+					<Slider {...settings} className='mySwiper'>
+						{card.map((item, index) => (
+							<Link to={`/card/${item.id}`} key={index}>
+								<div onClick={() => handleCardClick(item)}>
+									<Card card={item} />
+								</div>
+							</Link>
+						))}
+					</Slider>
+				</>
 			)}
 		</div>
 	)
