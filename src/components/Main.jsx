@@ -13,7 +13,7 @@ function Main() {
 					<h2 className='linear_text text-[30px] font-bold font-Montserrat my-[20px]'>
 						Trending
 					</h2>
-					<img src={PicturesData.star2} alt='star' className='w-[30px]' />
+					<img src={PicturesData.star} alt='star' className='w-[30px]' />
 				</div>
 				<SliderCard />
 			</Wrapper>
