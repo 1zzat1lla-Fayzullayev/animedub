@@ -24,6 +24,7 @@ function Admin() {
 		cardgenre: '',
 		cardlanguage: '',
 		cardage: 0,
+		cardvd: '',
 	})
 	const [editIndex, setEditIndex] = useState(null)
 
@@ -58,6 +59,27 @@ function Admin() {
 			setFormSlider(prevState => ({ ...prevState, [name]: value }))
 		} else if (tab === 2) {
 			setFormCard(prevState => ({ ...prevState, [name]: value }))
+		}
+	}
+
+	const handleFileChange = e => {
+		const file = e.target.files[0]
+		if (file) {
+			const reader = new FileReader()
+			reader.onloadend = () => {
+				if (tab === 1) {
+					setFormSlider(prevState => ({
+						...prevState,
+						picture: reader.result,
+					}))
+				} else if (tab === 2) {
+					setFormCard(prevState => ({
+						...prevState,
+						cardvd: reader.result,
+					}))
+				}
+			}
+			reader.readAsDataURL(file)
 		}
 	}
 
@@ -100,6 +122,7 @@ function Admin() {
 					cardgenre,
 					cardlanguage,
 					cardage,
+					cardvd,
 				} = formCard
 				if (
 					!cardname ||
@@ -109,7 +132,8 @@ function Admin() {
 					!cardstate ||
 					!cardgenre ||
 					!cardlanguage ||
-					!cardage
+					!cardage ||
+					!cardvd
 				)
 					throw new Error('Please provide all details for the card.')
 				if (editIndex !== null) {
@@ -124,6 +148,7 @@ function Admin() {
 							cardgenre,
 							cardlanguage,
 							cardage,
+							cardvd,
 						})
 						.eq('id', cardData[editIndex].id)
 					if (error) throw error
@@ -139,6 +164,7 @@ function Admin() {
 							cardgenre: '',
 							cardlanguage: '',
 							cardage: 0,
+							cardvd: '',
 						})
 					}
 				} else {
@@ -153,6 +179,7 @@ function Admin() {
 							cardgenre,
 							cardlanguage,
 							cardage,
+							cardvd,
 						})
 						.single()
 					if (error) throw error
@@ -167,6 +194,7 @@ function Admin() {
 							cardgenre: '',
 							cardlanguage: '',
 							cardage: 0,
+							cardvd: '',
 						})
 					}
 				}
@@ -199,6 +227,7 @@ function Admin() {
 				cardgenre: data.cardgenre,
 				cardlanguage: data.cardlanguage,
 				cardage: data.cardage,
+				cardvd: data.cardvd,
 			})
 			const modal = document.getElementById(`my_modal_${tab}`)
 			if (modal) modal.showModal()
@@ -316,7 +345,7 @@ function Admin() {
 												<input
 													type='text'
 													name='picture'
-													placeholder='Picture URL'
+													placeholder='Photo URL'
 													className='input bg-[#17171A] text-white'
 													value={formSlider.picture}
 													onChange={handleChange}
@@ -423,7 +452,7 @@ function Admin() {
 												<input
 													type='text'
 													name='cardpicture'
-													placeholder='Picture URL'
+													placeholder='Photo URL'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardpicture}
 													onChange={handleChange}
@@ -468,6 +497,12 @@ function Admin() {
 													value={formCard.cardage}
 													onChange={handleChange}
 												/>
+												<input
+													type='file'
+													accept='video/*'
+													name='cardvd'
+													onChange={handleFileChange}
+												/>
 												<button className='btn btn-success text-white'>
 													{editIndex !== null ? 'Update' : 'Submit'}
 												</button>
@@ -495,6 +530,7 @@ function Admin() {
 													<th>Genre</th>
 													<th>Language</th>
 													<th>Age</th>
+													<th>Video</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -516,11 +552,7 @@ function Admin() {
 														<td>{item.cardlanguage}</td>
 														<td>{item.cardage}</td>
 														<td>
-															<img
-																src={item.picture}
-																alt=''
-																className='w-[100px]'
-															/>
+															<video src={item.cardvd}></video>
 														</td>
 														<td className='flex justify-center items-center gap-2'>
 															<button
