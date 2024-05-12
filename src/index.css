@@ -10,6 +10,7 @@
 	padding: 0;
 }
 
+html,
 body {
 	background: rgb(10, 10, 10);
 	background: linear-gradient(
@@ -18,6 +19,7 @@ body {
 		rgba(24, 24, 34, 1) 35%,
 		rgba(33, 33, 50, 0.989233193277311) 100%
 	);
+	overflow-x: hidden;
 }
 
 .swiper {
@@ -28,8 +30,6 @@ body {
 .swiper-slide {
 	text-align: center;
 	font-size: 18px;
-	/* background: #fff; */
-	/* display: flex; */
 }
 
 .swiper-slide img {
@@ -80,4 +80,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
+}
+
+.linear_text {
+	background-image: linear-gradient(94.49deg, #2203ff 33.29%, #c40d60 67.01%);
+	-webkit-background-clip: text;
+	color: transparent;
 }
