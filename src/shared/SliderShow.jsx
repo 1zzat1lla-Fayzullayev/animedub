@@ -60,7 +60,7 @@ function SliderShow() {
 								<h1 className='slider_h1 text-[60px] font-BebasNeue'>
 									{item.title}
 								</h1>
-								<p className='font-Inter text-[20px] max-w-[650px] text-start'>{item.descreption}</p>
+								<p className='font-Inter text-[16px] md:text-[20px] max-w-[650px] text-start'>{item.descreption}</p>
 								<div className='flex items-center gap-2 border rounded-[6px] p-2 font-Inter mt-[20px] cursor-pointer'>
 									<img
 										src={PicturesData.play}
