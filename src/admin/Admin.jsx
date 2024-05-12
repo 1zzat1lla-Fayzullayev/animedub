@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import supabase from '../supabase/data'
-import PicturesData from '../PicturesData'
 import { Link } from 'react-router-dom'
+import PicturesData from '../PicturesData'
+import supabase from '../supabase/data'
 
 function Admin() {
 	const [isLoggedIn, setIsLoggedIn] = useState(
@@ -14,47 +14,107 @@ function Admin() {
 		picture: '',
 	})
 
-	const { title, descreption, picture } = formSlider
+	const [formCard, setFormCard] = useState({
+		cardname: '',
+		carddescreption: '',
+		cardpicture: '',
+		cardyear: 0,
+		cardstate: '',
+		cardgenre: '',
+		cardlanguage: '',
+		cardage: 0,
+	})
 
 	const handleChange = e => {
 		const { name, value } = e.target
-		setFormSlider(prevState => ({
-			...prevState,
-			[name]: value,
-		}))
+		if (tab === 1) {
+			setFormSlider(prevState => ({
+				...prevState,
+				[name]: value,
+			}))
+		} else if (tab === 2) {
+			setFormCard(prevState => ({
+				...prevState,
+				[name]: value,
+			}))
+		}
 	}
 
 	const handleSubmit = async e => {
-		if (!title || !descreption || !picture) {
-			alert('Please write all documentation')
-			return
-		}
 		e.preventDefault()
 		try {
-			const { data, error } = await supabase
-				.from('sliders')
-				.insert({ title, descreption, picture })
-				.single()
-			if (error) {
-				throw error
-			}
-			if (data) {
-				console.log(data)
-				setFormSlider({ title: '', descreption: '', picture: '' })
+			if (tab === 1) {
+				const { title, description, picture } = formSlider
+				if (!title || !description || !picture) {
+					throw new Error('Please provide all details for the slider.')
+				}
+				const { data, error } = await supabase
+					.from('sliders')
+					.insert({ title, description, picture })
+					.single()
+				if (error) {
+					throw error
+				}
+				if (data) {
+					console.log(data)
+					setFormSlider({ title: '', description: '', picture: '' })
+				}
+			} else if (tab === 2) {
+				const {
+					cardname,
+					carddescreption,
+					cardpicture,
+					cardyear,
+					cardstate,
+					cardgenre,
+					cardlanguage,
+					cardage,
+				} = formCard
+				if (
+					!cardname ||
+					!carddescreption ||
+					!cardpicture ||
+					!cardyear ||
+					!cardstate ||
+					!cardgenre ||
+					!cardlanguage ||
+					!cardage
+				) {
+					throw new Error('Please provide all details for the card.')
+				}
+				const { data, error } = await supabase
+					.from('card')
+					.insert({
+						cardname,
+						carddescreption,
+						cardpicture,
+						cardyear,
+						cardstate,
+						cardgenre,
+						cardlanguage,
+						cardage,
+					})
+					.single()
+				if (error) {
+					throw error
+				}
+				if (data) {
+					console.log(data)
+					setFormCard({
+						cardname: '',
+						carddescreption: '',
+						cardpicture: '',
+						cardyear: 0,
+						cardstate: '',
+						cardgenre: '',
+						cardlanguage: '',
+						cardage: 0,
+					})
+				}
 			}
 		} catch (error) {
 			console.error('Error submitting form:', error.message)
 		}
-		setFormSlider({
-			title: '',
-			descreption: '',
-			picture: '',
-		})
-	}
-
-	const handleSubmitCard = async e => {
-		e.preventDefault()
-		// Similar logic for card submission
 	}
 
 	const handleOpenModal = tab => {
@@ -87,7 +147,7 @@ function Admin() {
 								<p
 									onClick={() => setTab(1)}
 									className={`${
-										tab == 1
+										tab === 1
 											? 'bg-[#458FF6] text-[#fff] font-medium '
 											: 'bg-[#ececec50] text-[white] '
 									} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
@@ -97,7 +157,7 @@ function Admin() {
 								<p
 									onClick={() => setTab(2)}
 									className={`${
-										tab == 2
+										tab === 2
 											? 'bg-[#458FF6] text-[#fff] font-medium '
 											: 'bg-[#ececec50] text-[white] '
 									} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
@@ -107,7 +167,7 @@ function Admin() {
 								<p
 									onClick={() => setTab(3)}
 									className={`${
-										tab == 3
+										tab === 3
 											? 'bg-[#458FF6] text-[#fff] font-medium '
 											: 'bg-[#ececec50] text-[white] '
 									} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
@@ -141,15 +201,15 @@ function Admin() {
 													name='title'
 													placeholder='Title'
 													className='input bg-[#17171A] text-white'
-													value={title}
+													value={formSlider.title}
 													onChange={handleChange}
 												/>
 												<input
 													type='text'
-													name='descreption'
+													name='description'
 													placeholder='Description'
 													className='input bg-[#17171A] text-white'
-													value={descreption}
+													value={formSlider.description}
 													onChange={handleChange}
 												/>
 												<input
@@ -157,7 +217,7 @@ function Admin() {
 													name='picture'
 													placeholder='Picture URL'
 													className='input bg-[#17171A] text-white'
-													value={picture}
+													value={formSlider.picture}
 													onChange={handleChange}
 												/>
 												<button className='btn btn-success text-white'>
@@ -195,26 +255,66 @@ function Admin() {
 											>
 												<input
 													type='text'
-													name='title'
+													name='cardname'
 													placeholder='Title'
 													className='input bg-[#17171A] text-white'
-													value={title}
+													value={formCard.cardname}
 													onChange={handleChange}
 												/>
 												<input
 													type='text'
-													name='descreption'
+													name='carddescreption'
 													placeholder='Description'
 													className='input bg-[#17171A] text-white'
-													value={descreption}
+													value={formCard.carddescreption}
 													onChange={handleChange}
 												/>
 												<input
 													type='text'
-													name='picture'
+													name='cardpicture'
 													placeholder='Picture URL'
 													className='input bg-[#17171A] text-white'
-													value={picture}
+													value={formCard.cardpicture}
+													onChange={handleChange}
+												/>
+												<input
+													type='number'
+													name='cardyear'
+													placeholder='Year'
+													className='input bg-[#17171A] text-white'
+													value={formCard.cardyear}
+													onChange={handleChange}
+												/>
+												<input
+													type='text'
+													name='cardstate'
+													placeholder='State'
+													className='input bg-[#17171A] text-white'
+													value={formCard.cardstate}
+													onChange={handleChange}
+												/>
+												<input
+													type='text'
+													name='cardgenre'
+													placeholder='Genre'
+													className='input bg-[#17171A] text-white'
+													value={formCard.cardgenre}
+													onChange={handleChange}
+												/>
+												<input
+													type='text'
+													name='cardlanguage'
+													placeholder='Language'
+													className='input bg-[#17171A] text-white'
+													value={formCard.cardlanguage}
+													onChange={handleChange}
+												/>
+												<input
+													type='number'
+													name='cardage'
+													placeholder='Age'
+													className='input bg-[#17171A] text-white'
+													value={formCard.cardage}
 													onChange={handleChange}
 												/>
 												<button className='btn btn-success text-white'>
@@ -255,15 +355,15 @@ function Admin() {
 													name='title'
 													placeholder='Title'
 													className='input bg-[#17171A] text-white'
-													value={title}
+													value={formSlider.title}
 													onChange={handleChange}
 												/>
 												<input
 													type='text'
-													name='descreption'
+													name='description'
 													placeholder='Description'
 													className='input bg-[#17171A] text-white'
-													value={descreption}
+													value={formSlider.description}
 													onChange={handleChange}
 												/>
 												<input
@@ -271,7 +371,7 @@ function Admin() {
 													name='picture'
 													placeholder='Picture URL'
 													className='input bg-[#17171A] text-white'
-													value={picture}
+													value={formSlider.picture}
 													onChange={handleChange}
 												/>
 												<button className='btn btn-success text-white'>
