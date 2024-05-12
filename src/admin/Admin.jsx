@@ -8,12 +8,13 @@ function Admin() {
 		JSON.parse(localStorage.getItem('isLoggedIn')) || false
 	)
 	const [tab, setTab] = useState(1)
+	const [sliderData, setSliderData] = useState([])
+	const [cardData, setCardData] = useState([])
 	const [formSlider, setFormSlider] = useState({
 		title: '',
 		description: '',
 		picture: '',
 	})
-
 	const [formCard, setFormCard] = useState({
 		cardname: '',
 		carddescreption: '',
@@ -24,19 +25,39 @@ function Admin() {
 		cardlanguage: '',
 		cardage: 0,
 	})
+	const [editIndex, setEditIndex] = useState(null)
+
+	useEffect(() => {
+		fetchSliderData()
+		fetchCardData()
+	}, [])
+
+	const fetchSliderData = async () => {
+		try {
+			const { data, error } = await supabase.from('sliders').select('*')
+			if (error) console.error(error)
+			if (data != null) setSliderData(data)
+		} catch (err) {
+			console.error(err)
+		}
+	}
+
+	const fetchCardData = async () => {
+		try {
+			const { data, error } = await supabase.from('card').select('*')
+			if (error) console.error(error)
+			if (data != null) setCardData(data)
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
 	const handleChange = e => {
 		const { name, value } = e.target
 		if (tab === 1) {
-			setFormSlider(prevState => ({
-				...prevState,
-				[name]: value,
-			}))
+			setFormSlider(prevState => ({ ...prevState, [name]: value }))
 		} else if (tab === 2) {
-			setFormCard(prevState => ({
-				...prevState,
-				[name]: value,
-			}))
+			setFormCard(prevState => ({ ...prevState, [name]: value }))
 		}
 	}
 
@@ -45,19 +66,31 @@ function Admin() {
 		try {
 			if (tab === 1) {
 				const { title, description, picture } = formSlider
-				if (!title || !description || !picture) {
+				if (!title || !description || !picture)
 					throw new Error('Please provide all details for the slider.')
-				}
-				const { data, error } = await supabase
-					.from('sliders')
-					.insert({ title, description, picture })
-					.single()
-				if (error) {
-					throw error
-				}
-				if (data) {
-					console.log(data)
-					setFormSlider({ title: '', description: '', picture: '' })
+				if (editIndex !== null) {
+					const { data, error } = await supabase
+						.from('sliders')
+						.update({ title, description, picture })
+						.eq('id', sliderData[editIndex].id)
+					if (error) throw error
+					if (data) {
+						console.log(data)
+						setEditIndex(null)
+						setFormSlider({ title: '', description: '', picture: '' })
+						handleCloseModal(tab)
+					}
+				} else {
+					const { data, error } = await supabase
+						.from('sliders')
+						.insert({ title, description, picture })
+						.single()
+					if (error) throw error
+					if (data) {
+						console.log(data)
+						setFormSlider({ title: '', description: '', picture: '' })
+						handleCloseModal(tab)
+					}
 				}
 			} else if (tab === 2) {
 				const {
@@ -79,53 +112,128 @@ function Admin() {
 					!cardgenre ||
 					!cardlanguage ||
 					!cardage
-				) {
+				)
 					throw new Error('Please provide all details for the card.')
-				}
-				const { data, error } = await supabase
-					.from('card')
-					.insert({
-						cardname,
-						carddescreption,
-						cardpicture,
-						cardyear,
-						cardstate,
-						cardgenre,
-						cardlanguage,
-						cardage,
-					})
-					.single()
-				if (error) {
-					throw error
-				}
-				if (data) {
-					console.log(data)
-					setFormCard({
-						cardname: '',
-						carddescreption: '',
-						cardpicture: '',
-						cardyear: 0,
-						cardstate: '',
-						cardgenre: '',
-						cardlanguage: '',
-						cardage: 0,
-					})
+				if (editIndex !== null) {
+					const { data, error } = await supabase
+						.from('card')
+						.update({
+							cardname,
+							carddescreption,
+							cardpicture,
+							cardyear,
+							cardstate,
+							cardgenre,
+							cardlanguage,
+							cardage,
+						})
+						.eq('id', cardData[editIndex].id)
+					if (error) throw error
+					if (data) {
+						console.log(data)
+						setEditIndex(null)
+						setFormCard({
+							cardname: '',
+							carddescreption: '',
+							cardpicture: '',
+							cardyear: 0,
+							cardstate: '',
+							cardgenre: '',
+							cardlanguage: '',
+							cardage: 0,
+						})
+						handleCloseModal(tab)
+					}
+				} else {
+					const { data, error } = await supabase
+						.from('card')
+						.insert({
+							cardname,
+							carddescreption,
+							cardpicture,
+							cardyear,
+							cardstate,
+							cardgenre,
+							cardlanguage,
+							cardage,
+						})
+						.single()
+					if (error) throw error
+					if (data) {
+						console.log(data)
+						setFormCard({
+							cardname: '',
+							carddescreption: '',
+							cardpicture: '',
+							cardyear: 0,
+							cardstate: '',
+							cardgenre: '',
+							cardlanguage: '',
+							cardage: 0,
+						})
+						handleCloseModal(tab)
+					}
 				}
 			}
+			handleCloseModal(tab)
 		} catch (error) {
 			console.error('Error submitting form:', error.message)
 		}
 	}
 
+	const handleEdit = (index, data) => {
+		if (tab === 1) {
+			setEditIndex(index)
+			setFormSlider({
+				title: data.title,
+				description: data.description,
+				picture: data.picture,
+			})
+			const modal = document.getElementById(`my_modal_${tab}`)
+			if (modal) modal.showModal()
+		} else if (tab === 2) {
+			setEditIndex(index)
+			setFormCard({
+				cardname: data.cardname,
+				carddescreption: data.carddescreption,
+				cardpicture: data.cardpicture,
+				cardyear: data.cardyear,
+				cardstate: data.cardstate,
+				cardgenre: data.cardgenre,
+				cardlanguage: data.cardlanguage,
+				cardage: data.cardage,
+			})
+		}
+	}
+
+	const handleDelete = async (id, index) => {
+		try {
+			if (tab === 1) {
+				const { error } = await supabase.from('sliders').delete().eq('id', id)
+				if (error) throw error
+				const newData = [...sliderData]
+				newData.splice(index, 1)
+				setSliderData(newData)
+			} else if (tab === 2) {
+				const { error } = await supabase.from('card').delete().eq('id', id)
+				if (error) throw error
+				const newData = [...cardData]
+				newData.splice(index, 1)
+				setCardData(newData)
+			}
+		} catch (error) {
+			console.error('Error deleting record:', error.message)
+		}
+	}
+
 	const handleOpenModal = tab => {
-		document.getElementById(`my_modal_${tab}`).showModal()
+		const modal = document.getElementById(`my_modal_${tab}`)
+		if (modal) modal.showModal()
 	}
 
 	const handleCloseModal = tab => {
 		const modal = document.getElementById(`my_modal_${tab}`)
-		if (modal) {
-			modal.close()
-		}
+		if (modal) modal.close()
 	}
 
 	useEffect(() => {
@@ -133,7 +241,7 @@ function Admin() {
 	}, [isLoggedIn])
 
 	const handleLogOut = () => {
-		localStorage.removeItem('isLoggedIn', JSON.stringify(isLoggedIn))
+		localStorage.removeItem('isLoggedIn')
 		setIsLoggedIn(false)
 	}
 
@@ -143,42 +251,25 @@ function Admin() {
 				<>
 					<div className='flex justify-start flex-col md:flex-row items-start'>
 						<div className='w-full md:w-[360px] md:h-screen flex flex-col items-center md:pb-0 pb-[20px] pt-5 shadow-admin'>
-							<Link to={'/'}>
+							<Link to='/'>
 								<h1 className='font-bold cursor-pointer text-white text-[25px]'>
 									Anime <span className='slider_h1 font-bold'>DUB</span>
 								</h1>
 							</Link>
 							<div className='mt-[35px] flex flex-col items-start gap-3 w-full px-6'>
-								<p
-									onClick={() => setTab(1)}
-									className={`${
-										tab === 1
-											? 'bg-[#458FF6] text-[#fff] font-medium '
-											: 'bg-[#ececec50] text-[white] '
-									} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
-								>
-									Swiper
-								</p>
-								<p
-									onClick={() => setTab(2)}
-									className={`${
-										tab === 2
-											? 'bg-[#458FF6] text-[#fff] font-medium '
-											: 'bg-[#ececec50] text-[white] '
-									} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
-								>
-									Card
-								</p>
-								<p
-									onClick={() => setTab(3)}
-									className={`${
-										tab === 3
-											? 'bg-[#458FF6] text-[#fff] font-medium '
-											: 'bg-[#ececec50] text-[white] '
-									} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
-								>
-									nmadrde yana
-								</p>
+								{[1, 2, 3].map(item => (
+									<p
+										key={item}
+										onClick={() => setTab(item)}
+										className={`${
+											tab === item
+												? 'bg-[#458FF6] text-[#fff] font-medium '
+												: 'bg-[#ececec50] text-[white] '
+										} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
+									>
+										Table {item}
+									</p>
+								))}
 							</div>
 						</div>
 						<div className='p-5 w-full md:w-[calc(100%-360px)] min-h-screen overflow-auto'>
@@ -232,7 +323,7 @@ function Admin() {
 													onChange={handleChange}
 												/>
 												<button className='btn btn-success text-white'>
-													Submit
+													{editIndex !== null ? 'Update' : 'Submit'}
 												</button>
 											</form>
 											<img
@@ -243,6 +334,48 @@ function Admin() {
 											/>
 										</div>
 									</dialog>
+									<h2 className='text-white font-bold font-Inter text-[25px] my-[15px]'>
+										Swiper Section
+									</h2>
+									<table className='table'>
+										<thead>
+											<tr className='text-white font-Montserrat'>
+												<th>Name</th>
+												<th>Description</th>
+												<th>Picture</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody className='overflow-y-scroll'>
+											{sliderData.map((item, index) => (
+												<tr key={item.id} className='text-white font-Inter'>
+													<td>{item.title}</td>
+													<td>{item.description}</td>
+													<td>
+														<img
+															src={item.picture}
+															alt=''
+															className='w-[100px]'
+														/>
+													</td>
+													<td className='flex justify-center items-center gap-2'>
+														<button
+															className='bg-[orange] p-2 rounded-[6px]'
+															onClick={() => handleEdit(index, item)}
+														>
+															Edit
+														</button>
+														<button
+															className='bg-red-500 p-2 rounded-[6px]'
+															onClick={() => handleDelete(item.id, index)}
+														>
+															Delete
+														</button>
+													</td>
+												</tr>
+											))}
+										</tbody>
+									</table>
 								</div>
 							)}
 							{tab === 2 && (
@@ -335,70 +468,7 @@ function Admin() {
 													onChange={handleChange}
 												/>
 												<button className='btn btn-success text-white'>
-													Submit
-												</button>
-											</form>
-											<img
-												src={PicturesData.close}
-												alt='close'
-												onClick={() => handleCloseModal(tab)}
-												className='absolute top-2 right-2 w-[30px] cursor-pointer'
-											/>
-										</div>
-									</dialog>
-								</div>
-							)}
-							{tab === 3 && (
-								<div className='container mx-auto'>
-									<div className='flex justify-end items-end'>
-										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
-											onClick={() => handleOpenModal(tab)}
-										>
-											NmadrForm
-										</button>
-										<button
-											className='btn btn-error text-white'
-											onClick={handleLogOut}
-										>
-											Log out
-										</button>
-									</div>
-									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
-										<div className='modal-box form_admin'>
-											<h3 className='font-bold text-[25px] my-[20px] text-center text-white'>
-												Nmadr Form
-											</h3>
-											<form
-												onSubmit={handleSubmit}
-												className='flex flex-col gap-4'
-											>
-												<input
-													type='text'
-													name='title'
-													placeholder='Title'
-													className='input bg-[#17171A] text-white'
-													value={formSlider.title}
-													onChange={handleChange}
-												/>
-												<input
-													type='text'
-													name='description'
-													placeholder='Description'
-													className='input bg-[#17171A] text-white'
-													value={formSlider.description}
-													onChange={handleChange}
-												/>
-												<input
-													type='text'
-													name='picture'
-													placeholder='Picture URL'
-													className='input bg-[#17171A] text-white'
-													value={formSlider.picture}
-													onChange={handleChange}
-												/>
-												<button className='btn btn-success text-white'>
-													Submit
+													{editIndex !== null ? 'Update' : 'Submit'}
 												</button>
 											</form>
 											<img
@@ -422,9 +492,7 @@ function Admin() {
 							placeholder='Password'
 							className='input font-Inter'
 							onChange={e => {
-								if (e.target.value === 'anime') {
-									setIsLoggedIn(true)
-								}
+								if (e.target.value === 'anime') setIsLoggedIn(true)
 							}}
 						/>
 					</div>
