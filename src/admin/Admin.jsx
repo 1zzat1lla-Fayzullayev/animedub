@@ -132,6 +132,11 @@ function Admin() {
 		localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn))
 	}, [isLoggedIn])
 
+	const handleLogOut = () => {
+		localStorage.removeItem('isLoggedIn', JSON.stringify(isLoggedIn))
+		setIsLoggedIn(false)
+	}
+
 	return (
 		<div className='absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'>
 			{isLoggedIn ? (
@@ -179,12 +184,18 @@ function Admin() {
 						<div className='p-5 w-full md:w-[calc(100%-360px)] min-h-screen overflow-auto'>
 							{tab === 1 && (
 								<div className='container mx-auto'>
-									<div className='flex justify-end items-end'>
+									<div className='flex justify-end items-center'>
 										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px] mt-[20px]'
+											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
 											onClick={() => handleOpenModal(tab)}
 										>
 											SwiperForm
+										</button>
+										<button
+											className='btn btn-error text-white'
+											onClick={handleLogOut}
+										>
+											Log out
 										</button>
 									</div>
 									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
@@ -238,10 +249,16 @@ function Admin() {
 								<div className='container mx-auto'>
 									<div className='flex justify-end items-end'>
 										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px] mt-[20px]'
+											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
 											onClick={() => handleOpenModal(tab)}
 										>
 											CardForm
+										</button>
+										<button
+											className='btn btn-error text-white'
+											onClick={handleLogOut}
+										>
+											Log out
 										</button>
 									</div>
 									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
@@ -335,10 +352,16 @@ function Admin() {
 								<div className='container mx-auto'>
 									<div className='flex justify-end items-end'>
 										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px] mt-[20px]'
+											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
 											onClick={() => handleOpenModal(tab)}
 										>
 											NmadrForm
+										</button>
+										<button
+											className='btn btn-error text-white'
+											onClick={handleLogOut}
+										>
+											Log out
 										</button>
 									</div>
 									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
@@ -397,7 +420,7 @@ function Admin() {
 						<input
 							type='password'
 							placeholder='Password'
-							className='input'
+							className='input font-Inter'
 							onChange={e => {
 								if (e.target.value === 'anime') {
 									setIsLoggedIn(true)
