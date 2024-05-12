@@ -35,7 +35,7 @@ function SliderCard() {
 		dots: false,
 		infinite: true,
 		speed: 500,
-		slidesToShow: calculateSlidesToShow(),
+		slidesToShow: 4,
 		slidesToScroll: 1,
 		autoplay: true,
 		autoplaySpeed: 2000,
@@ -45,6 +45,7 @@ function SliderCard() {
 				settings: {
 					slidesToShow: 3,
 					slidesToScroll: 3,
+					infinite: true,
 				},
 			},
 			{
@@ -63,20 +64,6 @@ function SliderCard() {
 			},
 		],
 	}
-
-	function calculateSlidesToShow() {
-		if (window.innerWidth >= 1024) {
-			return 3
-		} else if (window.innerWidth >= 768) {
-			return 2
-		} else {
-			return 1
-		}
-	}
-
-	window.addEventListener('resize', () => {
-		settings.slidesToShow = calculateSlidesToShow()
-	})
 
 	const handleCardClick = clickedCard => {
 		setSelectedCard(clickedCard)

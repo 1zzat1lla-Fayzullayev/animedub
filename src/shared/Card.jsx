@@ -8,7 +8,7 @@ function Card({ card }) {
 
 	return (
 		<Wrapper>
-			<div className='flex flex-col md:flex-row flex-w justify-center items-center gap-5 p-5 font-Inter cursor-pointer'>
+			<div className='flex flex-col md:flex-row flex-w justify-center items-center gap-5 m-5 font-Inter cursor-pointer'>
 				<div className='card w-[300px] h-[350px] rounded-[20px] p-[5px]'>
 					<div className='card__content rounded-[17px] w-full h-full overflow-hidden'>
 						{card.cardpicture && (

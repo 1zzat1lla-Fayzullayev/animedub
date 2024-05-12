@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Main from '../components/Main'
+import Footer from '../components/Footer'
 
 function Layout() {
 	const [loading, setLoading] = useState(true)
@@ -22,6 +23,7 @@ function Layout() {
 				<div>
 					<Navbar />
 					<Main />
+					<Footer />
 				</div>
 			)}
 		</>
