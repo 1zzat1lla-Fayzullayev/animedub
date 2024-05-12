@@ -16,7 +16,10 @@ function Navbar() {
 				<div className='fixed w-[98%] z-[100] flex justify-between items-center font-Montserrat bg-inherit p-2 rounded-[10px] mt-[10px] px-[10px] navbar_anima'>
 					<div className='flex items-center justify-between w-full'>
 						<div className='flex items-center gap-5 text-white'>
-							<h1 className='font-bold'>AnimeDUB</h1>
+							<h1 className='font-bold cursor-pointer'>
+								Anime{' '}
+								<span className='slider_h1 font-bold text-[18px]'>DUB</span>
+							</h1>
 							<ul className='md:flex justify-center items-center gap-[20px] hidden'>
 								<li>
 									<a href='#'>Home</a>
