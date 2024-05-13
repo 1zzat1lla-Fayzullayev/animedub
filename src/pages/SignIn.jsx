@@ -35,6 +35,7 @@ function SignIn() {
 			if (error) {
 				throw error
 			}
+			toast.success('Sign in successful')
 			navigate('/')
 		} catch (err) {
 			console.log(err)
@@ -73,7 +74,10 @@ function SignIn() {
 								onChange={handleChange}
 							/>
 						</div>
-						<Link to='/signup' className='flex flex-col md:flex-row justify-between text-white'>
+						<Link
+							to='/signup'
+							className='flex flex-col md:flex-row justify-between text-white'
+						>
 							Don't have an account?{' '}
 							<span className='text-blue-500 hover:underline'>Sign UP</span>
 						</Link>

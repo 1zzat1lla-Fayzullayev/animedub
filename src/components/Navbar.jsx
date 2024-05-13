@@ -8,8 +8,22 @@ function Navbar() {
 	const [isLogged, setIsLogged] = useState(false)
 
 	useEffect(() => {
-		const session = supabase.auth.setSession()
-		setIsLogged(session !== null)
+		const checkSession = async () => {
+			try {
+				const { session } = await supabase.auth.getSession()
+				setIsLogged(session !== null)
+			} catch (error) {
+				console.error('Error fetching session:', error.message)
+			}
+		}
+
+		checkSession()
+
+		const { data: authListener } = supabase.auth.onAuthStateChange(
+			(event, session) => {
+				setIsLogged(session !== null)
+			}
+		)
 	}, [])
 
 	const handleShowNavbarMobile = () => {
