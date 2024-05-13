@@ -11,7 +11,7 @@ function Layout() {
 			setLoading(false)
 		}, 2000)
 		return () => clearTimeout(delay)
-	}, [])
+	}, [loading]) // Include loading in dependency array
 
 	return (
 		<>

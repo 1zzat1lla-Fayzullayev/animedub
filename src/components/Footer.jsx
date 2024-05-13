@@ -6,7 +6,7 @@ function Footer() {
 		<>
 			<Wrapper>
 				<div className='flex flex-col md:flex-row items-center justify-between font-Inter md:h-[200px] mt-[100px] gap-[20px]'>
-					<h1 className='font-bold cursor-pointer text-[30px]'>
+					<h1 className='font-bold cursor-pointer text-[30px] text-white'>
 						Anime <span className='slider_h1'>DUB</span>
 					</h1>
 					<p className='text-white'>

@@ -35,7 +35,6 @@ function SliderShow() {
 		}
 	}
 
-	console.log(swipers)
 
 	return (
 		<div>

@@ -11,8 +11,6 @@ function SliderCard() {
 	const [card, setCard] = useState([])
 	const [selectedCard, setSelectedCard] = useState(null)
 
-	console.log(selectedCard)
-
 	useEffect(() => {
 		getCard()
 	}, [])
