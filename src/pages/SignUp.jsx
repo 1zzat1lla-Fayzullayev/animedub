@@ -43,8 +43,8 @@ function SignUp() {
 			if (error) {
 				throw error
 			}
-			toast.success('Sign up successful') 
-			navigate('/') 
+			toast.success('Sign up successful')
+			navigate('/')
 		} catch (err) {
 			console.error('Sign up error:', err.message)
 			toast.error('Sign up failed. Please try again.')
@@ -61,11 +61,11 @@ function SignUp() {
 					>
 						Back
 					</h2>
-					<div className='form_admin p-7 flex flex-col gap-2'>
+					<div className='form_admin p-7 flex flex-col gap-2 w-full mx-[20px] md:mx-0 md:w-[400px]'>
 						<h1 className='text-center slider_h1 text-[25px] font-bold'>
 							Sign UP
 						</h1>
-						<div className='flex flex-col items-center gap-4 mt-[20px]'>
+						<div className='flex flex-col gap-4 mt-[20px]'>
 							<input
 								type='text'
 								name='fullName'
@@ -99,7 +99,10 @@ function SignUp() {
 								</button>
 							</div>
 						</div>
-						<Link to='/signin' className='flex flex-col text-white'>
+						<Link
+							to='/signin'
+							className='flex flex-col md:flex-row justify-between text-white'
+						>
 							Already have an account?{' '}
 							<span className='text-blue-500 hover:underline'>Sign IN</span>
 						</Link>

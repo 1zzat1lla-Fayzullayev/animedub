@@ -51,7 +51,7 @@ function SignIn() {
 					>
 						Back
 					</h2>
-					<div className='form_admin p-7 flex flex-col gap-2'>
+					<div className='form_admin p-7 flex flex-col gap-2 w-full mx-[20px] md:mx-0 md:w-[400px]'>
 						<h1 className='text-center slider_h1 text-[25px] font-bold'>
 							Sign In
 						</h1>
@@ -73,7 +73,7 @@ function SignIn() {
 								onChange={handleChange}
 							/>
 						</div>
-						<Link to='/signup' className='flex flex-col text-white'>
+						<Link to='/signup' className='flex flex-col md:flex-row justify-between text-white'>
 							Don't have an account?{' '}
 							<span className='text-blue-500 hover:underline'>Sign UP</span>
 						</Link>
