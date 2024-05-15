@@ -592,17 +592,21 @@ function Admin() {
 													<label htmlFor='premium' className='text-white'>
 														Premium
 													</label>
-													<input
-														type='checkbox'
+													<select
 														name='premium'
-														value={formCard.premium}
+														value={formCard.premium ? 'True' : 'False'}
 														onChange={e => {
 															setFormCard(prevState => ({
 																...prevState,
-																premium: e.target.checked,
+																premium:
+																	e.target.value === 'True' ? true : false,
 															}))
 														}}
-													/>
+														className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
+													>
+														<option value='True'>True</option>
+														<option value='False'>False</option>
+													</select>
 												</div>
 
 												<button className='btn btn-success text-white'>
@@ -722,35 +726,43 @@ function Admin() {
 												/>
 												<div className='flex items-center gap-2'>
 													<label htmlFor='ispayyet' className='text-white'>
-														Is Payyet
+														Is Paid
 													</label>
-													<input
-														type='checkbox'
+													<select
 														name='ispayyet'
-														checked={userForm.ispayyet}
-														onChange={e =>
+														value={userForm.ispayyet ? 'True' : 'False'}
+														onChange={e => {
 															setUserForm(prevState => ({
 																...prevState,
-																ispayyet: e.target.checked,
+																ispayyet:
+																	e.target.value === 'True' ? true : false,
 															}))
-														}
-													/>
+														}}
+														className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
+													>
+														<option value='True'>Yes</option>
+														<option value='False'>No</option>
+													</select>
 												</div>
 												<div className='flex items-center gap-2'>
-													<label htmlFor='ispayyet' className='text-white'>
-														Hide user Premium
+													<label htmlFor='hiddenpremium' className='text-white'>
+														Hide Premium User
 													</label>
-													<input
-														type='checkbox'
+													<select
 														name='hiddenpremium'
-														checked={userForm.hiddenpremium}
-														onChange={e =>
+														value={userForm.hiddenpremium ? 'True' : 'False'}
+														onChange={e => {
 															setUserForm(prevState => ({
 																...prevState,
-																hiddenpremium: e.target.checked,
+																hiddenpremium:
+																	e.target.value === 'True' ? true : false,
 															}))
-														}
-													/>
+														}}
+														className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
+													>
+														<option value='True'>Yes</option>
+														<option value='False'>No</option>
+													</select>
 												</div>
 
 												<button className='btn btn-success text-white'>
