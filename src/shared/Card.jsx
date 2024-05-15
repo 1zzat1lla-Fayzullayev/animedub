@@ -4,7 +4,7 @@ import PicturesData from '../PicturesData'
 import supabase from '../supabase/data'
 
 function Card({ card, user }) {
-	const [isPremiumUser, setIsPremiumUser] = useState(true)
+	const [isPremiumUser, setIsPremiumUser] = useState(false)
 
 	useEffect(() => {
 		fetchUserData()
@@ -14,15 +14,15 @@ function Card({ card, user }) {
 		try {
 			const { data, error } = await supabase.from('users').select('*')
 			if (error) {
-				console.log(error)
+				console.error(error)
 			} else {
 				const foundUser = data.find(userData => userData.id === user.id)
 				if (foundUser) {
-					setIsPremiumUser(!foundUser.hiddenpremium)
+					setIsPremiumUser(foundUser.hiddenpremium)
 				}
 			}
 		} catch (err) {
-			console.log(err)
+			console.error(err)
 		}
 	}
 
@@ -34,7 +34,7 @@ function Card({ card, user }) {
 		<Wrapper>
 			<div className='flex flex-col md:flex-row flex-w justify-center items-center gap-5 m-5 font-Inter cursor-pointer'>
 				<div className='relative card w-[300px] h-[350px] rounded-[20px] p-[5px]'>
-					{card.premium && isPremiumUser && (
+					{card.premium && !isPremiumUser && (
 						<img
 							src={PicturesData.premium}
 							alt='premium'

@@ -1,4 +1,4 @@
-// SliderCard.js
+// SliderPremiumCard.js
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import 'slick-carousel/slick/slick.css'
@@ -7,7 +7,7 @@ import supabase from '../supabase/data'
 import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
 
-function SliderCard({ user }) {
+function SliderPremiumCard({ user }) {
 	const [card, setCard] = useState([])
 
 	useEffect(() => {
@@ -21,8 +21,8 @@ function SliderCard({ user }) {
 				console.error(error)
 			}
 			if (data != null) {
-				const nonPremiumCards = data.filter(item => !item.premium)
-				setCard(nonPremiumCards)
+				const premiumCards = data.filter(item => item.premium)
+				setCard(premiumCards)
 			}
 		} catch (err) {
 			console.error(err)
@@ -80,4 +80,4 @@ function SliderCard({ user }) {
 	)
 }
 
-export default SliderCard
+export default SliderPremiumCard
