@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PicturesData from '../PicturesData'
 import supabase from '../supabase/data'
+import toast from 'react-hot-toast'
 
 function Admin() {
 	const [isLoggedIn, setIsLoggedIn] = useState(
@@ -26,12 +27,14 @@ function Admin() {
 		cardlanguage: '',
 		cardage: 0,
 		cardvd: '',
+		premium: false,
 	})
 
 	const [userForm, setUserForm] = useState({
 		username: '',
 		password: '',
 		ispayyet: false,
+		hiddenpremium: false,
 	})
 
 	const [editIndex, setEditIndex] = useState(null)
@@ -147,6 +150,7 @@ function Admin() {
 					cardlanguage,
 					cardage,
 					cardvd,
+					premium,
 				} = formCard
 				if (
 					!cardname ||
@@ -173,6 +177,7 @@ function Admin() {
 							cardlanguage,
 							cardage,
 							cardvd,
+							premium,
 						})
 						.eq('id', cardData[editIndex].id)
 					if (error) throw error
@@ -189,6 +194,7 @@ function Admin() {
 							cardlanguage: '',
 							cardage: 0,
 							cardvd: '',
+							premium: false,
 						})
 					}
 				} else {
@@ -204,6 +210,7 @@ function Admin() {
 							cardlanguage,
 							cardage,
 							cardvd,
+							premium,
 						})
 						.single()
 					if (error) throw error
@@ -219,18 +226,19 @@ function Admin() {
 							cardlanguage: '',
 							cardage: 0,
 							cardvd: '',
+							premium: false,
 						})
 					}
 				}
 			} else if (tab === 3) {
-				const { username, password, ispayyet } = userForm
+				const { username, password, ispayyet, hiddenpremium } = userForm
 				if (!username || !password) {
 					throw new Error('Please provide all details for the form.')
 				}
 				if (editIndex !== null) {
 					const { data, error } = await supabase
 						.from('users')
-						.update({ username, password, ispayyet })
+						.update({ username, password, ispayyet, hiddenpremium })
 						.eq('id', userData[editIndex].id)
 					if (error) throw error
 					if (data) {
@@ -240,6 +248,7 @@ function Admin() {
 							username: '',
 							password: '',
 							ispayyet: false,
+							hiddenpremium: false,
 						})
 					}
 				} else {
@@ -254,6 +263,7 @@ function Admin() {
 							username: '',
 							password: '',
 							ispayyet: false,
+							hiddenpremium: false,
 						})
 					}
 				}
@@ -287,6 +297,7 @@ function Admin() {
 				cardlanguage: data.cardlanguage,
 				cardage: data.cardage,
 				cardvd: data.cardvd,
+				premium: data.premium,
 			})
 			const modal = document.getElementById(`my_modal_${tab}`)
 			if (modal) modal.showModal()
@@ -296,6 +307,7 @@ function Admin() {
 				username: data.username,
 				password: data.password,
 				ispayyet: data.ispayyet,
+				hiddenpremium: data.hiddenpremium,
 			})
 			const modal = document.getElementById(`my_modal_${tab}`)
 			if (modal) modal.showModal()
@@ -576,6 +588,23 @@ function Admin() {
 													name='cardvd'
 													onChange={handleFileChange}
 												/>
+												<div className='flex items-center gap-2'>
+													<label htmlFor='premium' className='text-white'>
+														Premium
+													</label>
+													<input
+														type='checkbox'
+														name='premium'
+														value={formCard.premium}
+														onChange={e => {
+															setFormCard(prevState => ({
+																...prevState,
+																premium: e.target.checked,
+															}))
+														}}
+													/>
+												</div>
+
 												<button className='btn btn-success text-white'>
 													{editIndex !== null ? 'Update' : 'Submit'}
 												</button>
@@ -604,6 +633,7 @@ function Admin() {
 													<th>Language</th>
 													<th>Age</th>
 													<th>Video</th>
+													<th>Premium</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -627,6 +657,7 @@ function Admin() {
 														<td>
 															<video src={item.cardvd}></video>
 														</td>
+														<td>{item.premium ? 'true' : 'false'}</td>
 														<td className='flex justify-center items-center gap-2'>
 															<button
 																className='bg-[orange] p-2 rounded-[6px]'
@@ -705,6 +736,22 @@ function Admin() {
 														}
 													/>
 												</div>
+												<div className='flex items-center gap-2'>
+													<label htmlFor='ispayyet' className='text-white'>
+														Hide user Premium
+													</label>
+													<input
+														type='checkbox'
+														name='hiddenpremium'
+														checked={userForm.hiddenpremium}
+														onChange={e =>
+															setUserForm(prevState => ({
+																...prevState,
+																hiddenpremium: e.target.checked,
+															}))
+														}
+													/>
+												</div>
 
 												<button className='btn btn-success text-white'>
 													{editIndex !== null ? 'Update' : 'Submit'}
@@ -728,6 +775,7 @@ function Admin() {
 													<th>Username</th>
 													<th>Password</th>
 													<th>ispayyet</th>
+													<th>Premium user</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -737,6 +785,7 @@ function Admin() {
 														<td>{item.username}</td>
 														<td>{item.password}</td>
 														<td>{item.ispayyet ? 'true' : 'false'}</td>
+														<td>{item.hiddenpremium ? 'true' : 'false'}</td>
 														<td className='flex justify-center items-center gap-2'>
 															<button
 																className='bg-[orange] p-2 rounded-[6px]'

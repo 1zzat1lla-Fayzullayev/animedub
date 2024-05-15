@@ -61,6 +61,13 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.17);
 }
 
+.blur_div {
+	background: rgba(255, 255, 255, 0);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+
 .slider_h1 {
 	background-image: linear-gradient(94.49deg, #2203ff 33.29%, #c40d60 67.01%);
 	-webkit-background-clip: text;

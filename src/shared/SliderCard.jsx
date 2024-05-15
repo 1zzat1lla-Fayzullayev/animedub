@@ -7,7 +7,7 @@ import Slider from 'react-slick'
 import SingleCard from '../components/SingleCard'
 import { Link } from 'react-router-dom'
 
-function SliderCard() {
+function SliderCard({ user }) {
 	const [card, setCard] = useState([])
 	const [selectedCard, setSelectedCard] = useState(null)
 
@@ -75,7 +75,7 @@ function SliderCard() {
 						{card.map((item, index) => (
 							<Link to={`/card/${item.id}`} key={index}>
 								<div onClick={() => handleCardClick(item)}>
-									<Card card={item} />
+									<Card card={item} user={user} />
 								</div>
 							</Link>
 						))}

@@ -4,7 +4,7 @@ import Wrapper from '../layout/Wrapper'
 import SliderCard from '../shared/SliderCard'
 import PicturesData from '../PicturesData'
 
-function Main() {
+function Main({user}) {
 	return (
 		<div>
 			<SliderShow />
@@ -15,7 +15,7 @@ function Main() {
 					</h2>
 					<img src={PicturesData.star} alt='star' className='w-[30px]' />
 				</div>
-				<SliderCard />
+				<SliderCard user={user}/>
 			</Wrapper>
 		</div>
 	)

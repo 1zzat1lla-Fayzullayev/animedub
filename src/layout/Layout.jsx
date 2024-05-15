@@ -22,7 +22,7 @@ function Layout({ user, onSignOut }) {
 			) : (
 				<div>
 					<Navbar user={user} onSignOut={onSignOut} />
-					<Main />
+					<Main user={user} />
 					<Footer />
 				</div>
 			)}

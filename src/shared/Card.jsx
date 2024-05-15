@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Wrapper from '../layout/Wrapper'
+import PicturesData from '../PicturesData'
+import supabase from '../supabase/data'
 
-function Card({ card }) {
+function Card({ card, user }) {
+	const [isPremiumUser, setIsPremiumUser] = useState(true)
+
+	useEffect(() => {
+		fetchUserData()
+	}, [])
+
+	const fetchUserData = async () => {
+		try {
+			const { data, error } = await supabase.from('users').select('*')
+			if (error) {
+				console.log(error)
+			} else {
+				const foundUser = data.find(userData => userData.id === user.id)
+				if (foundUser) {
+					setIsPremiumUser(!foundUser.hiddenpremium)
+				}
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	if (!card) {
 		return null
 	}
@@ -9,7 +33,14 @@ function Card({ card }) {
 	return (
 		<Wrapper>
 			<div className='flex flex-col md:flex-row flex-w justify-center items-center gap-5 m-5 font-Inter cursor-pointer'>
-				<div className='card w-[300px] h-[350px] rounded-[20px] p-[5px]'>
+				<div className='relative card w-[300px] h-[350px] rounded-[20px] p-[5px]'>
+					{card.premium && isPremiumUser && (
+						<img
+							src={PicturesData.premium}
+							alt='premium'
+							className='absolute z-[10] w-[35px] blur_div p-1 rounded-bl-[5px] rounded-tr-[15px] right-[5px]'
+						/>
+					)}
 					<div className='card__content rounded-[17px] w-full h-full overflow-hidden'>
 						{card.cardpicture && (
 							<img
