@@ -1,4 +1,3 @@
-// SignIn.js
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
@@ -21,24 +20,31 @@ function SignIn({ onSignIn }) {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
+		const { username, password } = formSignIn
+		if (!username || !password) {
+			toast.error('Username or password cannot be empty')
+			return
+		}
 		try {
 			const { data, error } = await supabase
 				.from('users')
 				.select('*')
 				.eq('username', formSignIn.username)
-				.eq('password', formSignIn.password)
 				.single()
 			if (error) {
 				throw error
 			} else {
-				console.log(data)
-				onSignIn(data)
-				toast.success('Signed in successfully')
-				navigate('/')
+				if (data && data.password === formSignIn.password) {
+					onSignIn(data)
+					toast.success('Signed in successfully')
+					navigate("/")
+				} else {
+					toast.error('Username or password is incorrect')
+				}
 			}
 		} catch (err) {
 			console.error(err)
-			toast.error('Username or password is incorrect')
+			toast.error('An error occurred while signing in')
 		}
 	}
 
@@ -47,7 +53,7 @@ function SignIn({ onSignIn }) {
 			<div className='flex justify-center h-screen items-center font-Montserrat'>
 				<h2
 					className='text-white absolute top-4 left-4 cursor-pointer'
-					onClick={() => navigate('/')}
+					onClick={() => navigate(-1)}
 				>
 					Back
 				</h2>

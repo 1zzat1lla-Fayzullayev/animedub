@@ -1,4 +1,3 @@
-// SignUp.js
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
@@ -21,18 +20,21 @@ function SignUp() {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
+		const { username, password } = formSignUp
+		if (!username || !password) {
+			toast.error('Username or password cannot be empty')
+			return
+		}
 		try {
 			const { data, error } = await supabase
 				.from('users')
-				.insert([
-					{ username: formSignUp.username, password: formSignUp.password },
-				])
+				.insert([{ username, password }])
 			if (error) {
 				throw error
 			} else {
 				console.log(data)
 				toast.success('User registered successfully')
-				navigate('/signin')
+				navigate('/')
 			}
 		} catch (err) {
 			console.error(err)
@@ -45,7 +47,7 @@ function SignUp() {
 			<div className='flex justify-center h-screen items-center font-Montserrat'>
 				<h2
 					className='text-white absolute top-4 left-4 cursor-pointer'
-					onClick={() => navigate('/')}
+					onClick={() => navigate(-1)}
 				>
 					Back
 				</h2>
