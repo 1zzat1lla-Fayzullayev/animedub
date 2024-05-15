@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
 
-function Layout() {
+function Layout({ user, onSignOut }) {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
@@ -11,7 +11,7 @@ function Layout() {
 			setLoading(false)
 		}, 2000)
 		return () => clearTimeout(delay)
-	}, [loading]) // Include loading in dependency array
+	}, [loading])
 
 	return (
 		<>
@@ -21,7 +21,7 @@ function Layout() {
 				</div>
 			) : (
 				<div>
-					<Navbar />
+					<Navbar user={user} onSignOut={onSignOut} />
 					<Main />
 					<Footer />
 				</div>

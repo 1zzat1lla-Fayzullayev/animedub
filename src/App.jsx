@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Admin from './admin/Admin'
@@ -9,23 +8,32 @@ import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [user, setUser] = useState(
+		JSON.parse(localStorage.getItem('user') || 'null')
+	)
 
 	useEffect(() => {
-		const userLoggedIn = localStorage.getItem('isLoggedIn')
-		setIsLoggedIn(userLoggedIn === 'true')
-	}, [])
+		localStorage.setItem('user', JSON.stringify(user))
+	}, [user])
+
+	const handleSignIn = userData => {
+		setUser(userData)
+	}
+
+	const handleSignOut = () => {
+		setUser(null)
+	}
 
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path='/animeadmin' element={<Admin />} />
 				<Route path='/card/:id' element={<SingleCard />} />
-				<Route path='/*' element={<Layout />} />
 				<Route
-					path='/signin'
-					element={<SignIn setIsLoggedIn={setIsLoggedIn} />}
+					path='/*'
+					element={<Layout user={user} onSignOut={handleSignOut} />}
 				/>
+				<Route path='/signin' element={<SignIn onSignIn={handleSignIn} />} />
 				<Route path='/signup' element={<SignUp />} />
 			</Routes>
 			<Toaster />
