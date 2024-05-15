@@ -728,6 +728,7 @@ function Admin() {
 													<th>Username</th>
 													<th>Password</th>
 													<th>ispayyet</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
