@@ -33,7 +33,6 @@ function Admin() {
 	const [userForm, setUserForm] = useState({
 		username: '',
 		password: '',
-		ispayyet: false,
 		hiddenpremium: false,
 	})
 
@@ -247,7 +246,6 @@ function Admin() {
 						setUserForm({
 							username: '',
 							password: '',
-							ispayyet: false,
 							hiddenpremium: false,
 						})
 					}
@@ -262,7 +260,7 @@ function Admin() {
 						setUserForm({
 							username: '',
 							password: '',
-							ispayyet: false,
+
 							hiddenpremium: false,
 						})
 					}
@@ -724,26 +722,6 @@ function Admin() {
 													value={userForm.password}
 													onChange={handleChange}
 												/>
-												<div className='flex items-center gap-2'>
-													<label htmlFor='ispayyet' className='text-white'>
-														Is Paid
-													</label>
-													<select
-														name='ispayyet'
-														value={userForm.ispayyet ? 'True' : 'False'}
-														onChange={e => {
-															setUserForm(prevState => ({
-																...prevState,
-																ispayyet:
-																	e.target.value === 'True' ? true : false,
-															}))
-														}}
-														className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
-													>
-														<option value='True'>Yes</option>
-														<option value='False'>No</option>
-													</select>
-												</div>
 												<div className='flex items-center gap-2'>
 													<label htmlFor='hiddenpremium' className='text-white'>
 														Hide Premium User
