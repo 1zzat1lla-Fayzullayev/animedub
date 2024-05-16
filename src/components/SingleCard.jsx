@@ -4,7 +4,7 @@ import supabase from '../supabase/data'
 import Navbar from './Navbar'
 import Wrapper from '../layout/Wrapper'
 
-function SingleCard() {
+function SingleCard({ user, onSignOut }) {
 	const { id } = useParams()
 	const [card, setCard] = useState(null)
 
@@ -41,7 +41,7 @@ function SingleCard() {
 
 	return (
 		<>
-			<Navbar />
+			<Navbar user={user} onSignOut={onSignOut} />
 			<Wrapper>
 				<div className='font-Montserrat flex flex-col h-screen w-screen'>
 					<div className='flex flex-col md:flex-row items-center gap-[50px]'>
@@ -90,11 +90,20 @@ function SingleCard() {
 						</div>
 					</div>
 					<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px]'>
-						<video
-							src={card.cardvd}
-							controls
-							className='w-full md:w-[800px] h-[400px] rounded-[10px] shadow-lg'
-						></video>
+						{user ? (
+							<video
+								src={card.cardvd}
+								controls
+								className='w-full md:w-[800px] h-[400px] rounded-[10px] shadow-lg'
+							></video>
+						) : (
+							<button
+								onClick={() => (window.location.href = '/signin')}
+								className='text-red-500 font-semibold mb-[40px]'
+							>
+								Login to Watch Video !
+							</button>
+						)}
 					</div>
 				</div>
 			</Wrapper>
