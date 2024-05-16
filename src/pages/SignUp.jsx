@@ -37,7 +37,7 @@ function SignUp() {
 			} else {
 				console.log(data)
 				toast.success('User registered successfully')
-				navigate('/')
+				navigate('/signin')
 			}
 		} catch (err) {
 			console.error(err)
