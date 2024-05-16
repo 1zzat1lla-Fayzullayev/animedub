@@ -9,6 +9,8 @@ function SignUp() {
 		password: '',
 	})
 
+	const [loading, setLoading] = useState(false)
+
 	const navigate = useNavigate()
 
 	const handleChange = e => {
@@ -25,6 +27,7 @@ function SignUp() {
 			toast.error('Username or password cannot be empty')
 			return
 		}
+		setLoading(true)
 		try {
 			const { data, error } = await supabase
 				.from('users')
@@ -39,6 +42,8 @@ function SignUp() {
 		} catch (err) {
 			console.error(err)
 			toast.error('Registration failed')
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -80,8 +85,9 @@ function SignUp() {
 					<button
 						className='bg-green-500 text-white w-full rounded-[5px] py-[6px] px-[10px]'
 						onClick={handleSubmit}
+						disabled={loading}
 					>
-						Submit
+						{loading ? 'Loading...' : 'Submit'}{' '}
 					</button>
 				</div>
 			</div>

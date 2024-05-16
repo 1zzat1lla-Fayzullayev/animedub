@@ -9,6 +9,8 @@ function SignIn({ onSignIn }) {
 		password: '',
 	})
 
+	const [loading, setLoading] = useState(false)
+
 	const navigate = useNavigate()
 
 	const handleChange = e => {
@@ -25,6 +27,7 @@ function SignIn({ onSignIn }) {
 			toast.error('Username or password cannot be empty')
 			return
 		}
+		setLoading(true)
 		try {
 			const { data, error } = await supabase
 				.from('users')
@@ -37,7 +40,7 @@ function SignIn({ onSignIn }) {
 				if (data && data.password === formSignIn.password) {
 					onSignIn(data)
 					toast.success('Signed in successfully')
-					navigate("/")
+					navigate('/')
 				} else {
 					toast.error('Username or password is incorrect')
 				}
@@ -45,6 +48,8 @@ function SignIn({ onSignIn }) {
 		} catch (err) {
 			console.error(err)
 			toast.error('An error occurred while signing in')
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -86,8 +91,9 @@ function SignIn({ onSignIn }) {
 					<button
 						className='bg-green-500 text-white w-full rounded-[5px] py-[6px] px-[10px]'
 						onClick={handleSubmit}
+						disabled={loading}
 					>
-						Submit
+						{loading ? 'Loading...' : 'Submit'}{' '}
 					</button>
 				</div>
 			</div>

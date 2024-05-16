@@ -108,9 +108,6 @@ function SingleCard({ user, onSignOut }) {
 					</div>
 				</div>
 			</Wrapper>
-			<div className='pt-[100px] md:pt-0'>
-				<Footer />
-			</div>
 		</>
 	)
 }
