@@ -1,13 +1,11 @@
-// SliderPremiumCard.js
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import supabase from '../supabase/data'
 import Slider from 'react-slick'
-import { Link } from 'react-router-dom'
 
-function SliderPremiumCard({ user }) {
+function SliderPremiumCard() {
 	const [cards, setCards] = useState([])
 
 	useEffect(() => {
@@ -67,11 +65,9 @@ function SliderPremiumCard({ user }) {
 			{cards.length > 0 && (
 				<Slider {...settings} className='mySwiper'>
 					{cards.map(item => (
-						<Link to={`/card/${item.id}`} key={item.id}>
-							<div>
-								<Card card={item} />
-							</div>
-						</Link>
+						<div key={item.id}>
+							<Card card={item} />
+						</div>
 					))}
 				</Slider>
 			)}

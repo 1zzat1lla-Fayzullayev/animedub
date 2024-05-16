@@ -6,6 +6,7 @@ import SingleCard from './components/SingleCard'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
+import { UserProvider } from './context/UsersContext'
 
 function App() {
 	const [user, setUser] = useState(
@@ -26,19 +27,21 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route path='/animeadmin' element={<Admin />} />
-				<Route
-					path='/card/:id'
-					element={<SingleCard user={user} onSignOut={handleSignOut} />}
-				/>
-				<Route
-					path='/*'
-					element={<Layout user={user} onSignOut={handleSignOut} />}
-				/>
-				<Route path='/signin' element={<SignIn onSignIn={handleSignIn} />} />
-				<Route path='/signup' element={<SignUp />} />
-			</Routes>
+			<UserProvider user={user}>
+				<Routes>
+					<Route path='/animeadmin' element={<Admin />} />
+					<Route
+						path='/card/:id'
+						element={<SingleCard user={user} onSignOut={handleSignOut} />}
+					/>
+					<Route
+						path='/*'
+						element={<Layout user={user} onSignOut={handleSignOut} />}
+					/>
+					<Route path='/signin' element={<SignIn onSignIn={handleSignIn} />} />
+					<Route path='/signup' element={<SignUp />} />
+				</Routes>
+			</UserProvider>
 			<Toaster />
 		</BrowserRouter>
 	)

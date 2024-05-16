@@ -3,5 +3,6 @@ import play from './assets/play.png'
 import star from './assets/star.png'
 import user from './assets/user.png'
 import premium from './assets/premium.png'
+import lock from './assets/lock.png'
 
-export default { close, play, star, user, premium }
+export default { close, play, star, user, premium, lock }
