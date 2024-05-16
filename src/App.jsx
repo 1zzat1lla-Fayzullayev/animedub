@@ -28,7 +28,10 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path='/animeadmin' element={<Admin />} />
-				<Route path='/card/:id' element={<SingleCard user={user} />} />
+				<Route
+					path='/card/:id'
+					element={<SingleCard user={user} onSignOut={handleSignOut} />}
+				/>
 				<Route
 					path='/*'
 					element={<Layout user={user} onSignOut={handleSignOut} />}
