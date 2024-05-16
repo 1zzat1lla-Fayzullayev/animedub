@@ -25,13 +25,13 @@ function Card({ card }) {
 	return (
 		<Wrapper>
 			<div
-				className={`flex flex-col md:flex-row flex-w justify-center items-center gap-5 m-5 font-Inter cursor-pointer ${
+				className={`flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 m-5 font-Inter cursor-pointer ${
 					card.premium && !isPremiumUser ? 'pointer-events-none' : ''
 				}`}
 				onClick={handleCardClick}
 			>
 				<div
-					className={`relative card w-[300px] h-[350px] rounded-[20px] p-[5px] ${
+					className={`relative card w-[300px] h-[350px] rounded-[20px] shadow-lg transform transition-transform hover:scale-105 ${
 						card.premium && !isPremiumUser ? 'opacity-25' : ''
 					}`}
 				>
@@ -51,12 +51,14 @@ function Card({ card }) {
 							/>
 						)}
 						{card.premium && !isPremiumUser ? (
-							<div className='absolute top-[50%] w-full text-green-500 font-bold text-[20px] text-center opacity-100'>
-								<h1>This is a premium card</h1>
+							<div className='absolute top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-75 p-3 rounded-md'>
+								<h1 className='text-lg font-semibold text-green-500 text-center'>
+									This is a premium card
+								</h1>
 							</div>
 						) : (
 							card.cardname && (
-								<div className='absolute top-[80%] left-5 text-white font-bold text-[25px]'>
+								<div className='absolute bottom-4 left-4 text-white font-bold text-[25px] drop-shadow-lg'>
 									<h1>{card.cardname}</h1>
 								</div>
 							)
