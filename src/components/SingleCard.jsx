@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import supabase from '../supabase/data'
 import Navbar from './Navbar'
 import Wrapper from '../layout/Wrapper'
+import Footer from './Footer'
 
 function SingleCard({ user, onSignOut }) {
 	const { id } = useParams()
@@ -107,6 +108,9 @@ function SingleCard({ user, onSignOut }) {
 					</div>
 				</div>
 			</Wrapper>
+			<div className='pt-[100px] md:pt-0'>
+				<Footer />
+			</div>
 		</>
 	)
 }
