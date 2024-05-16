@@ -1,30 +1,11 @@
-import React, { useEffect, useState } from 'react'
+// src/shared/Card.js
+import React from 'react'
 import Wrapper from '../layout/Wrapper'
 import PicturesData from '../PicturesData'
-import supabase from '../supabase/data'
+import { useUser } from '../context/UsersContext'
 
-function Card({ card, user }) {
-	const [isPremiumUser, setIsPremiumUser] = useState(false)
-
-	useEffect(() => {
-		fetchUserData()
-	}, [])
-
-	const fetchUserData = async () => {
-		try {
-			const { data, error } = await supabase.from('users').select('*')
-			if (error) {
-				console.error(error)
-			} else {
-				const foundUser = data.find(userData => userData.id === user.id)
-				if (foundUser) {
-					setIsPremiumUser(foundUser.hiddenpremium)
-				}
-			}
-		} catch (err) {
-			console.error(err)
-		}
-	}
+function Card({ card }) {
+	const { isPremiumUser } = useUser()
 
 	if (!card) {
 		return null

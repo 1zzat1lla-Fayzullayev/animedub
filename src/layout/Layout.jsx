@@ -1,7 +1,9 @@
+// src/components/Layout.js
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
+import { UserProvider } from '../context/UsersContext'
 
 function Layout({ user, onSignOut }) {
 	const [loading, setLoading] = useState(true)
@@ -22,7 +24,9 @@ function Layout({ user, onSignOut }) {
 			) : (
 				<div>
 					<Navbar user={user} onSignOut={onSignOut} />
-					<Main user={user} />
+					<UserProvider user={user}>
+						<Main user={user} />
+					</UserProvider>
 					<Footer />
 				</div>
 			)}

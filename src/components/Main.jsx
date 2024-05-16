@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+// src/components/Main.js
+import React from 'react'
 import SliderShow from '../shared/SliderShow'
 import Wrapper from '../layout/Wrapper'
 import SliderCard from '../shared/SliderCard'
 import PicturesData from '../PicturesData'
 import SliderPremiumCard from '../shared/SliderPremiumCard'
 import Card from '../shared/Card'
-
+import { useUser } from '../context/UsersContext'
 
 function Main({ user }) {
-	const [isPremiumUser, setIsPremiumUser] = useState(false)
+	const { isPremiumUser } = useUser()
 
-	// Use the isPremiumUser state to determine the text for h2
-	const premiumText = isPremiumUser ? 'Premium' : 'Free'
+	const premiumText = !isPremiumUser ? 'Premium' : 'Free'
 
 	return (
 		<div>
@@ -32,8 +32,7 @@ function Main({ user }) {
 				</div>
 				<SliderPremiumCard user={user} />
 			</Wrapper>
-			{/* Pass isPremiumUser state to the Card component */}
-			<Card user={user} isPremiumUser={isPremiumUser} />
+			<Card user={user} />
 		</div>
 	)
 }

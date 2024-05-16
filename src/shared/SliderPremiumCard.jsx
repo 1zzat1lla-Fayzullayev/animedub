@@ -8,21 +8,21 @@ import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
 
 function SliderPremiumCard({ user }) {
-	const [card, setCard] = useState([])
+	const [cards, setCards] = useState([])
 
 	useEffect(() => {
-		getCard()
+		getCards()
 	}, [])
 
-	async function getCard() {
+	async function getCards() {
 		try {
 			const { data, error } = await supabase.from('card').select('*')
 			if (error) {
 				console.error(error)
 			}
-			if (data != null) {
+			if (data) {
 				const premiumCards = data.filter(item => item.premium)
-				setCard(premiumCards)
+				setCards(premiumCards)
 			}
 		} catch (err) {
 			console.error(err)
@@ -42,15 +42,14 @@ function SliderPremiumCard({ user }) {
 				breakpoint: 1024,
 				settings: {
 					slidesToShow: 3,
-					slidesToScroll: 3,
-					infinite: true,
+					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 768,
 				settings: {
 					slidesToShow: 2,
-					slidesToScroll: 2,
+					slidesToScroll: 1,
 				},
 			},
 			{
@@ -65,12 +64,12 @@ function SliderPremiumCard({ user }) {
 
 	return (
 		<div className='slider-container'>
-			{card.length > 0 && (
+			{cards.length > 0 && (
 				<Slider {...settings} className='mySwiper'>
-					{card.map((item, index) => (
-						<Link to={`/card/${item.id}`} key={index}>
+					{cards.map(item => (
+						<Link to={`/card/${item.id}`} key={item.id}>
 							<div>
-								<Card card={item} user={user} />
+								<Card card={item} />
 							</div>
 						</Link>
 					))}
