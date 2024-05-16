@@ -7,6 +7,7 @@ import Slider from 'react-slick'
 
 function SliderPremiumCard() {
 	const [cards, setCards] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		getCards()
@@ -24,6 +25,8 @@ function SliderPremiumCard() {
 			}
 		} catch (err) {
 			console.error(err)
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -62,7 +65,9 @@ function SliderPremiumCard() {
 
 	return (
 		<div className='slider-container'>
-			{cards.length > 0 && (
+			{loading ? (
+				<div>Loading...</div>
+			) : cards.length > 0 ? (
 				<Slider {...settings} className='mySwiper'>
 					{cards.map(item => (
 						<div key={item.id}>
@@ -70,6 +75,8 @@ function SliderPremiumCard() {
 						</div>
 					))}
 				</Slider>
+			) : (
+				<div>No premium cards available</div>
 			)}
 		</div>
 	)

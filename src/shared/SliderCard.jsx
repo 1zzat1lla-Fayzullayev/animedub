@@ -1,4 +1,3 @@
-// SliderCard.js
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import 'slick-carousel/slick/slick.css'
@@ -8,24 +7,27 @@ import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
 
 function SliderCard({ user }) {
-	const [card, setCard] = useState([])
+	const [cards, setCards] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		getCard()
+		getCards()
 	}, [])
 
-	async function getCard() {
+	async function getCards() {
 		try {
 			const { data, error } = await supabase.from('card').select('*')
 			if (error) {
 				console.error(error)
 			}
-			if (data != null) {
+			if (data) {
 				const nonPremiumCards = data.filter(item => !item.premium)
-				setCard(nonPremiumCards)
+				setCards(nonPremiumCards)
 			}
 		} catch (err) {
 			console.error(err)
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -42,15 +44,14 @@ function SliderCard({ user }) {
 				breakpoint: 1024,
 				settings: {
 					slidesToShow: 3,
-					slidesToScroll: 3,
-					infinite: true,
+					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 768,
 				settings: {
 					slidesToShow: 2,
-					slidesToScroll: 2,
+					slidesToScroll: 1,
 				},
 			},
 			{
@@ -65,16 +66,20 @@ function SliderCard({ user }) {
 
 	return (
 		<div className='slider-container'>
-			{card.length > 0 && (
+			{loading ? (
+				<div>Loading...</div>
+			) : cards.length > 0 ? (
 				<Slider {...settings} className='mySwiper'>
-					{card.map((item, index) => (
-						<Link to={`/card/${item.id}`} key={index}>
-							<div>
+					{cards.map((item, index) => (
+						<div key={index}>
+							<Link to={`/card/${item.id}`}>
 								<Card card={item} user={user} />
-							</div>
-						</Link>
+							</Link>
+						</div>
 					))}
 				</Slider>
+			) : (
+				<div>No cards available</div>
 			)}
 		</div>
 	)
