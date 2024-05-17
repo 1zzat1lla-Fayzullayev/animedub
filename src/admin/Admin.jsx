@@ -19,7 +19,7 @@ function Admin() {
 	})
 	const [formCard, setFormCard] = useState({
 		cardname: '',
-		carddescription: '',
+		carddescreption: '',
 		cardpicture: '',
 		cardyear: 0,
 		cardstate: '',
@@ -120,7 +120,7 @@ function Admin() {
 			} else if (tab === 2) {
 				const {
 					cardname,
-					carddescription,
+					carddescreption,
 					cardpicture,
 					cardyear,
 					cardstate,
@@ -132,7 +132,7 @@ function Admin() {
 				} = formCard
 				if (
 					!cardname ||
-					!carddescription ||
+					!carddescreption ||
 					!cardpicture ||
 					!cardyear ||
 					!cardstate ||
@@ -147,7 +147,7 @@ function Admin() {
 						.from('card')
 						.update({
 							cardname,
-							carddescription,
+							carddescreption,
 							cardpicture,
 							cardyear,
 							cardstate,
@@ -164,7 +164,7 @@ function Admin() {
 						setEditIndex(null)
 						setFormCard({
 							cardname: '',
-							carddescription: '',
+							carddescreption: '',
 							cardpicture: '',
 							cardyear: 0,
 							cardstate: '',
@@ -180,7 +180,7 @@ function Admin() {
 						.from('card')
 						.insert({
 							cardname,
-							carddescription,
+							carddescreption,
 							cardpicture,
 							cardyear,
 							cardstate,
@@ -196,7 +196,7 @@ function Admin() {
 						console.log(data)
 						setFormCard({
 							cardname: '',
-							carddescription: '',
+							carddescreption: '',
 							cardpicture: '',
 							cardyear: 0,
 							cardstate: '',
@@ -265,7 +265,7 @@ function Admin() {
 			setEditIndex(index)
 			setFormCard({
 				cardname: data.cardname,
-				carddescription: data.carddescription,
+				carddescreption: data.carddescreption,
 				cardpicture: data.cardpicture,
 				cardyear: data.cardyear,
 				cardstate: data.cardstate,
@@ -623,6 +623,7 @@ function Admin() {
 													<tr key={item.id} className='text-white font-Inter'>
 														<td>{item.cardname}</td>
 														<td>{item.carddescreption}</td>
+
 														<td>
 															<img
 																src={item.cardpicture}
