@@ -13,13 +13,10 @@ function MobileNavbar({ closeNavbar }) {
 				/>
 				<ul className='flex flex-col h-full justify-center items-center gap-[20px] text-white'>
 					<li>
-						<a href='#'>Home</a>
+						<a href='#'>Uy</a>
 					</li>
 					<li>
 						<a href='#'>Anime</a>
-					</li>
-					<li>
-						<a href='#'>About</a>
 					</li>
 				</ul>
 			</div>

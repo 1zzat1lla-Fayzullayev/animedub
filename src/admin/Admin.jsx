@@ -232,7 +232,7 @@ function Admin() {
 			} else if (tab === 3) {
 				const { username, password, ispayyet, hiddenpremium } = userForm
 				if (!username || !password) {
-					throw new Error('Please provide all details for the form.')
+					throw new Error('Iltimos, forma uchun barcha tafsilotlarni kiriting.')
 				}
 				if (editIndex !== null) {
 					const { data, error } = await supabase
@@ -378,7 +378,7 @@ function Admin() {
 												: 'bg-[#ececec50] text-[white] '
 										} text-lg rounded-[8px] hover:cursor-pointer hover:translate-x-1.5 transition-all py-[8px] px-[25px] w-full mr-5`}
 									>
-										Table {item}
+										Jadval {item}
 									</p>
 								))}
 							</div>
@@ -397,7 +397,7 @@ function Admin() {
 											className='btn btn-error text-white'
 											onClick={handleLogOut}
 										>
-											Log out
+											Chiqish
 										</button>
 									</div>
 									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
@@ -412,7 +412,7 @@ function Admin() {
 												<input
 													type='text'
 													name='title'
-													placeholder='Title'
+													placeholder='Nom'
 													className='input bg-[#17171A] text-white'
 													value={formSlider.title}
 													onChange={handleChange}
@@ -420,7 +420,7 @@ function Admin() {
 												<input
 													type='text'
 													name='description'
-													placeholder='Description'
+													placeholder='Tavsif'
 													className='input bg-[#17171A] text-white'
 													value={formSlider.description}
 													onChange={handleChange}
@@ -428,13 +428,13 @@ function Admin() {
 												<input
 													type='text'
 													name='picture'
-													placeholder='Photo URL'
+													placeholder='Rasm URL'
 													className='input bg-[#17171A] text-white'
 													value={formSlider.picture}
 													onChange={handleChange}
 												/>
 												<button className='btn btn-success text-white'>
-													{editIndex !== null ? 'Update' : 'Submit'}
+													{editIndex !== null ? 'Yangilash' : 'Yuborish'}
 												</button>
 											</form>
 											<img
@@ -452,10 +452,10 @@ function Admin() {
 										<table className='table'>
 											<thead>
 												<tr className='text-white font-Montserrat'>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Picture</th>
-													<th>Action</th>
+													<th>Nom</th>
+													<th>Tavsif</th>
+													<th>Rasm</th>
+													<th>Harakat</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -475,13 +475,13 @@ function Admin() {
 																className='bg-[orange] p-2 rounded-[6px]'
 																onClick={() => handleEdit(index, item)}
 															>
-																Edit
+																Tahrirlash
 															</button>
 															<button
 																className='bg-red-500 p-2 rounded-[6px]'
 																onClick={() => handleDelete(item.id, index)}
 															>
-																Delete
+																O'chirish
 															</button>
 														</td>
 													</tr>
@@ -504,7 +504,7 @@ function Admin() {
 											className='btn btn-error text-white'
 											onClick={handleLogOut}
 										>
-											Log out
+											Chiqish
 										</button>
 									</div>
 									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
@@ -519,7 +519,7 @@ function Admin() {
 												<input
 													type='text'
 													name='cardname'
-													placeholder='Title'
+													placeholder='Nom'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardname}
 													onChange={handleChange}
@@ -527,7 +527,7 @@ function Admin() {
 												<input
 													type='text'
 													name='carddescreption'
-													placeholder='Description'
+													placeholder='Tavsif'
 													className='input bg-[#17171A] text-white'
 													value={formCard.carddescreption}
 													onChange={handleChange}
@@ -535,7 +535,7 @@ function Admin() {
 												<input
 													type='text'
 													name='cardpicture'
-													placeholder='Photo URL'
+													placeholder='Rasm URL'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardpicture}
 													onChange={handleChange}
@@ -543,7 +543,7 @@ function Admin() {
 												<input
 													type='number'
 													name='cardyear'
-													placeholder='Year'
+													placeholder='Yil'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardyear}
 													onChange={handleChange}
@@ -551,7 +551,7 @@ function Admin() {
 												<input
 													type='text'
 													name='cardstate'
-													placeholder='State'
+													placeholder='Mamlakat'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardstate}
 													onChange={handleChange}
@@ -559,7 +559,7 @@ function Admin() {
 												<input
 													type='text'
 													name='cardgenre'
-													placeholder='Genre'
+													placeholder='Janr'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardgenre}
 													onChange={handleChange}
@@ -567,7 +567,7 @@ function Admin() {
 												<input
 													type='text'
 													name='cardlanguage'
-													placeholder='Language'
+													placeholder='Til'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardlanguage}
 													onChange={handleChange}
@@ -575,7 +575,7 @@ function Admin() {
 												<input
 													type='number'
 													name='cardage'
-													placeholder='Age'
+													placeholder='Yosh'
 													className='input bg-[#17171A] text-white'
 													value={formCard.cardage}
 													onChange={handleChange}
@@ -592,23 +592,22 @@ function Admin() {
 													</label>
 													<select
 														name='premium'
-														value={formCard.premium ? 'True' : 'False'}
+														value={formCard.premium ? 'Ha' : "Yo'q"}
 														onChange={e => {
 															setFormCard(prevState => ({
 																...prevState,
-																premium:
-																	e.target.value === 'True' ? true : false,
+																premium: e.target.value === 'Ha' ? true : false,
 															}))
 														}}
 														className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
 													>
-														<option value='True'>True</option>
-														<option value='False'>False</option>
+														<option value='Ha'>Ha</option>
+														<option value="Yo'q">Yo'q</option>
 													</select>
 												</div>
 
 												<button className='btn btn-success text-white'>
-													{editIndex !== null ? 'Update' : 'Submit'}
+													{editIndex !== null ? 'Yangilash' : 'Yuborish'}
 												</button>
 											</form>
 											<img
@@ -626,17 +625,17 @@ function Admin() {
 										<table className='table'>
 											<thead>
 												<tr className='text-white font-Montserrat'>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Picture</th>
-													<th>Year</th>
-													<th>State</th>
-													<th>Genre</th>
-													<th>Language</th>
-													<th>Age</th>
+													<th>Nom</th>
+													<th>Tavsif</th>
+													<th>Rasm</th>
+													<th>Yil</th>
+													<th>Mamlakat</th>
+													<th>Janr</th>
+													<th>Til</th>
+													<th>Yosh</th>
 													<th>Video</th>
 													<th>Premium</th>
-													<th>Action</th>
+													<th>Harakat</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -659,19 +658,19 @@ function Admin() {
 														<td>
 															<video src={item.cardvd}></video>
 														</td>
-														<td>{item.premium ? 'true' : 'false'}</td>
+														<td>{item.premium ? 'Ha' : "Yo'q"}</td>
 														<td className='flex justify-center items-center gap-2'>
 															<button
 																className='bg-[orange] p-2 rounded-[6px]'
 																onClick={() => handleEdit(index, item)}
 															>
-																Edit
+																Tahrirlash
 															</button>
 															<button
 																className='bg-red-500 p-2 rounded-[6px]'
 																onClick={() => handleDelete(item.id, index)}
 															>
-																Delete
+																O'chirish
 															</button>
 														</td>
 													</tr>
@@ -694,7 +693,7 @@ function Admin() {
 											className='btn btn-error text-white'
 											onClick={handleLogOut}
 										>
-											Log out
+											Chiqish
 										</button>
 									</div>
 									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
@@ -709,7 +708,7 @@ function Admin() {
 												<input
 													type='text'
 													name='username'
-													placeholder='Username'
+													placeholder='Foydalanuvchi nomi'
 													className='input bg-[#17171A] text-white'
 													value={userForm.username}
 													onChange={handleChange}
@@ -717,34 +716,34 @@ function Admin() {
 												<input
 													type='password'
 													name='password'
-													placeholder='Password'
+													placeholder='Parol'
 													className='input bg-[#17171A] text-white'
 													value={userForm.password}
 													onChange={handleChange}
 												/>
 												<div className='flex items-center gap-2'>
 													<label htmlFor='hiddenpremium' className='text-white'>
-														Hide Premium User
+														Foydalanuvchidan premiumni o'chirish
 													</label>
 													<select
 														name='hiddenpremium'
-														value={userForm.hiddenpremium ? 'True' : 'False'}
+														value={userForm.hiddenpremium ? 'Ha' : "Yo'q"}
 														onChange={e => {
 															setUserForm(prevState => ({
 																...prevState,
 																hiddenpremium:
-																	e.target.value === 'True' ? true : false,
+																	e.target.value === 'Ha' ? true : false,
 															}))
 														}}
 														className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
 													>
-														<option value='True'>Yes</option>
-														<option value='False'>No</option>
+														<option value='Ha'>Ha</option>
+														<option value="Yo'q">Yo'q</option>
 													</select>
 												</div>
 
 												<button className='btn btn-success text-white'>
-													{editIndex !== null ? 'Update' : 'Submit'}
+													{editIndex !== null ? 'Yangilash' : 'Yuborish'}
 												</button>
 											</form>
 											<img
@@ -762,11 +761,10 @@ function Admin() {
 										<table className='table'>
 											<thead>
 												<tr className='text-white font-Montserrat'>
-													<th>Username</th>
-													<th>Password</th>
-													<th>ispayyet</th>
-													<th>Premium user</th>
-													<th>Action</th>
+													<th>Foydalanuvchi nomi</th>
+													<th>Parol</th>
+													<th>Premium foydalanuvchi</th>
+													<th>Harakat</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -774,20 +772,19 @@ function Admin() {
 													<tr key={item.id} className='text-white font-Inter'>
 														<td>{item.username}</td>
 														<td>{item.password}</td>
-														<td>{item.ispayyet ? 'true' : 'false'}</td>
-														<td>{item.hiddenpremium ? 'true' : 'false'}</td>
+														<td>{item.hiddenpremium ? 'Ha' : "Yo'q"}</td>
 														<td className='flex justify-center items-center gap-2'>
 															<button
 																className='bg-[orange] p-2 rounded-[6px]'
 																onClick={() => handleEdit(index, item)}
 															>
-																Edit
+																Tahrirlash
 															</button>
 															<button
 																className='bg-red-500 p-2 rounded-[6px]'
 																onClick={() => handleDelete(item.id, index)}
 															>
-																Delete
+																O'chirish
 															</button>
 														</td>
 													</tr>
@@ -805,7 +802,7 @@ function Admin() {
 					<div className='flex justify-center items-center h-full'>
 						<input
 							type='password'
-							placeholder='Password'
+							placeholder='Parol'
 							className='input font-Inter'
 							onChange={e => {
 								if (e.target.value === 'anime') setIsLoggedIn(true)

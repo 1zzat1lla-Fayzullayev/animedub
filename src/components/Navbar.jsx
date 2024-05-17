@@ -42,13 +42,10 @@ function Navbar({ user, onSignOut }) {
 						</Link>
 						<ul className='md:flex justify-center items-center gap-[20px] hidden'>
 							<li>
-								<a href='#'>Home</a>
+								<a href='#'>Uy</a>
 							</li>
 							<li>
 								<a href='#'>Anime</a>
-							</li>
-							<li>
-								<a href='#'>About</a>
 							</li>
 						</ul>
 					</div>
@@ -82,7 +79,7 @@ function Navbar({ user, onSignOut }) {
 						) : (
 							<Link to='/signin'>
 								<button className='bg-green-500 text-white rounded-[5px] py-[4px] px-[10px]'>
-									Login
+									Tizimga kirish
 								</button>
 							</Link>
 						)}

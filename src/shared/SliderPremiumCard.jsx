@@ -76,7 +76,7 @@ function SliderPremiumCard() {
 					))}
 				</Slider>
 			) : (
-				<div>No premium cards available</div>
+				<div>Premium kartalar mavjud emas</div>
 			)}
 		</div>
 	)

@@ -11,7 +11,7 @@ function Card({ card }) {
 	const handleCardClick = () => {
 		if (card.premium && !isPremiumUser) {
 			alert(
-				'This is a premium card. Upgrade to premium to access this content.'
+				'Bu premium karta. Ushbu kontentga kirish uchun premiumga yangilang.'
 			)
 		} else {
 			navigate(`/card/${card.id}`)
@@ -53,7 +53,7 @@ function Card({ card }) {
 						{card.premium && !isPremiumUser ? (
 							<div className='absolute top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-75 p-3 rounded-md'>
 								<h1 className='text-lg font-semibold text-green-500 text-center'>
-									This is a premium card
+									Bu premium karta
 								</h1>
 							</div>
 						) : (

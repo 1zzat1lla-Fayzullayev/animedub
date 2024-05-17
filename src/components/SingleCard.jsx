@@ -61,31 +61,31 @@ function SingleCard({ user, onSignOut }) {
 							</div>
 							<div className='flex flex-col justify-center md:justify-start gap-3'>
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-									Year:{' '}
+									Yil:{' '}
 									<div className='form_admin py-1 px-4 shadow-xl'>
 										{card.cardyear}
 									</div>
 								</div>
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-									State:{' '}
+									Mamlakat:{' '}
 									<div className='form_admin py-1 px-4 shadow-xl'>
 										{card.cardstate}
 									</div>
 								</div>
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-									Genre:{' '}
+									Janr:{' '}
 									<div className='form_admin py-1 px-4 shadow-xl'>
 										{card.cardgenre}
 									</div>
 								</div>
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-									Language:{' '}
+									Til:{' '}
 									<div className='form_admin py-1 px-4 shadow-xl'>
 										{card.cardlanguage}
 									</div>
 								</div>
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-									Age:{' '}
+									Yosh:{' '}
 									<div className='form_admin py-1 px-4 shadow-xl'>
 										{card.cardage}
 									</div>
@@ -124,31 +124,31 @@ function SingleCard({ user, onSignOut }) {
 						</div>
 						<div className='flex flex-col justify-center md:justify-start gap-3'>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-								Year:{' '}
+								Yil:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
 									{card.cardyear}
 								</div>
 							</div>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-								State:{' '}
+								Mamlakat:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
 									{card.cardstate}
 								</div>
 							</div>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-								Genre:{' '}
+								Janr:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
 									{card.cardgenre}
 								</div>
 							</div>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-								Language:{' '}
+								Til:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
 									{card.cardlanguage}
 								</div>
 							</div>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-								Age:{' '}
+								Yosh:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
 									{card.cardage}
 								</div>
@@ -168,7 +168,7 @@ function SingleCard({ user, onSignOut }) {
 								className='text-red-500 font-semibold mb-[40px]'
 								onClick={() => (window.location.href = '/signin')}
 							>
-								Login to Watch Video !
+								Videoni tomosha qilish uchun tizimga kiring!
 							</button>
 						)}
 					</div>
