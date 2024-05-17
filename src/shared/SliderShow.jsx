@@ -67,7 +67,7 @@ function SliderShow() {
 										alt='play'
 										style={{ width: '30px' }}
 									/>
-									<p>Ko'rish</p>
+									<a href='#anime'>Ko'rish</a>
 								</div>
 							</div>
 							<img src={item.picture} alt='' />
