@@ -20,12 +20,12 @@ function SingleCard({ user, onSignOut }) {
 					.eq('id', id)
 					.single()
 				if (error) {
-					console.error(error)
+					console.error('Error fetching card:', error)
 				} else {
 					setCard(data)
 				}
 			} catch (err) {
-				console.error(err)
+				console.error('Error:', err)
 			}
 		}
 
@@ -34,12 +34,14 @@ function SingleCard({ user, onSignOut }) {
 
 	if (!card) {
 		return (
-			<div>
-				<div className='h-screen w-screen flex justify-center items-center'>
-					<span className='loading loading-ring w-[50px] overflow-hidden bg-white'></span>
-				</div>
+			<div className='h-screen w-screen flex justify-center items-center'>
+				<span className='loading loading-ring w-[50px] overflow-hidden bg-white'></span>
 			</div>
 		)
+	}
+
+	const handleVideoError = e => {
+		console.error('Video error:', e)
 	}
 
 	if (isPremiumUser) {
@@ -94,11 +96,12 @@ function SingleCard({ user, onSignOut }) {
 							</div>
 						</div>
 						<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px]'>
-							<video
+							<iframe
 								src={card.cardvd}
 								controls
 								className='w-full md:w-[800px] h-[400px] rounded-[10px] shadow-lg'
-							></video>
+								onError={handleVideoError}
+							></iframe>
 						</div>
 					</div>
 				</Wrapper>
@@ -158,11 +161,12 @@ function SingleCard({ user, onSignOut }) {
 					</div>
 					<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px]'>
 						{user ? (
-							<video
+							<iframe
 								src={card.cardvd}
 								controls
 								className='w-full md:w-[800px] h-[400px] rounded-[10px] shadow-lg'
-							></video>
+								onError={handleVideoError}
+							></iframe>
 						) : (
 							<button
 								className='text-red-500 font-semibold mb-[40px]'

@@ -19,7 +19,7 @@ function Admin() {
 	})
 	const [formCard, setFormCard] = useState({
 		cardname: '',
-		carddescreption: '',
+		carddescription: '',
 		cardpicture: '',
 		cardyear: 0,
 		cardstate: '',
@@ -88,27 +88,6 @@ function Admin() {
 		}
 	}
 
-	const handleFileChange = e => {
-		const file = e.target.files[0]
-		if (file) {
-			const reader = new FileReader()
-			reader.onloadend = () => {
-				if (tab === 1) {
-					setFormSlider(prevState => ({
-						...prevState,
-						picture: reader.result,
-					}))
-				} else if (tab === 2) {
-					setFormCard(prevState => ({
-						...prevState,
-						cardvd: reader.result,
-					}))
-				}
-			}
-			reader.readAsDataURL(file)
-		}
-	}
-
 	const handleSubmit = async e => {
 		e.preventDefault()
 		try {
@@ -141,7 +120,7 @@ function Admin() {
 			} else if (tab === 2) {
 				const {
 					cardname,
-					carddescreption,
+					carddescription,
 					cardpicture,
 					cardyear,
 					cardstate,
@@ -153,7 +132,7 @@ function Admin() {
 				} = formCard
 				if (
 					!cardname ||
-					!carddescreption ||
+					!carddescription ||
 					!cardpicture ||
 					!cardyear ||
 					!cardstate ||
@@ -168,7 +147,7 @@ function Admin() {
 						.from('card')
 						.update({
 							cardname,
-							carddescreption,
+							carddescription,
 							cardpicture,
 							cardyear,
 							cardstate,
@@ -185,7 +164,7 @@ function Admin() {
 						setEditIndex(null)
 						setFormCard({
 							cardname: '',
-							carddescreption: '',
+							carddescription: '',
 							cardpicture: '',
 							cardyear: 0,
 							cardstate: '',
@@ -201,7 +180,7 @@ function Admin() {
 						.from('card')
 						.insert({
 							cardname,
-							carddescreption,
+							carddescription,
 							cardpicture,
 							cardyear,
 							cardstate,
@@ -217,7 +196,7 @@ function Admin() {
 						console.log(data)
 						setFormCard({
 							cardname: '',
-							carddescreption: '',
+							carddescription: '',
 							cardpicture: '',
 							cardyear: 0,
 							cardstate: '',
@@ -232,7 +211,7 @@ function Admin() {
 			} else if (tab === 3) {
 				const { username, password, ispayyet, hiddenpremium } = userForm
 				if (!username || !password) {
-					throw new Error('Iltimos, forma uchun barcha tafsilotlarni kiriting.')
+					throw new Error('Please provide all details for the form.')
 				}
 				if (editIndex !== null) {
 					const { data, error } = await supabase
@@ -260,7 +239,6 @@ function Admin() {
 						setUserForm({
 							username: '',
 							password: '',
-
 							hiddenpremium: false,
 						})
 					}
@@ -287,7 +265,7 @@ function Admin() {
 			setEditIndex(index)
 			setFormCard({
 				cardname: data.cardname,
-				carddescreption: data.carddescreption,
+				carddescription: data.carddescription,
 				cardpicture: data.cardpicture,
 				cardyear: data.cardyear,
 				cardstate: data.cardstate,
@@ -581,10 +559,12 @@ function Admin() {
 													onChange={handleChange}
 												/>
 												<input
-													type='file'
-													accept='video/*'
+													type='text'
 													name='cardvd'
-													onChange={handleFileChange}
+													placeholder='Video URL'
+													className='input bg-[#17171A] text-white'
+													value={formCard.cardvd}
+													onChange={handleChange}
 												/>
 												<div className='flex items-center gap-2'>
 													<label htmlFor='premium' className='text-white'>
