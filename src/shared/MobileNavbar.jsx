@@ -14,7 +14,7 @@ function MobileNavbar({ closeNavbar }) {
 				<ul className='flex flex-col h-full justify-center items-center gap-[20px] text-white'>
 					<li>
 						<Link to='/'>
-							<a href='#'>Uy</a>
+							<a href='#'>Asosiy</a>
 						</Link>
 					</li>
 					<li>

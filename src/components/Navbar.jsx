@@ -37,13 +37,13 @@ function Navbar({ user, onSignOut }) {
 					<div className='flex items-center gap-5 text-white'>
 						<Link to='/'>
 							<h1 className='font-bold cursor-pointer text-[20px]'>
-								Anime <span className='slider_h1'>DUB</span>
+								Anima <span className='slider_h1'>DUB</span>
 							</h1>
 						</Link>
 						<ul className='md:flex justify-center items-center gap-[20px] hidden'>
 							<li>
 								<Link to='/'>
-									<a href='#'>Uy</a>
+									<a href='#'>Asosiy</a>
 								</Link>
 							</li>
 							<li>
