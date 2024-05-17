@@ -20,6 +20,7 @@ body {
 		rgba(33, 33, 50, 0.989233193277311) 100%
 	);
 	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 
 .swiper {

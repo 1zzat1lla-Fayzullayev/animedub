@@ -11,7 +11,7 @@ import { useUser } from '../context/UsersContext'
 function Main({ user }) {
 	const { isPremiumUser } = useUser()
 
-	const premiumText = !isPremiumUser ? 'Premium' : 'Free'
+	const premiumText = !isPremiumUser ? 'Premium' : 'Bepul'
 
 	return (
 		<div>

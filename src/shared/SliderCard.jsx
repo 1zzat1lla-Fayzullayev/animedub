@@ -65,7 +65,7 @@ function SliderCard({ user }) {
 	}
 
 	return (
-		<div className='slider-container'>
+		<div className='slider-container' id='anime'>
 			{loading ? (
 				<div>Loading...</div>
 			) : cards.length > 0 ? (

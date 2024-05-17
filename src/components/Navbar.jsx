@@ -42,10 +42,12 @@ function Navbar({ user, onSignOut }) {
 						</Link>
 						<ul className='md:flex justify-center items-center gap-[20px] hidden'>
 							<li>
-								<a href='#'>Uy</a>
+								<Link to='/'>
+									<a href='#'>Uy</a>
+								</Link>
 							</li>
 							<li>
-								<a href='#'>Anime</a>
+								<a href='#anime'>Anime</a>
 							</li>
 						</ul>
 					</div>
