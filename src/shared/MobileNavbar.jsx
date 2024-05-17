@@ -1,5 +1,6 @@
 import React from 'react'
 import PicturesData from '../PicturesData'
+import { Link } from 'react-router-dom'
 
 function MobileNavbar({ closeNavbar }) {
 	return (

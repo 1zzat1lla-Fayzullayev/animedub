@@ -636,7 +636,7 @@ function Admin() {
 														<td>{item.cardlanguage}</td>
 														<td>{item.cardage}</td>
 														<td>
-															<video src={item.cardvd}></video>
+															<iframe src={item.cardvd} className='w-[50px] h-[50px]'></iframe>
 														</td>
 														<td>{item.premium ? 'Ha' : "Yo'q"}</td>
 														<td className='flex justify-center items-center gap-2'>
