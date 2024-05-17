@@ -73,7 +73,7 @@ function Navbar({ user, onSignOut }) {
 											onClick={handleSignOut}
 											className='block w-full text-left bg-red-500 text-white rounded-[5px] py-[4px] px-[10px] mt-2'
 										>
-											Logout
+											Chiqish
 										</button>
 									</div>
 								)}
