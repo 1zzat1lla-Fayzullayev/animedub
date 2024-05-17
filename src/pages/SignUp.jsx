@@ -54,7 +54,7 @@ function SignUp() {
 					className='text-white absolute top-4 left-4 cursor-pointer'
 					onClick={() => navigate('/')}
 				>
-					Uy
+					Asosiy
 				</h2>
 				<div className='form_admin p-7 flex flex-col gap-2 w-full mx-[20px] md:mx-0 md:w-[400px]'>
 					<h1 className='text-center slider_h1 text-[25px] font-bold'>
