@@ -335,7 +335,7 @@ function Admin() {
 		setIsLoggedIn(false)
 	}
 	return (
-		<div className='absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'>
+		<>
 			{isLoggedIn ? (
 				<>
 					<div className='flex justify-start flex-col md:flex-row items-start'>
@@ -636,7 +636,10 @@ function Admin() {
 														<td>{item.cardlanguage}</td>
 														<td>{item.cardage}</td>
 														<td>
-															<iframe src={item.cardvd} className='w-[50px] h-[50px]'></iframe>
+															<iframe
+																src={item.cardvd}
+																className='w-[50px] h-[50px]'
+															></iframe>
 														</td>
 														<td>{item.premium ? 'Ha' : "Yo'q"}</td>
 														<td className='flex justify-center items-center gap-2'>
@@ -791,7 +794,7 @@ function Admin() {
 					</div>
 				</div>
 			)}
-		</div>
+		</>
 	)
 }
 
