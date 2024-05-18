@@ -40,7 +40,7 @@ function YearCategoryCards({ user, onSignOut }) {
 				<Wrapper>
 					<div className='flex flex-col items-center mt-[120px]'>
 						{loading ? (
-							<div>
+							<div className='flex justify-center items-center h-[80vh]'>
 								<span className='loading loading-dots loading-lg bg-[#57f81dbd]'></span>
 							</div>
 						) : (
