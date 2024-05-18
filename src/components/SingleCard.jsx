@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import supabase from '../supabase/data'
 import Navbar from './Navbar'
 import Wrapper from '../layout/Wrapper'
@@ -10,6 +10,7 @@ function SingleCard({ user, onSignOut }) {
 	const { id } = useParams()
 	const [card, setCard] = useState(null)
 	const { isPremiumUser } = useUser()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		async function fetchCard() {
@@ -64,7 +65,10 @@ function SingleCard({ user, onSignOut }) {
 							<div className='flex flex-col justify-center md:justify-start gap-3 ml-[10px] md:ml-0 md:mt-[150px]'>
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
 									Yil:{' '}
-									<div className='form_admin py-1 px-4 shadow-xl'>
+									<div
+										className='form_admin py-1 px-4 shadow-xl cursor-pointer'
+										onClick={() => navigate(`/year-category/${card.cardyear}`)}
+									>
 										{card.cardyear}
 									</div>
 								</div>
@@ -130,7 +134,10 @@ function SingleCard({ user, onSignOut }) {
 						<div className='flex flex-col justify-center md:justify-start gap-3 ml-[10px] md:ml-0 md:mt-[150px]'>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
 								Yil:{' '}
-								<div className='form_admin py-1 px-4 shadow-xl'>
+								<div
+									className='form_admin py-1 px-4 shadow-xl cursor-pointer'
+									onClick={() => navigate(`/year-category/${card.cardyear}`)}
+								>
 									{card.cardyear}
 								</div>
 							</div>

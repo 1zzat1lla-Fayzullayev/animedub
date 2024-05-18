@@ -7,6 +7,8 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
+import YearCategoryCards from './components/YearCategoryCards'
+import supabase from './supabase/data'
 
 function App() {
 	const [user, setUser] = useState(
@@ -33,6 +35,12 @@ function App() {
 					<Route
 						path='/card/:id'
 						element={<SingleCard user={user} onSignOut={handleSignOut} />}
+					/>
+					<Route
+						path='/year-category/:year'
+						element={
+							<YearCategoryCards user={user} onSignOut={handleSignOut} />
+						}
 					/>
 					<Route
 						path='/*'

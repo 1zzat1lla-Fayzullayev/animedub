@@ -1,0 +1,63 @@
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import supabase from '../supabase/data'
+import { Link } from 'react-router-dom'
+import Wrapper from '../layout/Wrapper'
+import Navbar from './Navbar'
+
+function YearCategoryCards({ user, onSignOut }) {
+	const { year } = useParams()
+	const [cards, setCards] = useState([])
+
+	useEffect(() => {
+		async function fetchCards() {
+			try {
+				const { data, error } = await supabase
+					.from('card')
+					.select('*')
+					.eq('cardyear', year)
+					.order('cardyear', { ascending: true })
+				if (error) {
+					console.error('Error fetching related cards:', error)
+				} else {
+					setCards(data)
+				}
+			} catch (err) {
+				console.error('Error:', err)
+			}
+		}
+
+		fetchCards()
+	}, [year])
+
+	return (
+		<>
+			<Navbar user={user} onSignOut={onSignOut} />
+			<div className='flex justify-center items-center w-screen h-screen mt-[180px] md:mt-0'>
+				<Wrapper>
+					<h1 className='text-white font-Montserrat font-bold text-[25px]'>
+						Yil: {year}
+					</h1>
+					<div className='flex items-center flex-col md:flex-row'>
+						{cards.map(card => (
+							<div key={card.id} className='p-4 font-Montserrat'>
+								<Link to={`/card/${card.id}`}>
+									<img
+										src={card.cardpicture}
+										alt={card.cardname}
+										className='w-[200px] h-[300px] rounded-[10px] object-cover transition-all duration-75 ease-in hover:scale-105 '
+									/>
+									<div className='text-center text-white mt-2'>
+										{card.cardname}
+									</div>
+								</Link>
+							</div>
+						))}
+					</div>
+				</Wrapper>
+			</div>
+		</>
+	)
+}
+
+export default YearCategoryCards
