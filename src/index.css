@@ -10,6 +10,16 @@
 	padding: 0;
 }
 
+::-webkit-scrollbar{
+	background: black;
+	width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+	background-color: rgb(0, 136, 255);
+	border-radius: 10px;
+}
+
 html,
 body {
 	background: rgb(10, 10, 10);
