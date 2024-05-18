@@ -58,8 +58,13 @@ function Card({ card }) {
 							</div>
 						) : (
 							card.cardname && (
-								<div className='absolute bottom-0 rounded-b-[17px] text-white font-bold drop-shadow-lg bg-[#02000095] w-full'>
+								<div className='absolute bottom-0 rounded-b-[17px] text-white font-bold drop-shadow-lg bg-[#02000095] w-full flex items-center justify-around'>
 									<h1 className='p-2 pl-[20px] text-[20px]'>{card.cardname}</h1>
+									<img
+										src={PicturesData.play}
+										alt='play'
+										className='w-[40px]'
+									/>
 								</div>
 							)
 						)}
