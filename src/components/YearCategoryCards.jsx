@@ -8,6 +8,7 @@ import Navbar from './Navbar'
 function YearCategoryCards({ user, onSignOut }) {
 	const { year } = useParams()
 	const [cards, setCards] = useState([])
+	const [loading, setLoading] = useState(true) // Initialize to true
 
 	useEffect(() => {
 		async function fetchCards() {
@@ -24,6 +25,8 @@ function YearCategoryCards({ user, onSignOut }) {
 				}
 			} catch (err) {
 				console.error('Error:', err)
+			} finally {
+				setLoading(false) // Set loading to false once data is fetched
 			}
 		}
 
@@ -35,25 +38,33 @@ function YearCategoryCards({ user, onSignOut }) {
 			<Navbar user={user} onSignOut={onSignOut} />
 			<div className='flex justify-center items-center w-screen h-screen mt-[180px] md:mt-0'>
 				<Wrapper>
-					<h1 className='text-white font-Montserrat font-bold text-[25px]'>
-						Yil: {year}
-					</h1>
-					<div className='flex items-center flex-col md:flex-row'>
-						{cards.map(card => (
-							<div key={card.id} className='p-4 font-Montserrat'>
-								<Link to={`/card/${card.id}`}>
-									<img
-										src={card.cardpicture}
-										alt={card.cardname}
-										className='w-[200px] h-[300px] rounded-[10px] object-cover transition-all duration-75 ease-in hover:scale-105 '
-									/>
-									<div className='text-center text-white mt-2'>
-										{card.cardname}
+					{loading ? (
+						<div>
+							<span className='loading loading-dots loading-lg bg-[#57f81dbd]'></span>
+						</div>
+					) : (
+						<>
+							<h1 className='text-white font-Montserrat font-bold text-[25px]'>
+								Yil: {year}
+							</h1>
+							<div className='flex items-center flex-col md:flex-row'>
+								{cards.map(card => (
+									<div key={card.id} className='p-4 font-Montserrat'>
+										<Link to={`/card/${card.id}`}>
+											<img
+												src={card.cardpicture}
+												alt={card.cardname}
+												className='w-[200px] h-[300px] rounded-[10px] object-cover transition-all duration-75 ease-in hover:scale-105 '
+											/>
+											<div className='text-center text-white mt-2'>
+												{card.cardname}
+											</div>
+										</Link>
 									</div>
-								</Link>
+								))}
 							</div>
-						))}
-					</div>
+						</>
+					)}
 				</Wrapper>
 			</div>
 		</>
