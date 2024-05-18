@@ -64,7 +64,7 @@ function SliderPremiumCard() {
 	}
 
 	return (
-		<div className='slider-container'>
+		<div className='slider-container' id='premium'>
 			{loading ? (
 				<div>Loading...</div>
 			) : cards.length > 0 ? (

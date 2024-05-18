@@ -47,7 +47,13 @@ function Navbar({ user, onSignOut }) {
 								</Link>
 							</li>
 							<li>
-								<a href='#anime'>Anime</a>
+								<a href='#anime'>Anime barchasi</a>
+							</li>
+							<li>
+								<a href='#premium'>Premium barchasi</a>
+							</li>
+							<li>
+								<a href='#'>Aloqaga chiqish</a>
 							</li>
 						</ul>
 					</div>

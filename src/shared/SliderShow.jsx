@@ -36,7 +36,7 @@ function SliderShow() {
 	}
 
 	return (
-		<div>
+		<div className='relative'>
 			{swipers && (
 				<Swiper
 					spaceBetween={30}
@@ -54,6 +54,7 @@ function SliderShow() {
 				>
 					{swipers.map((item, index) => (
 						<SwiperSlide key={index}>
+							<div className='overlay-gradient absolute inset-0'></div>
 							<div className='flex flex-col items-start absolute z-[50] text-white top-[40%] left-[10%]'>
 								<h1 className='slider_h1 text-[60px] font-BebasNeue'>
 									{item.title}

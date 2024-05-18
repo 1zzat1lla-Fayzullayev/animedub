@@ -89,7 +89,7 @@ function SingleCard({ user, onSignOut }) {
 								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
 									Yosh:{' '}
 									<div className='form_admin py-1 px-4 shadow-xl'>
-										{card.cardage}
+										{card.cardage}+
 									</div>
 								</div>
 								<p className='text-white'>{card.carddescreption}</p>
@@ -125,7 +125,7 @@ function SingleCard({ user, onSignOut }) {
 								className='w-[300px] h-[400px] rounded-[10px] object-cover'
 							/>
 						</div>
-						<div className='flex flex-col justify-center md:justify-start gap-3'>
+						<div className='flex flex-col justify-center md:justify-start gap-3 ml-[10px] md:ml-0'>
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
 								Yil:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
@@ -138,7 +138,7 @@ function SingleCard({ user, onSignOut }) {
 									{card.cardstate}
 								</div>
 							</div>
-							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
+							<div className='text-[20px] max-w-[300px] md:max-w-[450px] font-semibold text-white flex items-center gap-10'>
 								Janr:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
 									{card.cardgenre}
@@ -153,10 +153,10 @@ function SingleCard({ user, onSignOut }) {
 							<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
 								Yosh:{' '}
 								<div className='form_admin py-1 px-4 shadow-xl'>
-									{card.cardage}
+									{card.cardage}+
 								</div>
 							</div>
-							<p className='text-white'>{card.carddescreption}</p>
+							<p className='text-white max-w-[300px] md:max-w-[450px]'>{card.carddescreption}</p>
 						</div>
 					</div>
 					<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px]'>
