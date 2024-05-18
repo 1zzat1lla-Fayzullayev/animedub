@@ -58,8 +58,8 @@ function Card({ card }) {
 							</div>
 						) : (
 							card.cardname && (
-								<div className='absolute bottom-4 left-4 text-white font-bold text-[25px] drop-shadow-lg'>
-									<h1>{card.cardname}</h1>
+								<div className='absolute bottom-0 rounded-b-[17px] text-white font-bold drop-shadow-lg bg-[#02000095] w-full'>
+									<h1 className='p-2 pl-[20px] text-[20px]'>{card.cardname}</h1>
 								</div>
 							)
 						)}
