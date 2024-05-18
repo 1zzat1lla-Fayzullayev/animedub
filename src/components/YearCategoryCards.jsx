@@ -36,35 +36,37 @@ function YearCategoryCards({ user, onSignOut }) {
 	return (
 		<>
 			<Navbar user={user} onSignOut={onSignOut} />
-			<div className='flex justify-center items-center w-screen h-screen mt-[180px] md:mt-0'>
+			<div className='flex justify-center items-center w-screen h-full'>
 				<Wrapper>
-					{loading ? (
-						<div>
-							<span className='loading loading-dots loading-lg bg-[#57f81dbd]'></span>
-						</div>
-					) : (
-						<>
-							<h1 className='text-white font-Montserrat font-bold text-[25px]'>
-								Yil: {year}
-							</h1>
-							<div className='flex items-center flex-col md:flex-row'>
-								{cards.map(card => (
-									<div key={card.id} className='p-4 font-Montserrat'>
-										<Link to={`/card/${card.id}`}>
-											<img
-												src={card.cardpicture}
-												alt={card.cardname}
-												className='w-[200px] h-[300px] rounded-[10px] object-cover transition-all duration-75 ease-in hover:scale-105 '
-											/>
-											<div className='text-center text-white mt-2'>
-												{card.cardname}
-											</div>
-										</Link>
-									</div>
-								))}
+					<div className='flex flex-col items-center mt-[120px]'>
+						{loading ? (
+							<div>
+								<span className='loading loading-dots loading-lg bg-[#57f81dbd]'></span>
 							</div>
-						</>
-					)}
+						) : (
+							<>
+								<h1 className='text-white font-Montserrat font-bold text-[25px]'>
+									Yil: {year}
+								</h1>
+								<div className='flex flex-wrap justify-center'>
+									{cards.map(card => (
+										<div key={card.id} className='p-4 font-Montserrat'>
+											<Link to={`/card/${card.id}`}>
+												<img
+													src={card.cardpicture}
+													alt={card.cardname}
+													className='w-[200px] h-[300px] rounded-[10px] object-cover transition-all duration-75 ease-in hover:scale-105'
+												/>
+												<div className='text-center text-white mt-2'>
+													{card.cardname}
+												</div>
+											</Link>
+										</div>
+									))}
+								</div>
+							</>
+						)}
+					</div>
 				</Wrapper>
 			</div>
 		</>
