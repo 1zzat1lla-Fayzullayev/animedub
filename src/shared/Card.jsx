@@ -31,7 +31,7 @@ function Card({ card }) {
 				onClick={handleCardClick}
 			>
 				<div
-					className={`relative card w-[300px] h-[350px] rounded-[20px] shadow-lg transform transition-transform hover:scale-105 ${
+					className={`relative card w-[300px] h-[350px] rounded-[20px] shadow-lg transform transition-transform hover:translate-y-[-10px] ${
 						card.premium && !isPremiumUser ? 'opacity-25' : ''
 					}`}
 				>
