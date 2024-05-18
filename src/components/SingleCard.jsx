@@ -101,7 +101,7 @@ function SingleCard({ user, onSignOut }) {
 							<iframe
 								src={card.cardvd}
 								controls
-								className='w-full h-[500px] rounded-[10px] shadow-lg'
+								className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
 								onError={handleVideoError}
 							></iframe>
 						</div>
@@ -168,7 +168,7 @@ function SingleCard({ user, onSignOut }) {
 							<iframe
 								src={card.cardvd}
 								controls
-								className='max-w-[1080px] w-full min-h-[500px] h-full rounded-[10px] shadow-lg object-contain'
+								className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
 								onError={handleVideoError}
 							></iframe>
 						) : (
