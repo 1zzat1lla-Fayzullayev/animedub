@@ -55,7 +55,7 @@ function SignIn({ onSignIn }) {
 
 	return (
 		<div className='absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'>
-			<div className='flex justify-center h-screen items-center font-Montserrat'>
+			<div className='flex justify-center h-screen items-center font-Poppins'>
 				<h2
 					className='text-white absolute top-4 left-4 cursor-pointer'
 					onClick={() => navigate("/")}

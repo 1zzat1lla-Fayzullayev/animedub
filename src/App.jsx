@@ -8,6 +8,8 @@ import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
 import YearCategoryCards from './components/YearCategoryCards'
+import AllCards from './pages/AllCards'
+import AllPremiumCards from './pages/AllPremiumCards'
 
 function App() {
 	const [user, setUser] = useState(
@@ -40,6 +42,14 @@ function App() {
 						element={
 							<YearCategoryCards user={user} onSignOut={handleSignOut} />
 						}
+					/>
+					<Route
+						path='/allcards'
+						element={<AllCards user={user} onSignOut={handleSignOut} />}
+					/>
+					<Route
+						path='/allpremium'
+						element={<AllPremiumCards user={user} onSignOut={handleSignOut} />}
 					/>
 					<Route
 						path='/*'

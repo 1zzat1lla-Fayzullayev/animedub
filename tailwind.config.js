@@ -6,7 +6,7 @@ export default {
 			fontFamily: {
 				Montserrat: ['Montserrat', 'sans-serif'],
 				BebasNeue: ['Bebas Neue', 'sans-serif'],
-				Inter: ['Inter', 'sans-serif'],
+				Poppins: ['Poppins', 'sans-serif'],
 			},
 		},
 	},

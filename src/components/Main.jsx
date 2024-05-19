@@ -18,14 +18,14 @@ function Main({ user }) {
 			<SliderShow />
 			<Wrapper>
 				<div className='flex gap-2 justify-center md:justify-start items-center'>
-					<h2 className='linear_text text-[30px] font-bold font-Montserrat my-[20px]'>
+					<h2 className='linear_text text-[30px] font-bold font-Poppins my-[20px]'>
 						Anime
 					</h2>
 					<img src={PicturesData.star} alt='star' className='w-[30px]' />
 				</div>
 				<SliderCard user={user} />
 				<div className='flex gap-2 justify-center md:justify-start items-center'>
-					<h2 className='linear_text text-[30px] font-bold font-Montserrat my-[20px]'>
+					<h2 className='linear_text text-[30px] font-bold font-Poppins my-[20px]'>
 						{premiumText}
 					</h2>
 					<img src={PicturesData.star} alt='star' className='w-[30px]' />

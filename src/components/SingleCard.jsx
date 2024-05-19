@@ -50,7 +50,7 @@ function SingleCard({ user, onSignOut }) {
 			<>
 				<Navbar user={user} onSignOut={onSignOut} />
 				<Wrapper>
-					<div className='font-Montserrat flex flex-col h-screen w-screen'>
+					<div className='font-Poppins flex flex-col h-screen w-screen'>
 						<div className='flex flex-col md:flex-row items-center gap-[50px]'>
 							<div className='flex flex-col'>
 								<h2 className='text-[white] text-[30px] font-bold mt-[80px] md:mt-[100px] mb-[10px]'>
@@ -119,7 +119,7 @@ function SingleCard({ user, onSignOut }) {
 		<>
 			<Navbar user={user} onSignOut={onSignOut} />
 			<Wrapper>
-				<div className='font-Montserrat flex flex-col h-screen w-screen'>
+				<div className='font-Poppins flex flex-col h-screen w-screen'>
 					<div className='flex flex-col md:flex-row items-center gap-[50px]'>
 						<div className='flex flex-col'>
 							<h2 className='text-[white] text-[30px] font-bold mt-[80px] md:mt-[100px] mb-[10px]'>

@@ -25,13 +25,13 @@ function Card({ card }) {
 	return (
 		<Wrapper>
 			<div
-				className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Inter cursor-pointer ${
+				className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer ${
 					card.premium && !isPremiumUser ? 'pointer-events-none' : ''
 				}`}
 				onClick={handleCardClick}
 			>
 				<div
-					className={`relative card w-[300px] h-[350px] rounded-[20px] shadow-lg transform transition-transform hover:translate-y-[-10px] ${
+					className={`relative card w-[300px] h-[350px] rounded-[20px] shadow-lg transform transition-transform ${
 						card.premium && !isPremiumUser ? 'opacity-25' : ''
 					}`}
 				>

@@ -366,7 +366,7 @@ function Admin() {
 								<div className='container mx-auto'>
 									<div className='flex justify-end items-center'>
 										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
+											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Poppins mr-[20px]'
 											onClick={() => handleOpenModal(tab)}
 										>
 											SwiperForm
@@ -378,7 +378,7 @@ function Admin() {
 											Chiqish
 										</button>
 									</div>
-									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
+									<dialog id={`my_modal_${tab}`} className='modal font-Poppins'>
 										<div className='modal-box form_admin'>
 											<h3 className='font-bold text-[25px] my-[20px] text-center text-white'>
 												Swiper Form
@@ -423,13 +423,13 @@ function Admin() {
 											/>
 										</div>
 									</dialog>
-									<h2 className='text-white font-bold font-Inter text-[25px] my-[15px]'>
+									<h2 className='text-white font-bold font-Poppins text-[25px] my-[15px]'>
 										Swiper Section
 									</h2>
 									<div className='overflow-y-scroll h-[450px]'>
 										<table className='table'>
 											<thead>
-												<tr className='text-white font-Montserrat'>
+												<tr className='text-white font-Poppins'>
 													<th>Nom</th>
 													<th>Tavsif</th>
 													<th>Rasm</th>
@@ -438,7 +438,7 @@ function Admin() {
 											</thead>
 											<tbody>
 												{sliderData.map((item, index) => (
-													<tr key={item.id} className='text-white font-Inter'>
+													<tr key={item.id} className='text-white font-Poppins'>
 														<td>{item.title}</td>
 														<td>{item.description}</td>
 														<td>
@@ -473,7 +473,7 @@ function Admin() {
 								<div className='container mx-auto'>
 									<div className='flex justify-end items-end'>
 										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
+											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Poppins mr-[20px]'
 											onClick={() => handleOpenModal(tab)}
 										>
 											CardForm
@@ -485,7 +485,7 @@ function Admin() {
 											Chiqish
 										</button>
 									</div>
-									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
+									<dialog id={`my_modal_${tab}`} className='modal font-Poppins'>
 										<div className='modal-box form_admin'>
 											<h3 className='font-bold text-[25px] my-[20px] text-center text-white'>
 												Card Form
@@ -598,13 +598,13 @@ function Admin() {
 											/>
 										</div>
 									</dialog>
-									<h2 className='text-white font-bold font-Inter text-[25px] my-[15px]'>
+									<h2 className='text-white font-bold font-Poppins text-[25px] my-[15px]'>
 										Card Section
 									</h2>
 									<div className='overflow-y-scroll h-[450px]'>
 										<table className='table'>
 											<thead>
-												<tr className='text-white font-Montserrat'>
+												<tr className='text-white font-Poppins'>
 													<th>Nom</th>
 													<th>Tavsif</th>
 													<th>Rasm</th>
@@ -620,7 +620,7 @@ function Admin() {
 											</thead>
 											<tbody>
 												{cardData.map((item, index) => (
-													<tr key={item.id} className='text-white font-Inter'>
+													<tr key={item.id} className='text-white font-Poppins'>
 														<td>{item.cardname}</td>
 														<td>{item.carddescreption}</td>
 
@@ -668,7 +668,7 @@ function Admin() {
 								<div className='container mx-auto'>
 									<div className='flex justify-end items-center'>
 										<button
-											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Inter mr-[20px]'
+											className='btn bg-[#458FF6] border-[#458FF6] text-white hover:bg-[#458FF6] font-Poppins mr-[20px]'
 											onClick={() => handleOpenModal(tab)}
 										>
 											UserForm
@@ -680,7 +680,7 @@ function Admin() {
 											Chiqish
 										</button>
 									</div>
-									<dialog id={`my_modal_${tab}`} className='modal font-Inter'>
+									<dialog id={`my_modal_${tab}`} className='modal font-Poppins'>
 										<div className='modal-box form_admin'>
 											<h3 className='font-bold text-[25px] my-[20px] text-center text-white'>
 												User Form
@@ -738,13 +738,13 @@ function Admin() {
 											/>
 										</div>
 									</dialog>
-									<h2 className='text-white font-bold font-Inter text-[25px] my-[15px]'>
+									<h2 className='text-white font-bold font-Poppins text-[25px] my-[15px]'>
 										User Section
 									</h2>
 									<div className='overflow-y-scroll h-[450px]'>
 										<table className='table'>
 											<thead>
-												<tr className='text-white font-Montserrat'>
+												<tr className='text-white font-Poppins'>
 													<th>Foydalanuvchi nomi</th>
 													<th>Parol</th>
 													<th>Premium foydalanuvchi</th>
@@ -753,7 +753,7 @@ function Admin() {
 											</thead>
 											<tbody>
 												{userData.map((item, index) => (
-													<tr key={item.id} className='text-white font-Inter'>
+													<tr key={item.id} className='text-white font-Poppins'>
 														<td>{item.username}</td>
 														<td>{item.password}</td>
 														<td>{item.hiddenpremium ? 'Ha' : "Yo'q"}</td>
@@ -787,7 +787,7 @@ function Admin() {
 						<input
 							type='password'
 							placeholder='Parol'
-							className='input font-Inter'
+							className='input font-Poppins'
 							onChange={e => {
 								if (e.target.value === 'anime') setIsLoggedIn(true)
 							}}

@@ -45,12 +45,12 @@ function YearCategoryCards({ user, onSignOut }) {
 							</div>
 						) : (
 							<>
-								<h1 className='text-white font-Montserrat font-bold text-[25px]'>
+								<h1 className='text-white font-Poppins font-bold text-[25px]'>
 									Yil: {year}
 								</h1>
 								<div className='flex flex-wrap justify-center'>
 									{cards.map(card => (
-										<div key={card.id} className='p-4 font-Montserrat'>
+										<div key={card.id} className='p-4 font-Poppins'>
 											<Link to={`/card/${card.id}`}>
 												<img
 													src={card.cardpicture}
