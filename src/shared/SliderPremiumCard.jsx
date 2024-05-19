@@ -5,8 +5,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import supabase from '../supabase/data'
-import Slider from 'react-slick'
-import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+import { Autoplay, Navigation } from 'swiper/modules'
 
 function SliderPremiumCard() {
 	const [cards, setCards] = useState([])

@@ -8,7 +8,6 @@ import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
 import YearCategoryCards from './components/YearCategoryCards'
-import supabase from './supabase/data'
 
 function App() {
 	const [user, setUser] = useState(

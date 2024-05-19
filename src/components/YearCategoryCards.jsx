@@ -36,7 +36,7 @@ function YearCategoryCards({ user, onSignOut }) {
 	return (
 		<>
 			<Navbar user={user} onSignOut={onSignOut} />
-			<div className='flex justify-center items-center w-screen h-full'>
+			<div className='flex justify-center items-start w-screen h-screen'>
 				<Wrapper>
 					<div className='flex flex-col items-center mt-[120px]'>
 						{loading ? (
