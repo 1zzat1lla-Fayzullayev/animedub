@@ -29,9 +29,25 @@ function SignUp() {
 		}
 		setLoading(true)
 		try {
+			const { data: existingUser, error: userExistsError } = await supabase
+				.from('users')
+				.select('username')
+				.eq('username', username)
+				.single()
+
+			if (userExistsError) {
+				throw userExistsError
+			}
+
+			if (existingUser) {
+				toast.error('Bu foydalanuvchi nomi mavjud')
+				return
+			}
+
 			const { data, error } = await supabase
 				.from('users')
 				.insert([{ username, password }])
+
 			if (error) {
 				throw error
 			} else {

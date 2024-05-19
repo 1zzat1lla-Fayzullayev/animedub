@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
 import MobileNavbar from '../shared/MobileNavbar'
 import PicturesData from '../PicturesData'
+import Card from '../shared/Card'
 
 function Navbar({ user, onSignOut }) {
 	const [showMobileNav, setShowMobileNav] = useState(false)
@@ -101,7 +102,7 @@ function Navbar({ user, onSignOut }) {
 				<div className='flex items-center gap-4'>
 					<div className='flex items-center md:gap-1 w-[120px] md:w-[200px]'>
 						<input
-							type='search'
+							type='text'
 							name='search'
 							placeholder='Qidirish'
 							value={searchQuery}
@@ -153,7 +154,7 @@ function Navbar({ user, onSignOut }) {
 						</div>
 					) : (
 						<Link to='/signin'>
-							<button className='bg-green-500 text-white rounded-[5px] py-[4px] px-[10px]'>
+							<button className='bg-green-500 text-white rounded-[5px] py-[4px] px-[10px] hidden md:block'>
 								Tizimga kirish
 							</button>
 						</Link>
@@ -173,21 +174,42 @@ function Navbar({ user, onSignOut }) {
 			{/* Render filtered cards */}
 			{searchQuery && (
 				<div
-					className='mt-4 absolute right-[8%] max-w-[200px] w-full min-h-[150px] h-full rounded-[10px] flex justify-center items-center flex-col overflow-y-scroll overflow-x-hidden '
+					className='absolute max-w-[200px] w-full max-h-[200px] rounded-[10px] flex flex-col overflow-y-auto overflow-x-hidden left-[70%] md:left-[82%]'
 					style={{
 						background:
 							'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
 						backdropFilter: 'blur(10px)',
 						border: '1px solid rgba(255, 255, 255, 0.18)',
+						top: 'calc(100% + 10px)',
+						transform: 'translateX(-50%)',
 					}}
 				>
 					{filteredCards.length > 0 ? (
 						filteredCards.map((card, index) => (
-							<div
-								key={index}
-								className='text-white cursor-pointer font-Poppins my-[4px]'
-							>
-								<Link to={`/card/${card.id}`}>{card.cardname}</Link>
+							<div key={index}>
+								{card.premium && user ? (
+									<div className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-600'>
+										<div className='flex justify-between items-center border-b border-[#ffffff71] cursor-pointer w-full'>
+											<span>{card.cardname}</span>
+											<span className='text-green-500 text-[10px]'>Premium</span>
+										</div>
+									</div>
+								) : (
+									<Link
+										to={`/card/${card.id}`}
+										className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
+										key={index}
+									>
+										<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
+											<span>{card.cardname}</span>
+											<img
+												src={card.cardpicture}
+												alt={card.cardname}
+												className='w-[30px] h-[30px] object-cover rounded-full'
+											/>
+										</div>
+									</Link>
+								)}
 							</div>
 						))
 					) : (
