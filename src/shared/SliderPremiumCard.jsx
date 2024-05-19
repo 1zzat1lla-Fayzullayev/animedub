@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import Card from './Card'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 import supabase from '../supabase/data'
 import Slider from 'react-slick'
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
 function SliderPremiumCard() {
 	const [cards, setCards] = useState([])
@@ -30,51 +33,52 @@ function SliderPremiumCard() {
 		}
 	}
 
-	const settings = {
-		dots: false,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		autoplay: true,
-		autoplaySpeed: 2000,
-		responsive: [
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1,
-				},
-			},
-			{
-				breakpoint: 768,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1,
-				},
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-				},
-			},
-		],
-	}
-
 	return (
 		<div className='slider-container' id='premium'>
 			{loading ? (
 				<div>Loading...</div>
 			) : cards.length > 0 ? (
-				<Slider {...settings} className='mySwiper'>
+				<Swiper
+					style={{ height: 'auto' }}
+					spaceBetween={30}
+					centeredSlides={false}
+					autoplay={{
+						delay: 2500,
+						disableOnInteraction: false,
+					}}
+					navigation={true}
+					modules={[Autoplay, Navigation]}
+					slidesPerView={4}
+					breakpoints={{
+						// when window width is >= 320px
+						320: {
+							slidesPerView: 1,
+							spaceBetween: 20,
+						},
+						// when window width is >= 480px
+						480: {
+							slidesPerView: 2,
+							spaceBetween: 30,
+						},
+						// when window width is >= 768px
+						768: {
+							slidesPerView: 3,
+							spaceBetween: 40,
+						},
+						// when window width is >= 1024px
+						1024: {
+							slidesPerView: 4,
+							spaceBetween: 50,
+						},
+					}}
+					className='mySwiper'
+				>
 					{cards.map(item => (
-						<div key={item.id}>
+						<SwiperSlide key={item.id}>
 							<Card card={item} />
-						</div>
+						</SwiperSlide>
 					))}
-				</Slider>
+				</Swiper>
 			) : (
 				<div>Premium kartalar mavjud emas</div>
 			)}

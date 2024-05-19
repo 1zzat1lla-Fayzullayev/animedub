@@ -25,7 +25,7 @@ function Card({ card }) {
 	return (
 		<Wrapper>
 			<div
-				className={`flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 m-5 font-Inter cursor-pointer ${
+				className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Inter cursor-pointer ${
 					card.premium && !isPremiumUser ? 'pointer-events-none' : ''
 				}`}
 				onClick={handleCardClick}
@@ -47,7 +47,7 @@ function Card({ card }) {
 							<img
 								src={card.cardpicture}
 								alt={card.cardname}
-								className='h-full w-full object-cover rounded-[17px] transition-all ease-in hover:scale-105'
+								className='h-full w-[300px] object-cover rounded-[17px] transition-all ease-in hover:scale-105'
 							/>
 						)}
 						{card.premium && !isPremiumUser ? (
