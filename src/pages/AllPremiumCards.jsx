@@ -17,8 +17,6 @@ function AllPremiumCards({ user, onSignOut }) {
 	async function getAllCards() {
 		try {
 			const { data, error } = await supabase.from('card').select('*')
-			console.log('Data:', data)
-			console.log('Error:', error)
 			if (error) {
 				console.error(error)
 			}
@@ -51,7 +49,10 @@ function AllPremiumCards({ user, onSignOut }) {
 								className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]`}
 							>
 								{cards.map(card => (
-									<div className='w-[250px] flex md:block justify-center items-center'>
+									<div
+										className='w-[250px] flex md:block justify-center items-center'
+										key={card.id}
+									>
 										<Card key={card.id} card={card} />
 									</div>
 								))}
