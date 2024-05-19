@@ -66,7 +66,6 @@ function Navbar({ user, onSignOut }) {
 
 	const userHasPremium = user && user.hiddenpremium
 
-
 	return (
 		<div
 			className='fixed w-full z-[100] bg-inherit p-3 rounded-[10px] mt-[5px] px-[10px]'
@@ -108,7 +107,7 @@ function Navbar({ user, onSignOut }) {
 							placeholder='Qidirish'
 							value={searchQuery}
 							onChange={handleSearchInputChange}
-							className='bg-inherit outline-none text-white py-2 rounded-[10px] w-full'
+							className='bg-inherit outline-none text-white py-2 w-full transition-colors duration-300 input-wrapper'
 						/>
 						<img
 							src={PicturesData.search}
@@ -169,7 +168,13 @@ function Navbar({ user, onSignOut }) {
 						<div className='w-[20px] h-[2px] bg-white'></div>
 					</div>
 				</div>
-				{showMobileNav && <MobileNavbar closeNavbar={handleShowNavbarMobile} />}
+				{showMobileNav && (
+					<MobileNavbar
+						closeNavbar={handleShowNavbarMobile}
+						user={user}
+						onSignOut={onSignOut}
+					/>
+				)}
 			</div>
 
 			{/* Render filtered cards */}
@@ -194,6 +199,7 @@ function Navbar({ user, onSignOut }) {
 											to={`/card/${card.id}`}
 											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 											key={index}
+											onClick={() => setSearchQuery('')}
 										>
 											<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
 												<span>{card.cardname}</span>
@@ -208,6 +214,7 @@ function Navbar({ user, onSignOut }) {
 										<div
 											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 											key={index}
+											onClick={() => setSearchQuery('')}
 										>
 											<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
 												<span>{card.cardname}</span>
@@ -222,6 +229,7 @@ function Navbar({ user, onSignOut }) {
 										to={`/card/${card.id}`}
 										className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 										key={index}
+										onClick={() => setSearchQuery('')}
 									>
 										<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
 											<span>{card.cardname}</span>

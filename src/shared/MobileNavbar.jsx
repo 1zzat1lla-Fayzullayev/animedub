@@ -2,7 +2,7 @@ import React from 'react'
 import PicturesData from '../PicturesData'
 import { Link } from 'react-router-dom'
 
-function MobileNavbar({ closeNavbar }) {
+function MobileNavbar({ closeNavbar, user, onSignOut }) {
 	return (
 		<>
 			<div className='h-screen w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] fixed top-0 left-0 bottom-0 right-0 rounded-[10px] z-[100]'>
@@ -26,11 +26,20 @@ function MobileNavbar({ closeNavbar }) {
 						<a href='#'>Aloqaga chiqish</a>
 					</li>
 					<li>
-						<Link to='/signin'>
-							<button className='bg-green-500 text-white rounded-[5px] py-[4px] px-[10px] '>
-								Tizimga kirish
+						{user ? (
+							<button
+								onClick={onSignOut}
+								className='block w-full text-left bg-red-500 text-white rounded-[5px] py-[4px] px-[10px] mt-2'
+							>
+								Chiqish
 							</button>
-						</Link>
+						) : (
+							<Link to='/signin'>
+								<button className='bg-green-500 text-white rounded-[5px] py-[4px] px-[10px]'>
+									Tizimga kirish
+								</button>
+							</Link>
+						)}
 					</li>
 				</ul>
 			</div>
