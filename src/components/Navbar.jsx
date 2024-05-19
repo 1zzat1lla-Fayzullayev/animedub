@@ -8,6 +8,7 @@ import PicturesData from '../PicturesData'
 function Navbar({ user, onSignOut }) {
 	const [showMobileNav, setShowMobileNav] = useState(false)
 	const [openDropdown, setOpenDropdown] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 
 	const handleShowNavbarMobile = () => {
@@ -20,6 +21,7 @@ function Navbar({ user, onSignOut }) {
 	}
 
 	const handleSignOut = async () => {
+		setIsLoading(true)
 		try {
 			const { error } = await supabase.auth.signOut()
 			if (error) throw error
@@ -27,6 +29,8 @@ function Navbar({ user, onSignOut }) {
 			navigate('/')
 		} catch (error) {
 			console.error('Sign out error:', error.message)
+		} finally {
+			setIsLoading(false)
 		}
 	}
 
@@ -63,7 +67,9 @@ function Navbar({ user, onSignOut }) {
 					</ul>
 				</div>
 				<div className='flex items-center gap-4'>
-					{user ? (
+					{isLoading ? (
+						<div>Loading...</div>
+					) : user ? (
 						<div className='relative'>
 							<div
 								className='bg-white w-[40px] h-[40px] rounded-full flex justify-center items-center cursor-pointer'
@@ -76,8 +82,16 @@ function Navbar({ user, onSignOut }) {
 								/>
 							</div>
 							{openDropdown && (
-								<div className='w-[150px] rounded-[5px] navbar_anima absolute right-0 top-[100%] mt-4 bg-white shadow-lg p-4'>
-									<p className='text-white font-bold text-[20px]'>
+								<div
+									className='w-[150px] rounded-[5px] absolute right-0 top-[100%] mt-4 bg-white shadow-lg p-4'
+									style={{
+										background:
+											'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
+										backdropFilter: 'blur(10px)',
+										border: '1px solid rgba(255, 255, 255, 0.18)',
+									}}
+								>
+									<p className='text-white font-semibold text-[20px]'>
 										{user.username}
 									</p>
 									<button

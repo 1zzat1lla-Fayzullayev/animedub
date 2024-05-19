@@ -17,10 +17,10 @@ function MobileNavbar({ closeNavbar }) {
 						<Link to='/'>Asosiy</Link>
 					</li>
 					<li>
-						<a href='#anime'>Anime barchasi</a>
+						<Link to='/allcards'>Anime barchasi</Link>
 					</li>
 					<li>
-						<a href='#premium'>Premium barchasi</a>
+						<Link to='/allpremium'>Premium barchasi</Link>
 					</li>
 					<li>
 						<a href='#'>Aloqaga chiqish</a>
