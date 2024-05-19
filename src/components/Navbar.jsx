@@ -1,5 +1,4 @@
-// Navbar.js
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
 import MobileNavbar from '../shared/MobileNavbar'
@@ -8,7 +7,9 @@ import PicturesData from '../PicturesData'
 function Navbar({ user, onSignOut }) {
 	const [showMobileNav, setShowMobileNav] = useState(false)
 	const [openDropdown, setOpenDropdown] = useState(false)
+	const [searchQuery, setSearchQuery] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
+	const [cards, setCards] = useState([])
 	const navigate = useNavigate()
 
 	const handleShowNavbarMobile = () => {
@@ -32,6 +33,36 @@ function Navbar({ user, onSignOut }) {
 		} finally {
 			setIsLoading(false)
 		}
+	}
+
+	useEffect(() => {
+		getAllCards()
+	}, [])
+
+	async function getAllCards() {
+		try {
+			const { data, error } = await supabase.from('card').select('*')
+			console.log('Data:', data)
+			console.log('Error:', error)
+			if (error) {
+				console.error(error)
+			}
+			if (data) {
+				setCards(data)
+			}
+		} catch (err) {
+			console.log(err)
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	const filteredCards = cards.filter(card =>
+		card.cardname.toLowerCase().includes(searchQuery.toLowerCase())
+	)
+
+	const handleSearchInputChange = e => {
+		setSearchQuery(e.target.value)
 	}
 
 	return (
@@ -66,7 +97,24 @@ function Navbar({ user, onSignOut }) {
 						</li>
 					</ul>
 				</div>
+
 				<div className='flex items-center gap-4'>
+					<div className='flex items-center md:gap-1 w-[120px] md:w-[200px]'>
+						<input
+							type='search'
+							name='search'
+							placeholder='Qidirish'
+							value={searchQuery}
+							onChange={handleSearchInputChange}
+							className='bg-inherit outline-none text-white py-2 rounded-[10px] w-full'
+						/>
+						<img
+							src={PicturesData.search}
+							alt='search'
+							className='w-[20px] md:w-[25px] cursor-pointer'
+						/>
+					</div>
+
 					{isLoading ? (
 						<div>Loading...</div>
 					) : user ? (
@@ -121,6 +169,34 @@ function Navbar({ user, onSignOut }) {
 				</div>
 				{showMobileNav && <MobileNavbar closeNavbar={handleShowNavbarMobile} />}
 			</div>
+
+			{/* Render filtered cards */}
+			{searchQuery && (
+				<div
+					className='mt-4 absolute right-[8%] max-w-[200px] w-full min-h-[150px] h-full rounded-[10px] flex justify-center items-center flex-col overflow-y-scroll overflow-x-hidden '
+					style={{
+						background:
+							'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
+						backdropFilter: 'blur(10px)',
+						border: '1px solid rgba(255, 255, 255, 0.18)',
+					}}
+				>
+					{filteredCards.length > 0 ? (
+						filteredCards.map((card, index) => (
+							<div
+								key={index}
+								className='text-white cursor-pointer font-Poppins my-[4px]'
+							>
+								<Link to={`/card/${card.id}`}>{card.cardname}</Link>
+							</div>
+						))
+					) : (
+						<p className='text-center text-white font-Poppins'>
+							Hech qanday karta topilmadi
+						</p>
+					)}
+				</div>
+			)}
 		</div>
 	)
 }
