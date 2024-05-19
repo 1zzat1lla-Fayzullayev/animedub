@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
 import MobileNavbar from '../shared/MobileNavbar'
 import PicturesData from '../PicturesData'
-import Card from '../shared/Card'
 
 function Navbar({ user, onSignOut }) {
 	const [showMobileNav, setShowMobileNav] = useState(false)
@@ -41,10 +40,9 @@ function Navbar({ user, onSignOut }) {
 	}, [])
 
 	async function getAllCards() {
+		setIsLoading(true)
 		try {
 			const { data, error } = await supabase.from('card').select('*')
-			console.log('Data:', data)
-			console.log('Error:', error)
 			if (error) {
 				console.error(error)
 			}
@@ -65,6 +63,9 @@ function Navbar({ user, onSignOut }) {
 	const handleSearchInputChange = e => {
 		setSearchQuery(e.target.value)
 	}
+
+	const userHasPremium = user && user.hiddenpremium
+
 
 	return (
 		<div
@@ -187,13 +188,35 @@ function Navbar({ user, onSignOut }) {
 					{filteredCards.length > 0 ? (
 						filteredCards.map((card, index) => (
 							<div key={index}>
-								{card.premium && user ? (
-									<div className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-600'>
-										<div className='flex justify-between items-center border-b border-[#ffffff71] cursor-pointer w-full'>
-											<span>{card.cardname}</span>
-											<span className='text-green-500 text-[10px]'>Premium</span>
+								{card.premium ? (
+									userHasPremium ? (
+										<Link
+											to={`/card/${card.id}`}
+											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
+											key={index}
+										>
+											<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
+												<span>{card.cardname}</span>
+												<img
+													src={card.cardpicture}
+													alt={card.cardname}
+													className='w-[30px] h-[30px] object-cover rounded-full'
+												/>
+											</div>
+										</Link>
+									) : (
+										<div
+											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
+											key={index}
+										>
+											<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
+												<span>{card.cardname}</span>
+												<span className='text-green-500 text-[10px]'>
+													Premium
+												</span>
+											</div>
 										</div>
-									</div>
+									)
 								) : (
 									<Link
 										to={`/card/${card.id}`}

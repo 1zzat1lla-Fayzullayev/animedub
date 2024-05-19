@@ -16,8 +16,6 @@ function AllCards({ user, onSignOut }) {
 	async function getAllCards() {
 		try {
 			const { data, error } = await supabase.from('card').select('*')
-			console.log('Data:', data)
-			console.log('Error:', error)
 			if (error) {
 				console.error(error)
 			}

@@ -49,7 +49,6 @@ function SignUp() {
 				if (error) {
 					throw error
 				} else {
-					console.log(data)
 					toast.success(`Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi`)
 					navigate('/signin')
 				}
