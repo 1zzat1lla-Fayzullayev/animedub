@@ -35,25 +35,24 @@ function SignUp() {
 				.eq('username', username)
 				.single()
 
-			if (userExistsError) {
+			if (userExistsError && userExistsError.code !== 'PGRST116') {
 				throw userExistsError
 			}
 
 			if (existingUser) {
-				toast.error('Bu foydalanuvchi nomi mavjud')
-				return
-			}
-
-			const { data, error } = await supabase
-				.from('users')
-				.insert([{ username, password }])
-
-			if (error) {
-				throw error
+				toast.error('Bunday foydalanuvchi mavjud')
 			} else {
-				console.log(data)
-				toast.success(`Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi`)
-				navigate('/signin')
+				const { data, error } = await supabase
+					.from('users')
+					.insert([{ username, password }])
+
+				if (error) {
+					throw error
+				} else {
+					console.log(data)
+					toast.success(`Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi`)
+					navigate('/signin')
+				}
 			}
 		} catch (err) {
 			console.error(err)
