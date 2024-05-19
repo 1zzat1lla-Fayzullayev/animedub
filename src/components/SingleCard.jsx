@@ -40,7 +40,7 @@ function SingleCard({ user, onSignOut }) {
 	}
 
 	return (
-		<div className='overflow-y-scroll h-full'>
+		<div className='overflow-y-scroll overflow-x-hidden h-full'>
 			<Navbar user={user} onSignOut={onSignOut} />
 			{isLoading ? (
 				<div className='h-screen w-screen flex justify-center items-center'>
