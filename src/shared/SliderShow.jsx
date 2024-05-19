@@ -56,10 +56,10 @@ function SliderShow() {
 						<SwiperSlide key={index}>
 							<div className='overlay-gradient absolute inset-0'></div>
 							<div className='flex flex-col items-start absolute z-[50] text-white top-[40%] left-[10%]'>
-								<h1 className='slider_h1 text-[60px] font-BebasNeue'>
+								<h1 className='slider_h1 text-[35px] text-start md:text-[60px] font-BebasNeue'>
 									{item.title}
 								</h1>
-								<p className='font-Poppins text-[16px] md:text-[20px] max-w-[650px] text-start'>
+								<p className='font-Poppins text-[15px] md:text-[20px] max-w-[650px] text-start'>
 									{item.description}
 								</p>
 								<div className='flex items-center gap-2 border rounded-[6px] p-2 font-Poppins mt-[20px] cursor-pointer'>
