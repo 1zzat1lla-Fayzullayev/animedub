@@ -4,7 +4,6 @@ import supabase from '../supabase/data'
 import Navbar from './Navbar'
 import Wrapper from '../layout/Wrapper'
 import { useUser } from '../context/UsersContext'
-import PicturesData from '../PicturesData'
 
 function SingleCard({ user, onSignOut }) {
 	const { id } = useParams()
@@ -41,7 +40,7 @@ function SingleCard({ user, onSignOut }) {
 	}
 
 	return (
-		<>
+		<div className='overflow-y-scroll h-full'>
 			<Navbar user={user} onSignOut={onSignOut} />
 			{isLoading ? (
 				<div className='h-screen w-screen flex justify-center items-center'>
@@ -49,7 +48,7 @@ function SingleCard({ user, onSignOut }) {
 				</div>
 			) : (
 				<Wrapper>
-					<div className='font-Poppins flex flex-col h-screen w-screen'>
+					<div className='font-Poppins flex flex-col h-full'>
 						<div className='flex flex-col md:flex-row items-center gap-[50px]'>
 							<div className='flex flex-col'>
 								<h2 className='text-[white] text-[30px] font-bold mt-[80px] md:mt-[100px] mb-[10px]'>
@@ -120,7 +119,7 @@ function SingleCard({ user, onSignOut }) {
 					</div>
 				</Wrapper>
 			)}
-		</>
+		</div>
 	)
 }
 

@@ -71,7 +71,11 @@ function SliderShow() {
 									<a href='#anime'>Ko'rish</a>
 								</div>
 							</div>
-							<img src={item.picture} alt='' className='w-full h-full object-cover' />
+							<img
+								src={item.picture}
+								alt=''
+								className='w-full h-full object-cover'
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>
