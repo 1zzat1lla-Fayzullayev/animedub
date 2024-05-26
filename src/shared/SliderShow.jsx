@@ -1,25 +1,15 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-
-// Import css
 import '../index.css'
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import PicturesData from '../PicturesData'
 import supabase from '../supabase/data'
 
 const SliderShow = () => {
 	const [swipers, setSwipers] = useState([])
-
-	useEffect(() => {
-		getSliders()
-	}, [])
 
 	const getSliders = useCallback(async () => {
 		try {
@@ -35,9 +25,13 @@ const SliderShow = () => {
 		}
 	}, [])
 
+	useEffect(() => {
+		getSliders()
+	}, [getSliders])
+
 	const slides = useMemo(() => {
 		return swipers.map((item, index) => (
-			<SwiperSlide key={index}>
+			<SwiperSlide key={item.id}>
 				<div className='overlay-gradient absolute inset-0'></div>
 				<div className='flex flex-col items-start absolute z-[50] text-white top-[40%] left-[10%]'>
 					<h1 className='slider_h1 text-[35px] text-start md:text-[60px] font-BebasNeue'>
@@ -53,7 +47,7 @@ const SliderShow = () => {
 				</div>
 				<img
 					src={item.picture}
-					alt=''
+					alt={item.title}
 					className='w-full h-full object-cover'
 					loading='lazy'
 				/>
