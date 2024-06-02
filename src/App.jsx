@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Admin from './admin/Admin'
-import Layout from './layout/Layout'
-import SingleCard from './components/SingleCard'
-import SignIn from './pages/SignIn'
-import SignUp from './pages/SignUp'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
-import YearCategoryCards from './components/YearCategoryCards'
-import AllCards from './pages/AllCards'
-import AllPremiumCards from './pages/AllPremiumCards'
+
+const Admin = React.lazy(() => import('./admin/Admin'))
+const Layout = React.lazy(() => import('./layout/Layout'))
+const SingleCard = React.lazy(() => import('./components/SingleCard'))
+const SignIn = React.lazy(() => import('./pages/SignIn'))
+const SignUp = React.lazy(() => import('./pages/SignUp'))
+const YearCategoryCards = React.lazy(() =>
+	import('./components/YearCategoryCards')
+)
+const AllCards = React.lazy(() => import('./pages/AllCards'))
+const AllPremiumCards = React.lazy(() => import('./pages/AllPremiumCards'))
 
 function App() {
 	const [user, setUser] = useState(
@@ -31,33 +34,40 @@ function App() {
 	return (
 		<BrowserRouter>
 			<UserProvider user={user}>
-				<Routes>
-					<Route path='/animeadmin' element={<Admin />} />
-					<Route
-						path='/card/:id'
-						element={<SingleCard user={user} onSignOut={handleSignOut} />}
-					/>
-					<Route
-						path='/year-category/:year'
-						element={
-							<YearCategoryCards user={user} onSignOut={handleSignOut} />
-						}
-					/>
-					<Route
-						path='/allcards'
-						element={<AllCards user={user} onSignOut={handleSignOut} />}
-					/>
-					<Route
-						path='/allpremium'
-						element={<AllPremiumCards user={user} onSignOut={handleSignOut} />}
-					/>
-					<Route
-						path='/*'
-						element={<Layout user={user} onSignOut={handleSignOut} />}
-					/>
-					<Route path='/signin' element={<SignIn onSignIn={handleSignIn} />} />
-					<Route path='/signup' element={<SignUp />} />
-				</Routes>
+				<Suspense fallback={<div>Loading...</div>}>
+					<Routes>
+						<Route path='/animeadmin' element={<Admin />} />
+						<Route
+							path='/card/:id'
+							element={<SingleCard user={user} onSignOut={handleSignOut} />}
+						/>
+						<Route
+							path='/year-category/:year'
+							element={
+								<YearCategoryCards user={user} onSignOut={handleSignOut} />
+							}
+						/>
+						<Route
+							path='/allcards'
+							element={<AllCards user={user} onSignOut={handleSignOut} />}
+						/>
+						<Route
+							path='/allpremium'
+							element={
+								<AllPremiumCards user={user} onSignOut={handleSignOut} />
+							}
+						/>
+						<Route
+							path='/*'
+							element={<Layout user={user} onSignOut={handleSignOut} />}
+						/>
+						<Route
+							path='/signin'
+							element={<SignIn onSignIn={handleSignIn} />}
+						/>
+						<Route path='/signup' element={<SignUp />} />
+					</Routes>
+				</Suspense>
 			</UserProvider>
 			<Toaster />
 		</BrowserRouter>

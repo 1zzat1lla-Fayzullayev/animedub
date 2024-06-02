@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import supabase from '../supabase/data'
 import Navbar from './Navbar'
 import Wrapper from '../layout/Wrapper'
 import { useUser } from '../context/UsersContext'
 
-function SingleCard({ user, onSignOut }) {
+const SingleCard = memo(({ user, onSignOut }) => {
 	const { id } = useParams()
 	const [card, setCard] = useState(null)
 	const { isPremiumUser } = useUser()
@@ -99,13 +99,12 @@ function SingleCard({ user, onSignOut }) {
 								</p>
 							</div>
 						</div>
-						<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px]'>
+						<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px] w-full'>
 							{user ? (
 								<iframe
 									src={card.cardvd}
-									controls
-									allowFullScreen
 									allow='fullscreen'
+									allowFullScreen
 									className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
 									onError={handleVideoError}
 								></iframe>
@@ -123,6 +122,6 @@ function SingleCard({ user, onSignOut }) {
 			)}
 		</div>
 	)
-}
+})
 
 export default SingleCard
