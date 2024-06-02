@@ -104,6 +104,8 @@ function SingleCard({ user, onSignOut }) {
 								<iframe
 									src={card.cardvd}
 									controls
+									allowFullScreen
+									allow='fullscreen'
 									className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
 									onError={handleVideoError}
 								></iframe>
