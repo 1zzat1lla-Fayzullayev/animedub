@@ -1,8 +1,7 @@
-import React, { useEffect, useState, Suspense } from 'react'
+import React, { useEffect, useState, Suspense, useCallback } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
-
 const Admin = React.lazy(() => import('./admin/Admin'))
 const Layout = React.lazy(() => import('./layout/Layout'))
 const SingleCard = React.lazy(() => import('./components/SingleCard'))
@@ -15,6 +14,20 @@ const AllCards = React.lazy(() => import('./pages/AllCards'))
 const AllPremiumCards = React.lazy(() => import('./pages/AllPremiumCards'))
 
 function App() {
+	const [imagesLoaded, setImagesLoaded] = useState(false)
+
+	const preloadImages = useCallback(() => {
+		const img = new Image()
+		img.onload = () => {
+			setImagesLoaded(true)
+		}
+		img.src = 'path-to-a-placeholder-image.jpg' // Provide a valid image path or handle multiple images
+	}, [])
+
+	useEffect(() => {
+		preloadImages()
+	}, [preloadImages])
+
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem('user') || 'null')
 	)
@@ -59,7 +72,13 @@ function App() {
 						/>
 						<Route
 							path='/*'
-							element={<Layout user={user} onSignOut={handleSignOut} />}
+							element={
+								<Layout
+									user={user}
+									onSignOut={handleSignOut}
+									imagesLoaded={imagesLoaded}
+								/>
+							}
 						/>
 						<Route
 							path='/signin'

@@ -8,14 +8,14 @@ import SliderPremiumCard from '../shared/SliderPremiumCard'
 import Card from '../shared/Card'
 import { useUser } from '../context/UsersContext'
 
-function Main({ user }) {
+function Main({ user, imagesLoaded }) {
 	const { isPremiumUser } = useUser()
 
 	const premiumText = !isPremiumUser ? 'Premium' : 'Bepul'
 
 	return (
 		<div>
-			<SliderShow />
+			<SliderShow imagesLoaded={imagesLoaded} />
 			<Wrapper>
 				<div className='flex gap-2 justify-center md:justify-start items-center'>
 					<h2 className='linear_text text-[30px] font-bold font-Poppins my-[20px]'>

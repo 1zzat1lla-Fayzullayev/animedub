@@ -4,7 +4,7 @@ import Main from '../components/Main'
 import Footer from '../components/Footer'
 import { UserProvider } from '../context/UsersContext'
 
-function Layout({ user, onSignOut }) {
+function Layout({ user, onSignOut, imagesLoaded }) {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
@@ -24,7 +24,7 @@ function Layout({ user, onSignOut }) {
 				<div>
 					<Navbar user={user} onSignOut={onSignOut} />
 					<UserProvider user={user}>
-						<Main user={user} />
+						<Main user={user} imagesLoaded={imagesLoaded} />
 					</UserProvider>
 					<Footer />
 				</div>

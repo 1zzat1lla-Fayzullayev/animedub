@@ -12,7 +12,6 @@ function SliderPremiumCard() {
 	const [loading, setLoading] = useState(true)
 	const swiperRef = useRef(null)
 
-
 	useEffect(() => {
 		getCards()
 	}, [])
@@ -81,7 +80,9 @@ function SliderPremiumCard() {
 					))}
 				</Swiper>
 			) : (
-				<div>Premium kartalar mavjud emas</div>
+				<div>
+					<p className='text-red-500 font-Montserrat text-[18px] text-center md:text-start'>Premium kartalar mavjud emas</p>
+				</div>
 			)}
 		</div>
 	)

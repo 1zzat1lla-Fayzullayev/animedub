@@ -40,7 +40,7 @@ function SliderCard({ user }) {
 				<div>Loading...</div>
 			) : cards.length > 0 ? (
 				<Swiper
-					className='h-fit'
+					style={{height: "auto"}}
 					breakpoints={{
 						// when window width is >= 320px
 						320: {
@@ -83,7 +83,11 @@ function SliderCard({ user }) {
 					))}
 				</Swiper>
 			) : (
-				<div>No cards available</div>
+				<div>
+					<p className='text-red-500 font-Montserrat text-[18px] text-center md:text-start'>
+						Mavjud emas!
+					</p>
+				</div>
 			)}
 		</div>
 	)

@@ -79,9 +79,7 @@ function Navbar({ user, onSignOut }) {
 			<div className='flex justify-between items-center font-Poppins'>
 				<div className='flex items-center gap-5 text-white'>
 					<Link to='/'>
-						<h1 className='font-bold cursor-pointer text-[20px]'>
-							Anima <span className='slider_h1'>DUB</span>
-						</h1>
+						<img src={PicturesData.logo} alt='' className='w-[50px] rounded-full' />
 					</Link>
 					<ul className='md:flex justify-center items-center gap-[20px] hidden'>
 						<li>
@@ -132,7 +130,7 @@ function Navbar({ user, onSignOut }) {
 							</div>
 							{openDropdown && (
 								<div
-									className='w-[150px] rounded-[5px] absolute right-0 top-[100%] mt-4 bg-white shadow-lg p-4'
+									className='w-[150px] rounded-[5px] absolute right-0 top-[100%] mt-6 bg-white shadow-lg p-4'
 									style={{
 										background:
 											'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
