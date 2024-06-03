@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
 import toast from 'react-hot-toast'
@@ -58,7 +58,7 @@ function SignIn({ onSignIn }) {
 			<div className='flex justify-center h-screen items-center font-Poppins'>
 				<h2
 					className='text-white absolute top-4 left-4 cursor-pointer'
-					onClick={() => navigate("/")}
+					onClick={() => navigate('/')}
 				>
 					Asosiy
 				</h2>
@@ -103,4 +103,4 @@ function SignIn({ onSignIn }) {
 	)
 }
 
-export default SignIn
+export default memo(SignIn)

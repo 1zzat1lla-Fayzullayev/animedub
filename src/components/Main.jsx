@@ -1,5 +1,5 @@
 // src/components/Main.js
-import React from 'react'
+import React, { memo } from 'react'
 import SliderShow from '../shared/SliderShow'
 import Wrapper from '../layout/Wrapper'
 import SliderCard from '../shared/SliderCard'
@@ -37,4 +37,4 @@ function Main({ user }) {
 	)
 }
 
-export default Main
+export default memo(Main)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import supabase from '../supabase/data'
 import toast from 'react-hot-toast'
@@ -111,4 +111,4 @@ function SignUp() {
 	)
 }
 
-export default SignUp
+export default memo(SignUp)

@@ -124,4 +124,4 @@ const SingleCard = memo(({ user, onSignOut }) => {
 	)
 })
 
-export default SingleCard
+export default memo(SingleCard)

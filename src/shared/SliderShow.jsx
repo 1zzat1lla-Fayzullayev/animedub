@@ -59,18 +59,13 @@ const SliderShow = () => {
 		<div className='relative'>
 			{swipers.length > 0 && (
 				<Swiper
-					spaceBetween={30}
-					centeredSlides={true}
+					spaceBetween={0}
+					slidesPerView={1}
 					autoplay={{
-						delay: 2500,
+						delay: 5000,
 						disableOnInteraction: false,
 					}}
-					pagination={{
-						clickable: true,
-					}}
-					navigation={false}
-					modules={[Autoplay, Pagination, Navigation]}
-					className='mySwiper'
+					modules={[Autoplay]}
 				>
 					{slides}
 				</Swiper>

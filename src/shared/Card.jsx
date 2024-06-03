@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Wrapper from '../layout/Wrapper'
 import PicturesData from '../PicturesData'
@@ -75,4 +75,4 @@ function Card({ card }) {
 	)
 }
 
-export default Card
+export default memo(Card)

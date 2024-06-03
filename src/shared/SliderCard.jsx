@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Card from './Card'
 import supabase from '../supabase/data'
@@ -11,6 +11,7 @@ import { Autoplay, Navigation } from 'swiper/modules'
 function SliderCard({ user }) {
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(true)
+	const swiperRef = useRef(null)
 
 	useEffect(() => {
 		getCards()
@@ -39,16 +40,7 @@ function SliderCard({ user }) {
 				<div>Loading...</div>
 			) : cards.length > 0 ? (
 				<Swiper
-					style={{ height: 'auto' }}
-					spaceBetween={30}
-					centeredSlides={false}
-					autoplay={{
-						delay: 2500,
-						disableOnInteraction: false,
-					}}
-					navigation={true}
-					modules={[Autoplay, Navigation]}
-					slidesPerView={4}
+					className='h-fit'
 					breakpoints={{
 						// when window width is >= 320px
 						320: {
@@ -71,7 +63,16 @@ function SliderCard({ user }) {
 							spaceBetween: 50,
 						},
 					}}
-					className='mySwiper'
+					spaceBetween={30}
+					slidesPerView={1.4}
+					autoplay={{
+						delay: 2500,
+						disableOnInteraction: false,
+					}}
+					modules={[Autoplay]}
+					onBeforeInit={swiper => {
+						swiperRef.current = swiper
+					}}
 				>
 					{cards.map((item, index) => (
 						<SwiperSlide key={index}>
@@ -88,4 +89,4 @@ function SliderCard({ user }) {
 	)
 }
 
-export default SliderCard
+export default memo(SliderCard)

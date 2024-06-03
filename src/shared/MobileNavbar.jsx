@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PicturesData from '../PicturesData'
 import { Link } from 'react-router-dom'
 
@@ -47,4 +47,4 @@ function MobileNavbar({ closeNavbar, user, onSignOut }) {
 	)
 }
 
-export default MobileNavbar
+export default memo(MobileNavbar)

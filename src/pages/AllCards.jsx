@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import Wrapper from '../layout/Wrapper'
 import supabase from '../supabase/data'
 import PicturesData from '../PicturesData'
@@ -84,4 +84,4 @@ function AllCards({ user, onSignOut }) {
 	)
 }
 
-export default AllCards
+export default memo(AllCards)

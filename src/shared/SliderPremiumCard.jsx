@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Card from './Card'
 import 'swiper/css'
@@ -10,6 +10,8 @@ import { Autoplay, Navigation } from 'swiper/modules'
 function SliderPremiumCard() {
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(true)
+	const swiperRef = useRef(null)
+
 
 	useEffect(() => {
 		getCards()
@@ -38,16 +40,16 @@ function SliderPremiumCard() {
 				<div>Loading...</div>
 			) : cards.length > 0 ? (
 				<Swiper
-					style={{ height: 'auto' }}
 					spaceBetween={30}
-					centeredSlides={false}
+					slidesPerView={1.4}
 					autoplay={{
 						delay: 2500,
 						disableOnInteraction: false,
 					}}
-					navigation={true}
-					modules={[Autoplay, Navigation]}
-					slidesPerView={4}
+					modules={[Autoplay]}
+					onBeforeInit={swiper => {
+						swiperRef.current = swiper
+					}}
 					breakpoints={{
 						// when window width is >= 320px
 						320: {
@@ -85,4 +87,4 @@ function SliderPremiumCard() {
 	)
 }
 
-export default SliderPremiumCard
+export default memo(SliderPremiumCard)

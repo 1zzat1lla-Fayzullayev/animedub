@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import Navbar from '../components/Navbar'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
@@ -33,4 +33,4 @@ function Layout({ user, onSignOut }) {
 	)
 }
 
-export default Layout
+export default memo(Layout)
