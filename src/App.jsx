@@ -14,20 +14,6 @@ const AllCards = React.lazy(() => import('./pages/AllCards'))
 const AllPremiumCards = React.lazy(() => import('./pages/AllPremiumCards'))
 
 function App() {
-	const [imagesLoaded, setImagesLoaded] = useState(false)
-
-	const preloadImages = useCallback(() => {
-		const img = new Image()
-		img.onload = () => {
-			setImagesLoaded(true)
-		}
-		img.src = 'path-to-a-placeholder-image.jpg' // Provide a valid image path or handle multiple images
-	}, [])
-
-	useEffect(() => {
-		preloadImages()
-	}, [preloadImages])
-
 	const [user, setUser] = useState(
 		JSON.parse(localStorage.getItem('user') || 'null')
 	)
@@ -72,13 +58,7 @@ function App() {
 						/>
 						<Route
 							path='/*'
-							element={
-								<Layout
-									user={user}
-									onSignOut={handleSignOut}
-									imagesLoaded={imagesLoaded}
-								/>
-							}
+							element={<Layout user={user} onSignOut={handleSignOut} />}
 						/>
 						<Route
 							path='/signin'

@@ -6,7 +6,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import { Link } from 'react-router-dom'
-import { Autoplay, Navigation } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 
 function SliderCard({ user }) {
 	const [cards, setCards] = useState([])
@@ -40,7 +40,7 @@ function SliderCard({ user }) {
 				<div>Loading...</div>
 			) : cards.length > 0 ? (
 				<Swiper
-					style={{height: "auto"}}
+					style={{ height: 'auto' }}
 					breakpoints={{
 						// when window width is >= 320px
 						320: {
