@@ -40,7 +40,7 @@ function Payment() {
 							</div>
 						</div>
 					</div>
-					<div className='absolute bottom-4 md:left-4 mx-[10px] md:mx-0 font-Poppins border border-red-500 rounded-[10px] p-[20px]'>
+					<div className='absolute bottom-0 md:bottom-4 flex flex-col gap-[10px] font-Poppins border border-red-500 rounded-t-[10px] md:rounded-[10px] p-[20px] md:left-0 md:right-0 max-w-[600px] mx-auto'>
 						<h2 className='text-yellow-500 text-[20px]'>Yodda tuting!</h2>
 						<p className='text-red-500'>1. Screenshotsiz tolov 0 ga teng!</p>
 						<p className='text-green-500'>
