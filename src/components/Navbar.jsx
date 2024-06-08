@@ -79,7 +79,11 @@ function Navbar({ user, onSignOut }) {
 			<div className='flex justify-between items-center font-Poppins'>
 				<div className='flex items-center gap-5 text-white'>
 					<Link to='/'>
-						<img src={PicturesData.logo} alt='' className='w-[50px] rounded-full' />
+						<img
+							src={PicturesData.logo}
+							alt=''
+							className='w-[50px] rounded-full'
+						/>
 					</Link>
 					<ul className='md:flex justify-center items-center gap-[20px] hidden'>
 						<li>
@@ -93,6 +97,9 @@ function Navbar({ user, onSignOut }) {
 						</li>
 						<li>
 							<a href='#'>Aloqaga chiqish</a>
+						</li>
+						<li>
+							<Link to='/payment'>Tolov</Link>
 						</li>
 					</ul>
 				</div>

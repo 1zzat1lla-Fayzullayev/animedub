@@ -26,6 +26,9 @@ function MobileNavbar({ closeNavbar, user, onSignOut }) {
 						<a href='#'>Aloqaga chiqish</a>
 					</li>
 					<li>
+						<Link to='/payment'>Tolov</Link>
+					</li>
+					<li>
 						{user ? (
 							<button
 								onClick={onSignOut}

@@ -2,6 +2,7 @@ import React, { useEffect, useState, Suspense, useCallback } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
+import Payment from './shared/Payment'
 const Admin = React.lazy(() => import('./admin/Admin'))
 const Layout = React.lazy(() => import('./layout/Layout'))
 const SingleCard = React.lazy(() => import('./components/SingleCard'))
@@ -56,10 +57,12 @@ function App() {
 								<AllPremiumCards user={user} onSignOut={handleSignOut} />
 							}
 						/>
+						<Route path='/payment' element={<Payment />} />
 						<Route
 							path='/*'
 							element={<Layout user={user} onSignOut={handleSignOut} />}
 						/>
+
 						<Route
 							path='/signin'
 							element={<SignIn onSignIn={handleSignIn} />}
