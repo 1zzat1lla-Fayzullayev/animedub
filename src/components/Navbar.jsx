@@ -201,7 +201,7 @@ function Navbar({ user, onSignOut }) {
 								{card.premium ? (
 									userHasPremium ? (
 										<Link
-											to={`/card/${card.id}`}
+											to={`/card/${card.cardname}`}
 											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 											key={index}
 											onClick={() => setSearchQuery('')}
@@ -231,7 +231,7 @@ function Navbar({ user, onSignOut }) {
 									)
 								) : (
 									<Link
-										to={`/card/${card.id}`}
+										to={`/card/${card.cardname}`}
 										className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 										key={index}
 										onClick={() => setSearchQuery('')}
