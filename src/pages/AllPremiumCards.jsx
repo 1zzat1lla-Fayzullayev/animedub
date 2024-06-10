@@ -1,14 +1,13 @@
 import React, { memo, useEffect, useState } from 'react'
 import Wrapper from '../layout/Wrapper'
 import supabase from '../supabase/data'
-import PicturesData from '../PicturesData'
-import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Card from '../shared/Card'
 
 function AllPremiumCards({ user, onSignOut }) {
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(true)
+	const [isPremiumCard, setIsPremiumCard] = useState(true)
 
 	useEffect(() => {
 		getAllCards()
@@ -23,6 +22,7 @@ function AllPremiumCards({ user, onSignOut }) {
 			if (data) {
 				const premiumCards = data.filter(item => item.premium)
 				setCards(premiumCards)
+				setIsPremiumCard(premiumCards.length > 0) // Check if there are premium cards
 			}
 		} catch (err) {
 			console.log(err)
@@ -41,23 +41,29 @@ function AllPremiumCards({ user, onSignOut }) {
 					</div>
 				) : (
 					<Wrapper>
-						<div className='flex flex-col items-center md:items-start mt-[100px] gap-5 overflow-auto'>
-							<h1 className='text-white font-Poppins text-[25px] font-bold'>
-								Barcha Premium Animelar
-							</h1>
-							<div
-								className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]`}
-							>
-								{cards.map(card => (
-									<div
-										className='w-[250px] flex md:block justify-center items-center'
-										key={card.id}
-									>
-										<Card key={card.id} card={card} />
-									</div>
-								))}
+						{!isPremiumCard ? (
+							<div className='absolute top-0 bottom-0 left-0 right-0 max-w-[350px] h-[100px] m-auto font-Poppins text-red-500 text-[20px]'>
+								Premium multfilmlar mavjud emas
 							</div>
-						</div>
+						) : (
+							<div className='flex flex-col items-center md:items-start mt-[100px] gap-5 overflow-auto'>
+								<h1 className='text-white font-Poppins text-[25px] font-bold'>
+									Barcha Premium Animelar
+								</h1>
+								<div
+									className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]`}
+								>
+									{cards.map(card => (
+										<div
+											className='w-[250px] flex md:block justify-center items-center'
+											key={card.id}
+										>
+											<Card key={card.id} card={card} />
+										</div>
+									))}
+								</div>
+							</div>
+						)}
 					</Wrapper>
 				)}
 			</div>
