@@ -76,7 +76,7 @@ function SliderCard({ user }) {
 				>
 					{cards.map((item, index) => (
 						<SwiperSlide key={index}>
-							<Link to={`/card/${item.id}`}>
+							<Link to={`/card/${item.cardname}`}>
 								<Card card={item} user={user} />
 							</Link>
 						</SwiperSlide>

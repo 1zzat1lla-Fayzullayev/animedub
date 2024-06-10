@@ -48,7 +48,7 @@ function AllCards({ user, onSignOut }) {
 								className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]`}
 							>
 								{cards.map(card => (
-									<Link to={`/card/${card.id}`} key={card.id}>
+									<Link to={`/card/${card.cardname}`} key={card.id}>
 										<div
 											className={`relative card w-[250px] h-[350px] rounded-[20px] shadow-lg transform transition-transform hover:translate-y-[-10px] `}
 										>

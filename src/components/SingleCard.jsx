@@ -6,7 +6,7 @@ import Wrapper from '../layout/Wrapper'
 import { useUser } from '../context/UsersContext'
 
 const SingleCard = memo(({ user, onSignOut }) => {
-	const { id } = useParams()
+	const { cardname } = useParams()
 	const [card, setCard] = useState(null)
 	const { isPremiumUser } = useUser()
 	const [isLoading, setIsLoading] = useState(true)
@@ -18,7 +18,7 @@ const SingleCard = memo(({ user, onSignOut }) => {
 				const { data, error } = await supabase
 					.from('card')
 					.select('*')
-					.eq('id', id)
+					.eq('cardname', cardname) 
 					.single()
 				if (error) {
 					console.error('Error fetching card:', error)
@@ -33,7 +33,7 @@ const SingleCard = memo(({ user, onSignOut }) => {
 		}
 
 		fetchCard()
-	}, [id])
+	}, [cardname])
 
 	const handleVideoError = e => {
 		console.error('Video error:', e)
@@ -46,7 +46,7 @@ const SingleCard = memo(({ user, onSignOut }) => {
 				<div className='h-screen w-screen flex justify-center items-center'>
 					<span className='loading loading-ring w-[50px] overflow-hidden bg-white'></span>
 				</div>
-			) : (
+			) : card ? (
 				<Wrapper>
 					<div className='font-Poppins flex flex-col h-full'>
 						<div className='flex flex-col md:flex-row items-center gap-[50px]'>
@@ -119,6 +119,10 @@ const SingleCard = memo(({ user, onSignOut }) => {
 						</div>
 					</div>
 				</Wrapper>
+			) : (
+				<div className='h-screen w-screen flex justify-center items-center'>
+					<span className='text-white'>Multfilm topilmadi :(</span>
+				</div>
 			)}
 		</div>
 	)

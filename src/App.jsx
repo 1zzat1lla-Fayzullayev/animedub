@@ -38,7 +38,7 @@ function App() {
 					<Routes>
 						<Route path='/animeadmin' element={<Admin />} />
 						<Route
-							path='/card/:id'
+							path='/card/:cardname'
 							element={<SingleCard user={user} onSignOut={handleSignOut} />}
 						/>
 						<Route

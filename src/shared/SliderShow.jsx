@@ -7,9 +7,11 @@ import '../index.css'
 import { Autoplay } from 'swiper/modules'
 import PicturesData from '../PicturesData'
 import supabase from '../supabase/data'
+import { useNavigate } from 'react-router-dom'
 
 const SliderShow = () => {
 	const [swipers, setSwipers] = useState([])
+	const navigate = useNavigate()
 
 	const getSliders = useCallback(async () => {
 		try {
@@ -30,19 +32,22 @@ const SliderShow = () => {
 	}, [getSliders])
 
 	const slides = useMemo(() => {
-		return swipers.map((item, index) => (
+		return swipers.map(item => (
 			<SwiperSlide key={item.id}>
 				<div className='overlay-gradient absolute inset-0'></div>
 				<div className='flex flex-col items-start absolute z-[50] text-white top-[40%] left-[10%]'>
 					<h1 className='text-[35px] text-start md:text-[60px] font-BebasNeue'>
-						{item.title}
+						{item.cardname}
 					</h1>
 					<p className='font-Poppins text-[15px] md:text-[20px] max-w-[650px] text-start'>
 						{item.description}
 					</p>
-					<div className='flex items-center gap-2 border rounded-[6px] p-2 font-Poppins mt-[20px] cursor-pointer'>
+					<div
+						className='flex items-center gap-2 border rounded-[6px] p-2 font-Poppins mt-[20px] cursor-pointer'
+						onClick={() => navigate(`/card/${item.cardname}`)}
+					>
 						<img src={PicturesData.play} alt='play' style={{ width: '30px' }} />
-						<a href='#anime'>Ko'rish</a>
+						<span>Ko'rish</span>
 					</div>
 				</div>
 				<img
@@ -53,7 +58,7 @@ const SliderShow = () => {
 				/>
 			</SwiperSlide>
 		))
-	}, [swipers])
+	}, [swipers, navigate])
 
 	return (
 		<div className='relative'>
