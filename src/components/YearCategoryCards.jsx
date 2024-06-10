@@ -51,7 +51,7 @@ function YearCategoryCards({ user, onSignOut }) {
 								<div className='flex flex-wrap justify-center'>
 									{cards.map(card => (
 										<div key={card.id} className='p-4 font-Poppins'>
-											<Link to={`/card/${card.id}`}>
+											<Link to={`/card/${card.cardname}`}>
 												<img
 													src={card.cardpicture}
 													alt={card.cardname}
