@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import supabase from '../supabase/data'
+import Wrapper from '../layout/Wrapper'
 
 function SeriesParts() {
 	const [seriesPart, setSeriesPart] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
+	const [isVideo, setIsVideo] = useState(false)
 	const { partId } = useParams()
-
-	console.log(partId)
 
 	useEffect(() => {
 		async function fetchSeriesPart() {
@@ -20,9 +20,10 @@ function SeriesParts() {
 					.single()
 
 				if (error) {
-					setError('Tegishli qism topilmadi')
+					throw error
 				} else {
 					setSeriesPart(data)
+					setIsVideo(data.content && data.content.includes('video')) // Check content type
 				}
 			} catch (err) {
 				setError('An unexpected error occurred')
@@ -44,7 +45,7 @@ function SeriesParts() {
 	}
 
 	if (error) {
-		return <div className='text-red-500 font-Montserrat'>{error}</div>
+		return <div>{error}</div>
 	}
 
 	if (!seriesPart) {
@@ -53,15 +54,23 @@ function SeriesParts() {
 
 	return (
 		<div className='h-screen w-screen'>
-			<div className='text-white font-Montserrat'>
-				<p className='text-[20px]'>{seriesPart.seriestitle}</p>
-				<iframe
-					src={seriesPart.content}
-					allow='fullscreen'
-					allowFullScreen
-					className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
-				></iframe>
-			</div>
+			<Wrapper>
+				<div className='text-white font-Montserrat'>
+					<p className='text-[20px]'>{seriesPart.seriestitle}</p>
+					{isVideo ? (
+						<iframe
+							src={seriesPart.content}
+							allow='fullscreen'
+							allowFullScreen
+							className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
+						></iframe>
+					) : (
+						<p className='font-Montserrat text-red-500 text-[20px]'>
+							Tegishli qism topilmadi!
+						</p>
+					)}
+				</div>
+			</Wrapper>
 		</div>
 	)
 }

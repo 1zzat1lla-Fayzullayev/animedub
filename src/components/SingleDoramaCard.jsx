@@ -70,80 +70,78 @@ const SingleDoramaCard = memo(({ user, onSignOut }) => {
 				<Wrapper>
 					<div className='font-Poppins flex flex-col h-full'>
 						<div className='flex flex-col md:flex-row items-center gap-[50px]'>
-							<div>
-								<div className='flex flex-col'>
-									<h2 className='text-[white] text-[30px] font-bold mt-[80px] md:mt-[100px] mb-[10px]'>
-										{card.seriestitle}
-									</h2>
-									<img
-										src={card.seriesphoto}
-										alt={card.seriestitle}
-										className='w-[300px] h-[400px] rounded-[10px] object-cover'
-									/>
-								</div>
-								<div className='flex flex-col justify-center md:justify-start gap-3 ml-[10px] md:ml-0 md:mt-[150px]'>
-									<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-										Yil:{' '}
-										<div
-											className='form_admin py-1 px-4 shadow-xl cursor-pointer'
-											onClick={() =>
-												navigate(`/year-category/${card.seriesyear}`)
-											}
-										>
-											{card.seriesyear}
-										</div>
-									</div>
-									<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-										Mamlakat:{' '}
-										<div className='form_admin py-1 px-4 shadow-xl'>
-											{card.seriesstate}
-										</div>
-									</div>
-									<div className='text-[20px] max-w-[300px] md:max-w-[450px] font-semibold text-white flex items-center gap-10'>
-										Janr:{' '}
-										<div className='form_admin py-1 px-4 shadow-xl'>
-											{card.seriesganre}
-										</div>
-									</div>
-									<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-										Til:{' '}
-										<div className='form_admin py-1 px-4 shadow-xl'>
-											{card.serieslang}
-										</div>
-									</div>
-									<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
-										Yosh:{' '}
-										<div className='form_admin py-1 px-4 shadow-xl'>
-											{card.seriesage}+
-										</div>
-									</div>
-									<p className='text-white max-w-[300px] md:max-w-[450px]'>
-										{card.seriesdescription}
-									</p>
-								</div>
+							<div className='flex flex-col'>
+								<h2 className='text-[white] text-[30px] font-bold mt-[80px] md:mt-[100px] mb-[10px]'>
+									{card.seriestitle}
+								</h2>
+								<img
+									src={card.seriesphoto}
+									alt={card.seriestitle}
+									className='w-[300px] h-[400px] rounded-[10px] object-cover'
+								/>
 							</div>
-							<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px] w-full'>
-								{user ? (
-									<div>
-										<div className='flex gap-[10px]'>
-											{seriesParts.map((part, index) => (
-												<Link to={`/parts/${part.id}`} key={part.id}>
-													<div className='flex border justify-center items-center text-white w-[60px] h-[30px] text-[14px] rounded-[5px] cursor-pointer border-green-500'>
-														{part.series_number} qism
-													</div>
-												</Link>
-											))}
-										</div>
-									</div>
-								) : (
-									<button
-										className='text-red-500 font-semibold mb-[40px]'
-										onClick={() => (window.location.href = '/signin')}
+							<div className='flex flex-col justify-center md:justify-start gap-3 ml-[10px] md:ml-0 md:mt-[150px]'>
+								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
+									Yil:{' '}
+									<div
+										className='form_admin py-1 px-4 shadow-xl cursor-pointer'
+										onClick={() =>
+											navigate(`/year-category/${card.seriesyear}`)
+										}
 									>
-										Videoni tomosha qilish uchun tizimga kiring!
-									</button>
-								)}
+										{card.seriesyear}
+									</div>
+								</div>
+								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
+									Mamlakat:{' '}
+									<div className='form_admin py-1 px-4 shadow-xl'>
+										{card.seriesstate}
+									</div>
+								</div>
+								<div className='text-[20px] max-w-[300px] md:max-w-[450px] font-semibold text-white flex items-center gap-10'>
+									Janr:{' '}
+									<div className='form_admin py-1 px-4 shadow-xl'>
+										{card.seriesganre}
+									</div>
+								</div>
+								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
+									Til:{' '}
+									<div className='form_admin py-1 px-4 shadow-xl'>
+										{card.serieslang}
+									</div>
+								</div>
+								<div className='text-[20px] font-semibold text-white flex items-center gap-10'>
+									Yosh:{' '}
+									<div className='form_admin py-1 px-4 shadow-xl'>
+										{card.seriesage}+
+									</div>
+								</div>
+								<p className='text-white max-w-[300px] md:max-w-[450px]'>
+									{card.seriesdescription}
+								</p>
 							</div>
+						</div>
+						<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px] w-full'>
+							{user ? (
+								<div>
+									<div className='flex gap-[10px]'>
+										{seriesParts.map((part, index) => (
+											<Link to={`/parts/${part.id}`} key={part.id}>
+												<div className='flex border justify-center items-center text-white w-[60px] h-[30px] text-[14px] rounded-[5px] cursor-pointer border-green-500'>
+													{part.series_number} qism
+												</div>
+											</Link>
+										))}
+									</div>
+								</div>
+							) : (
+								<button
+									className='text-red-500 font-semibold mb-[40px]'
+									onClick={() => (window.location.href = '/signin')}
+								>
+									Videoni tomosha qilish uchun tizimga kiring!
+								</button>
+							)}
 						</div>
 					</div>
 				</Wrapper>

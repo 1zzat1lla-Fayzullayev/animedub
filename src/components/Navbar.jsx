@@ -10,6 +10,7 @@ function Navbar({ user, onSignOut }) {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [cards, setCards] = useState([])
+	const [series, setSeries] = useState([])
 	const navigate = useNavigate()
 
 	const handleShowNavbarMobile = () => {
@@ -35,20 +36,21 @@ function Navbar({ user, onSignOut }) {
 		}
 	}
 
-	useEffect(() => {
-		getAllCards()
-	}, [])
-
-	async function getAllCards() {
+	const getAllData = async () => {
 		setIsLoading(true)
 		try {
-			const { data, error } = await supabase.from('card').select('*')
-			if (error) {
-				console.error(error)
-			}
-			if (data) {
-				setCards(data)
-			}
+			const { data: cardData, error: cardError } = await supabase
+				.from('card')
+				.select('*')
+			const { data: seriesData, error: seriesError } = await supabase
+				.from('series')
+				.select('*')
+
+			if (cardError) console.error(cardError)
+			if (seriesError) console.error(seriesError)
+
+			if (cardData) setCards(cardData)
+			if (seriesData) setSeries(seriesData)
 		} catch (err) {
 			console.log(err)
 		} finally {
@@ -56,8 +58,16 @@ function Navbar({ user, onSignOut }) {
 		}
 	}
 
-	const filteredCards = cards.filter(card =>
-		card.cardname.toLowerCase().includes(searchQuery.toLowerCase())
+	useEffect(() => {
+		getAllData()
+	}, [])
+
+	const combinedData = [...cards, ...series]
+
+	const filteredData = combinedData.filter(
+		item =>
+			item.cardname?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			item.seriesname?.toLowerCase().includes(searchQuery.toLowerCase())
 	)
 
 	const handleSearchInputChange = e => {
@@ -95,9 +105,7 @@ function Navbar({ user, onSignOut }) {
 						<li>
 							<Link to='/allpremium'>Premium barchasi</Link>
 						</li>
-						<li>
-							<Link to='/dorama'>Dorama barchasi</Link>
-						</li>
+
 						<li>
 							<a href='#'>Aloqaga chiqish</a>
 						</li>
@@ -198,8 +206,8 @@ function Navbar({ user, onSignOut }) {
 						transform: 'translateX(-50%)',
 					}}
 				>
-					{filteredCards.length > 0 ? (
-						filteredCards.map((card, index) => (
+					{filteredData.length > 0 ? (
+						filteredData.map((card, index) => (
 							<div key={index}>
 								{card.premium ? (
 									userHasPremium ? (
