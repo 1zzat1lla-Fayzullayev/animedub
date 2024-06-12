@@ -4,6 +4,8 @@ import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
 import Payment from './shared/Payment'
 import Dorama from './pages/Dorama'
+import SingleDoramaCard from './components/SingleDoramaCard'
+import SeriesParts from './components/SeriesParts'
 const Admin = React.lazy(() => import('./admin/Admin'))
 const Layout = React.lazy(() => import('./layout/Layout'))
 const SingleCard = React.lazy(() => import('./components/SingleCard'))
@@ -42,6 +44,13 @@ function App() {
 							path='/card/:cardname'
 							element={<SingleCard user={user} onSignOut={handleSignOut} />}
 						/>
+						<Route
+							path='/series/:seriestitle'
+							element={
+								<SingleDoramaCard user={user} onSignOut={handleSignOut} />
+							}
+						/>
+						<Route path='/parts/:partId' element={<SeriesParts />} />
 						<Route
 							path='/year-category/:year'
 							element={

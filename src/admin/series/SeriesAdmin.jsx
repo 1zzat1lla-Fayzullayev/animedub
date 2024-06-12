@@ -225,6 +225,15 @@ function SeriesAdmin({ tab }) {
 							onChange={handleChange}
 							required
 						/>
+						<input
+							type='text'
+							name='seriesstate'
+							placeholder='Mamlakat'
+							className='input bg-[#17171A] text-white'
+							value={seriesForm.seriesstate}
+							onChange={handleChange}
+							required
+						/>
 						<button className='btn btn-success text-white'>
 							{editIndex !== null ? 'Yangilash' : 'Yuborish'}
 						</button>
@@ -263,6 +272,9 @@ function SeriesAdmin({ tab }) {
 								Yil
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+								Mamlakat
+							</th>
+							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
 								Harakat
 							</th>
 						</tr>
@@ -294,6 +306,9 @@ function SeriesAdmin({ tab }) {
 								</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm'>
 									{series.seriesyear}
+								</td>
+								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+									{series.seriesstate}
 								</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm'>
 									<div className='flex items-center gap-3'>

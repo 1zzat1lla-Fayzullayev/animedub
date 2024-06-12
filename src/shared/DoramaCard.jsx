@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import Card from './Card'
 import supabase from '../supabase/data'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -77,7 +76,7 @@ function DoramaCard({ user }) {
 				>
 					{cards.map((item, index) => (
 						<SwiperSlide key={index}>
-							<Link to={`/card/${item.seriestitle}`}>
+							<Link to={`/series/${item.seriestitle}`}>
 								<Dorama card={item} />
 							</Link>
 						</SwiperSlide>

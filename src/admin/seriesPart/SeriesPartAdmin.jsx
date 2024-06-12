@@ -9,6 +9,7 @@ function SeriesPartAdmin({ tab }) {
 		selectedSeries: '',
 		seriestitle: '',
 		content: '',
+		series_number: '',
 	})
 
 	const [editIndex, setEditIndex] = useState(null)
@@ -41,8 +42,9 @@ function SeriesPartAdmin({ tab }) {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		const { seriestitle, content, selectedSeries } = seriesPartForm
-		if (!seriestitle || !content || !selectedSeries) {
+		const { seriestitle, content, selectedSeries, series_number } =
+			seriesPartForm
+		if (!seriestitle || !content || !selectedSeries || !series_number) {
 			console.error('Please provide all details for the form.')
 			return
 		}
@@ -63,6 +65,7 @@ function SeriesPartAdmin({ tab }) {
 								...part,
 								seriestitle,
 								content,
+								series_number,
 							}
 						}
 						return part
@@ -70,7 +73,12 @@ function SeriesPartAdmin({ tab }) {
 				)
 				const { error } = await supabase
 					.from('series_parts')
-					.update({ seriestitle, content, series_id: selectedSeries })
+					.update({
+						seriestitle,
+						content,
+						series_id: selectedSeries,
+						series_number,
+					})
 					.eq('id', seriesPartData[editIndex].id)
 				if (error) throw error
 				setSeriesData(prevData =>
@@ -87,14 +95,24 @@ function SeriesPartAdmin({ tab }) {
 			} else {
 				const { data, error } = await supabase
 					.from('series_parts')
-					.insert({ seriestitle, content, series_id: selectedSeries })
+					.insert({
+						seriestitle,
+						content,
+						series_id: selectedSeries,
+						series_number,
+					})
 					.single()
 				if (error) throw error
 				console.log('Insert operation completed successfully.')
 				fetchSeries()
 			}
 			setEditIndex(null)
-			setSeriesPartForm({ seriestitle: '', content: '', selectedSeries: '' })
+			setSeriesPartForm({
+				seriestitle: '',
+				content: '',
+				selectedSeries: '',
+				series_number,
+			})
 			handleCloseModal(tab)
 		} catch (error) {
 			console.error('Error submitting form:', error.message)
@@ -108,6 +126,7 @@ function SeriesPartAdmin({ tab }) {
 			seriestitle: data.seriestitle,
 			content: data.content,
 			selectedSeries: data.series_id,
+			series_number: data.series_number,
 		})
 		const modal = document.getElementById(`my_modal_${tab}`)
 		if (modal) modal.showModal()
@@ -139,6 +158,7 @@ function SeriesPartAdmin({ tab }) {
 			selectedSeries: seriesId,
 			seriestitle: '',
 			content: '',
+			series_number: '',
 		})
 		setEditIndex(null)
 		const modal = document.getElementById(`my_modal_${tab}`)
@@ -168,6 +188,15 @@ function SeriesPartAdmin({ tab }) {
 							placeholder='Kontent'
 							className='input bg-[#17171A] text-white'
 							value={seriesPartForm.content}
+							onChange={handleChange}
+							required
+						/>
+						<input
+							type='number'
+							name='series_number'
+							placeholder='Serial qism raqami'
+							className='input bg-[#17171A] text-white'
+							value={seriesPartForm.series_number}
 							onChange={handleChange}
 							required
 						/>
@@ -229,6 +258,7 @@ function SeriesPartAdmin({ tab }) {
 															{part.seriestitle}
 														</h4>
 														<p className='text-sm'>{part.content}</p>
+														<p>Serial qismi raqami : {part.series_number}</p>
 													</div>
 													<div className='flex items-center gap-3'>
 														<button

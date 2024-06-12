@@ -35,11 +35,11 @@ function Main({ user, imagesLoaded }) {
 				<SliderPremiumCard user={user} />
 				<div className='flex gap-2 justify-center md:justify-start items-center'>
 					<h2 className='linear_text text-[30px] font-bold font-Poppins my-[20px]'>
-						Dorama
+						Seriallar
 					</h2>
 					<img src={PicturesData.star} alt='star' className='w-[30px]' />
 				</div>
-				<DoramaCard />
+				<DoramaCard user={user} />
 			</Wrapper>
 			<Card user={user} />
 		</div>
