@@ -20,7 +20,7 @@ function SeriesParts() {
 					.single()
 
 				if (error) {
-					setError('No matching part found')
+					setError('Tegishli qism topilmadi')
 				} else {
 					setSeriesPart(data)
 				}
@@ -44,7 +44,7 @@ function SeriesParts() {
 	}
 
 	if (error) {
-		return <div>{error}</div>
+		return <div className='text-red-500 font-Montserrat'>{error}</div>
 	}
 
 	if (!seriesPart) {

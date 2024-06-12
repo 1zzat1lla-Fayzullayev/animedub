@@ -7,7 +7,7 @@ function Dorama({ card }) {
 		<>
 			<Wrapper>
 				<div
-					className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer h-screen`}
+					className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer`}
 				>
 					<div
 						className={`relative card w-[300px] h-[350px] rounded-[20px] shadow-lg transform transition-transform `}
