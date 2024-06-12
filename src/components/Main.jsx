@@ -8,6 +8,7 @@ import SliderPremiumCard from '../shared/SliderPremiumCard'
 import Card from '../shared/Card'
 import { useUser } from '../context/UsersContext'
 import Dorama from '../pages/Dorama'
+import DoramaCard from '../shared/DoramaCard'
 
 function Main({ user, imagesLoaded }) {
 	const { isPremiumUser } = useUser()
@@ -38,7 +39,7 @@ function Main({ user, imagesLoaded }) {
 					</h2>
 					<img src={PicturesData.star} alt='star' className='w-[30px]' />
 				</div>
-				<Dorama />
+				<DoramaCard />
 			</Wrapper>
 			<Card user={user} />
 		</div>

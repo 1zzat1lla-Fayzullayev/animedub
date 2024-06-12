@@ -6,15 +6,12 @@ import { useUser } from '../context/UsersContext'
 
 function Card({ card }) {
 	const { isPremiumUser } = useUser()
-	const navigate = useNavigate()
 
 	const handleCardClick = () => {
 		if (card.premium && !isPremiumUser) {
 			alert(
 				'Bu premium karta. Ushbu kontentga kirish uchun premiumga yangilang.'
 			)
-		} else {
-			navigate(`/card/${card.id}`)
 		}
 	}
 

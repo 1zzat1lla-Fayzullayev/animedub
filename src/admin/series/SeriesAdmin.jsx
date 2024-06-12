@@ -134,11 +134,18 @@ function SeriesAdmin({ tab }) {
 
 	const handleDelete = async (id, index) => {
 		try {
+			await supabase.from('series_parts').delete().eq('series_id', id)
 			const { error } = await supabase.from('series').delete().eq('id', id)
-			if (error) throw error
-			setSeriesData(prevData => prevData.filter((_, i) => i !== index))
-		} catch (err) {
-			console.error(err)
+			if (error) {
+				console.error('Error deleting record:', error.message)
+				return
+			}
+			const newData = [...seriesData]
+			newData.splice(index, 1)
+			setSeriesData(newData)
+			fetchSeries()
+		} catch (error) {
+			console.error('Error deleting record:', error.message)
 		}
 	}
 
@@ -279,7 +286,11 @@ function SeriesAdmin({ tab }) {
 									{series.serieslang}
 								</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm'>
-									<img src={series.seriesphoto} alt={series.seriestitle} className='w-[50px] h-[50px] object-cover rounded-full' />
+									<img
+										src={series.seriesphoto}
+										alt={series.seriestitle}
+										className='w-[50px] h-[50px] object-cover rounded-full'
+									/>
 								</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm'>
 									{series.seriesyear}
