@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
 import Payment from './shared/Payment'
+import Dorama from './pages/Dorama'
 const Admin = React.lazy(() => import('./admin/Admin'))
 const Layout = React.lazy(() => import('./layout/Layout'))
 const SingleCard = React.lazy(() => import('./components/SingleCard'))
@@ -57,6 +58,7 @@ function App() {
 								<AllPremiumCards user={user} onSignOut={handleSignOut} />
 							}
 						/>
+						<Route path='/dorama' element={<Dorama />} />
 						<Route path='/payment' element={<Payment />} />
 						<Route
 							path='/*'

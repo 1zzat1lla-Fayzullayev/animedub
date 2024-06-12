@@ -96,6 +96,9 @@ function Navbar({ user, onSignOut }) {
 							<Link to='/allpremium'>Premium barchasi</Link>
 						</li>
 						<li>
+							<Link to='/dorama'>Dorama barchasi</Link>
+						</li>
+						<li>
 							<a href='#'>Aloqaga chiqish</a>
 						</li>
 						<li>
