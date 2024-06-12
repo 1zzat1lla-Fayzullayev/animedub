@@ -8,6 +8,8 @@ function SeriesParts() {
 	const [error, setError] = useState(null)
 	const { partId } = useParams()
 
+	console.log(partId)
+
 	useEffect(() => {
 		async function fetchSeriesPart() {
 			try {
@@ -18,11 +20,7 @@ function SeriesParts() {
 					.single()
 
 				if (error) {
-					if (error.code === 'PGRST116') {
-						setError('No matching part found')
-					} else {
-						setError('An error occurred while fetching the part')
-					}
+					setError('No matching part found')
 				} else {
 					setSeriesPart(data)
 				}
@@ -55,9 +53,14 @@ function SeriesParts() {
 
 	return (
 		<div className='h-screen w-screen'>
-			<div>
-				<p>{seriesPart.seriestitle}</p>
-				<p>{seriesPart.content}</p>
+			<div className='text-white font-Montserrat'>
+				<p className='text-[20px]'>{seriesPart.seriestitle}</p>
+				<iframe
+					src={seriesPart.content}
+					allow='fullscreen'
+					allowFullScreen
+					className='max-w-[1080px] w-full md:min-h-[500px] min-h-[300px] h-full rounded-[10px] shadow-lg object-contain'
+				></iframe>
 			</div>
 		</div>
 	)

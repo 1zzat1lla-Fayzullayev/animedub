@@ -126,7 +126,7 @@ const SingleDoramaCard = memo(({ user, onSignOut }) => {
 								<div>
 									<div className='flex gap-[10px]'>
 										{seriesParts.map((part, index) => (
-											<Link to={`/parts/${part.series_number}`} key={part.id}>
+											<Link to={`/parts/${part.id}`} key={part.id}>
 												<div className='flex border justify-center items-center text-white w-[60px] h-[30px] text-[14px] rounded-[5px] cursor-pointer border-green-500'>
 													{part.series_number} qism
 												</div>
