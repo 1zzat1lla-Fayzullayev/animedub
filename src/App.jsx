@@ -6,6 +6,7 @@ import Payment from './shared/Payment'
 import Dorama from './pages/Dorama'
 import SingleDoramaCard from './components/SingleDoramaCard'
 import SeriesParts from './components/SeriesParts'
+import AllDorama from './pages/AllDorama'
 const Admin = React.lazy(() => import('./admin/Admin'))
 const Layout = React.lazy(() => import('./layout/Layout'))
 const SingleCard = React.lazy(() => import('./components/SingleCard'))
@@ -66,6 +67,10 @@ function App() {
 							element={
 								<AllPremiumCards user={user} onSignOut={handleSignOut} />
 							}
+						/>
+						<Route
+							path='/allseries'
+							element={<AllDorama user={user} onSignOut={handleSignOut} />}
 						/>
 						<Route path='/dorama' element={<Dorama />} />
 						<Route path='/payment' element={<Payment />} />

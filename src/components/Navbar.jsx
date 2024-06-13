@@ -110,9 +110,11 @@ function Navbar({ user, onSignOut }) {
 						<li>
 							<Link to='/allpremium'>Premium barchasi</Link>
 						</li>
-
 						<li>
-							<a href='#'>Aloqaga chiqish</a>
+							<Link to='/allseries'>Serial barchasi</Link>
+						</li>
+						<li>
+							<a href='https://t.me/AnimadubAdminBot' target='_blank'>Aloqaga chiqish</a>
 						</li>
 						<li>
 							<Link to='/payment'>Tolov</Link>

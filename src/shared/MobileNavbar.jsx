@@ -23,7 +23,7 @@ function MobileNavbar({ closeNavbar, user, onSignOut }) {
 						<Link to='/allpremium'>Premium barchasi</Link>
 					</li>
 					<li>
-						<a href='#'>Aloqaga chiqish</a>
+						<a href='https://t.me/AnimadubAdminBot' target='_blank'>Aloqaga chiqish</a>
 					</li>
 					<li>
 						<Link to='/payment'>Tolov</Link>
