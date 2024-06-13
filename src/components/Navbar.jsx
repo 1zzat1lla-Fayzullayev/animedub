@@ -62,12 +62,17 @@ function Navbar({ user, onSignOut }) {
 		getAllData()
 	}, [])
 
-	const combinedData = [...cards, ...series]
+	const combinedData = [
+		...cards.map(item => ({ ...item, type: 'card' })),
+		...series.map(item => ({ ...item, type: 'series' })),
+	]
 
 	const filteredData = combinedData.filter(
 		item =>
-			item.cardname?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			item.seriesname?.toLowerCase().includes(searchQuery.toLowerCase())
+			(item.cardname &&
+				item.cardname.toLowerCase().includes(searchQuery.toLowerCase())) ||
+			(item.seriestitle &&
+				item.seriestitle.toLowerCase().includes(searchQuery.toLowerCase()))
 	)
 
 	const handleSearchInputChange = e => {
@@ -207,51 +212,69 @@ function Navbar({ user, onSignOut }) {
 					}}
 				>
 					{filteredData.length > 0 ? (
-						filteredData.map((card, index) => (
+						filteredData.map((item, index) => (
 							<div key={index}>
-								{card.premium ? (
-									userHasPremium ? (
+								{item.type === 'card' ? (
+									item.premium ? (
+										userHasPremium ? (
+											<Link
+												to={`/card/${item.cardname}`}
+												className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
+												key={index}
+												onClick={() => setSearchQuery('')}
+											>
+												<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
+													<span>{item.cardname}</span>
+													<img
+														src={item.cardpicture}
+														alt={item.cardname}
+														className='w-[30px] h-[30px] object-cover rounded-full'
+													/>
+												</div>
+											</Link>
+										) : (
+											<div
+												className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
+												key={index}
+												onClick={() => setSearchQuery('')}
+											>
+												<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
+													<span>{item.cardname}</span>
+													<span className='text-green-500 text-[10px]'>
+														Premium
+													</span>
+												</div>
+											</div>
+										)
+									) : (
 										<Link
-											to={`/card/${card.cardname}`}
+											to={`/card/${item.cardname}`}
 											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 											key={index}
 											onClick={() => setSearchQuery('')}
 										>
 											<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
-												<span>{card.cardname}</span>
+												<span>{item.cardname}</span>
 												<img
-													src={card.cardpicture}
-													alt={card.cardname}
+													src={item.cardpicture}
+													alt={item.cardname}
 													className='w-[30px] h-[30px] object-cover rounded-full'
 												/>
 											</div>
 										</Link>
-									) : (
-										<div
-											className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
-											key={index}
-											onClick={() => setSearchQuery('')}
-										>
-											<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
-												<span>{card.cardname}</span>
-												<span className='text-green-500 text-[10px]'>
-													Premium
-												</span>
-											</div>
-										</div>
 									)
 								) : (
 									<Link
-										to={`/card/${card.cardname}`}
+										to={`/series/${item.seriestitle}`}
 										className='block text-white font-Poppins w-full py-2 px-4 hover:bg-gray-700'
 										key={index}
 										onClick={() => setSearchQuery('')}
 									>
 										<div className='flex justify-between items-center border-b border-[#ffffff71] w-full'>
-											<span>{card.cardname}</span>
+											<span>{item.seriestitle}</span>
 											<img
-												src={card.cardpicture}
-												alt={card.cardname}
+												src={item.seriesphoto}
+												alt={item.seriestitle}
 												className='w-[30px] h-[30px] object-cover rounded-full'
 											/>
 										</div>
