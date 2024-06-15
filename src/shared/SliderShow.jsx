@@ -20,6 +20,7 @@ const SliderShow = () => {
 				console.error(error)
 			}
 			if (data) {
+				console.log('Fetched Data:', data) // Log fetched data
 				setSwipers(data)
 			}
 		} catch (err) {
@@ -44,7 +45,7 @@ const SliderShow = () => {
 					</p>
 					<div
 						className='flex items-center gap-2 border rounded-[6px] p-2 font-Poppins mt-[20px] cursor-pointer'
-						onClick={() => navigate(`/card/${item.cardname}`)}
+						onClick={() => navigate(`/${item.type}/${item.cardname}`)}
 					>
 						<img src={PicturesData.play} alt='play' style={{ width: '30px' }} />
 						<span>Ko'rish</span>

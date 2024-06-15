@@ -10,6 +10,7 @@ function SliderAdmin() {
 		cardname: '',
 		description: '',
 		picture: '',
+		type: '',
 	})
 
 	// Fetch slider data from supabase
@@ -45,6 +46,7 @@ function SliderAdmin() {
 				cardname: data.cardname,
 				description: data.description,
 				picture: data.picture,
+				type: data.type,
 			})
 			const modal = document.getElementById(`my_modal_${tab}`)
 			if (modal) modal.showModal()
@@ -54,8 +56,8 @@ function SliderAdmin() {
 	// Handle form submit
 	const handleSubmit = async e => {
 		e.preventDefault()
-		const { cardname, description, picture } = formSlider
-		if (!cardname || !description || !picture) {
+		const { cardname, description, picture, type } = formSlider
+		if (!cardname || !description || !picture || !type) {
 			throw new Error('Please provide all details for the slider.')
 		}
 
@@ -63,13 +65,13 @@ function SliderAdmin() {
 			if (editIndex !== null) {
 				const { data, error } = await supabase
 					.from('sliders')
-					.update({ cardname, description, picture })
+					.update({ cardname, description, picture, type })
 					.eq('id', sliderData[editIndex].id)
 				if (error) throw error
 			} else {
 				const { data, error } = await supabase
 					.from('sliders')
-					.insert({ cardname, description, picture })
+					.insert({ cardname, description, picture, type })
 					.single()
 				if (error) throw error
 				if (data) {
@@ -78,9 +80,9 @@ function SliderAdmin() {
 				}
 			}
 			setEditIndex(null)
-			setFormSlider({ cardname: '', description: '', picture: '' })
+			setFormSlider({ cardname: '', description: '', picture: '', type: '' })
 			handleCloseModal(tab)
-			fetchSliderData() // Refresh data after submit
+			fetchSliderData()
 		} catch (err) {
 			console.log(err)
 		}
@@ -135,6 +137,14 @@ function SliderAdmin() {
 							value={formSlider.picture}
 							onChange={handleChange}
 						/>
+						<input
+							type='text'
+							name='type'
+							placeholder='card yoki series'
+							className='input bg-[#17171A] text-white'
+							value={formSlider.type}
+							onChange={handleChange}
+						/>
 						<button className='btn btn-success text-white'>
 							{editIndex !== null ? 'Update' : 'Submit'}
 						</button>
@@ -157,6 +167,7 @@ function SliderAdmin() {
 							<th>Nomi</th>
 							<th>Malumot</th>
 							<th>Rasm</th>
+							<th>Card yoki Series</th>
 							<th>Harakat</th>
 						</tr>
 					</thead>
@@ -168,6 +179,7 @@ function SliderAdmin() {
 								<td>
 									<img src={item.picture} alt='' className='w-[100px]' />
 								</td>
+								<td>{item.type}</td>
 								<td className='flex justify-center items-center gap-2'>
 									<button
 										className='bg-[orange] p-2 rounded-[6px]'

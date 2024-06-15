@@ -147,7 +147,7 @@ const SingleDoramaCard = memo(({ user, onSignOut }) => {
 				</Wrapper>
 			) : (
 				<div className='h-screen w-screen flex justify-center items-center'>
-					<span className='text-white'>Multfilm topilmadi :(</span>
+					<span className='text-white'>Serial topilmadi :(</span>
 				</div>
 			)}
 		</div>
