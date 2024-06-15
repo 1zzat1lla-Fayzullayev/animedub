@@ -90,7 +90,7 @@ function Admin() {
 											Chiqish
 										</button>
 									</div>
-									<CardAdmin tab={tab} setTab={setTab} />
+									<CardAdmin tab={tab} />
 								</div>
 							)}
 							{tab === 3 && (

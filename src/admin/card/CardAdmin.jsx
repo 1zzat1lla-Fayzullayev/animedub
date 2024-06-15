@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import supabase from '../../supabase/data'
 import PicturesData from '../../PicturesData'
 
-function CardAdmin({ tab, setTab }) {
+function CardAdmin({ tab }) {
 	const [cardData, setCardData] = useState([])
 	const [editIndex, setEditIndex] = useState(null)
 	const [formCard, setFormCard] = useState({
@@ -40,19 +40,8 @@ function CardAdmin({ tab, setTab }) {
 	const handleEdit = (index, data) => {
 		if (!data) return
 		setEditIndex(index)
-		setFormCard({
-			cardname: data.cardname,
-			carddescreption: data.carddescreption,
-			cardpicture: data.cardpicture,
-			cardyear: data.cardyear,
-			cardstate: data.cardstate,
-			cardgenre: data.cardgenre,
-			cardlanguage: data.cardlanguage,
-			cardage: data.cardage,
-			cardvd: data.cardvd,
-			premium: data.premium,
-		})
-		const modal = document.getElementById('card_modal')
+		setFormCard(data)
+		const modal = document.getElementById(`my_modal_${tab}`)
 		if (modal) modal.showModal()
 	}
 
@@ -88,7 +77,7 @@ function CardAdmin({ tab, setTab }) {
 
 		try {
 			if (editIndex !== null) {
-				const { data, error } = await supabase
+				const { error } = await supabase
 					.from('card')
 					.update({
 						cardname,
@@ -156,13 +145,13 @@ function CardAdmin({ tab, setTab }) {
 	}
 
 	const handleCloseModal = () => {
-		const modal = document.getElementById('card_modal')
+		const modal = document.getElementById(`my_modal_${tab}`)
 		if (modal) modal.close()
 	}
 
 	return (
 		<div>
-			<dialog id='card_modal' className='modal font-Poppins'>
+			<dialog id={`my_modal_${tab}`} className='modal font-Poppins'>
 				<div className='modal-box form_admin'>
 					<h3 className='font-bold text-[25px] my-[20px] text-center text-white'>
 						Card Form

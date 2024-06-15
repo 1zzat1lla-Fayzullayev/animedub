@@ -14,6 +14,7 @@ function SeriesAdmin({ tab }) {
 		seriesganre: '',
 		serieslang: '',
 		seriesage: 0,
+		premium: false,
 	})
 
 	const fetchSeries = async () => {
@@ -61,9 +62,19 @@ function SeriesAdmin({ tab }) {
 			seriesstate,
 			seriesphoto,
 			seriesyear,
+			premium,
 		} = seriesForm
 
-		if (!seriestitle || !seriesdescription) {
+		if (
+			!seriestitle ||
+			!seriesdescription ||
+			!seriesage ||
+			!seriesganre ||
+			!seriesstate ||
+			!seriesphoto ||
+			!seriesyear ||
+			!serieslang
+		) {
 			console.error('Please provide all details for the form.')
 			return
 		}
@@ -81,6 +92,7 @@ function SeriesAdmin({ tab }) {
 						seriesphoto,
 						seriesstate,
 						seriesyear,
+						premium,
 					})
 					.eq('id', seriesData[editIndex].id)
 
@@ -105,6 +117,7 @@ function SeriesAdmin({ tab }) {
 						seriesphoto,
 						seriesstate,
 						seriesyear,
+						premium,
 					})
 					.single()
 
@@ -124,6 +137,7 @@ function SeriesAdmin({ tab }) {
 				seriesganre: '',
 				serieslang: '',
 				seriesage: 0,
+				premium: false,
 			})
 			handleCloseModal()
 			fetchSeries()
@@ -234,6 +248,25 @@ function SeriesAdmin({ tab }) {
 							onChange={handleChange}
 							required
 						/>
+						<div className='flex items-center gap-2'>
+							<label htmlFor='premium' className='text-white'>
+								Premium
+							</label>
+							<select
+								name='premium'
+								value={seriesForm.premium ? 'Ha' : "Yo'q"}
+								onChange={e =>
+									setSeriesForm(prevState => ({
+										...prevState,
+										premium: e.target.value === 'Ha',
+									}))
+								}
+								className='px-4 py-2 rounded border border-gray-400 bg-gray-900 text-white text-base focus:outline-none focus:border-blue-500 focus:shadow-outline-blue'
+							>
+								<option value='Ha'>Ha</option>
+								<option value="Yo'q">Yo'q</option>
+							</select>
+						</div>
 						<button className='btn btn-success text-white'>
 							{editIndex !== null ? 'Yangilash' : 'Yuborish'}
 						</button>
@@ -275,6 +308,9 @@ function SeriesAdmin({ tab }) {
 								Mamlakat
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+								Premium
+							</th>
+							<th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
 								Harakat
 							</th>
 						</tr>
@@ -310,6 +346,7 @@ function SeriesAdmin({ tab }) {
 								<td className='px-6 py-4 whitespace-nowrap text-sm'>
 									{series.seriesstate}
 								</td>
+								<td>{series.premium ? 'Ha' : "Yo'q"}</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm'>
 									<div className='flex items-center gap-3'>
 										<button

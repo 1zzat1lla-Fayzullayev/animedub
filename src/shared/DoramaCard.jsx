@@ -35,12 +35,11 @@ function DoramaCard({ user }) {
 	}
 
 	return (
-		<div className='slider-container' id='anime'>
+		<div id='anime'>
 			{loading ? (
 				<div>Loading...</div>
 			) : cards.length > 0 ? (
 				<Swiper
-					style={{ height: 'auto' }}
 					breakpoints={{
 						// when window width is >= 320px
 						320: {
@@ -73,6 +72,7 @@ function DoramaCard({ user }) {
 					onBeforeInit={swiper => {
 						swiperRef.current = swiper
 					}}
+					style={{ height: '100%' }}
 				>
 					{cards.map((item, index) => (
 						<SwiperSlide key={index}>

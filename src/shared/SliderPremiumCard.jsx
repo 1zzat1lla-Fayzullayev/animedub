@@ -8,23 +8,32 @@ import supabase from '../supabase/data'
 import { Autoplay, Navigation } from 'swiper/modules'
 
 function SliderPremiumCard() {
-	const [cards, setCards] = useState([])
+	const [items, setItems] = useState([])
 	const [loading, setLoading] = useState(true)
 	const swiperRef = useRef(null)
 
 	useEffect(() => {
-		getCards()
+		getPremiumItems()
 	}, [])
 
-	async function getCards() {
+	async function getPremiumItems() {
 		try {
-			const { data, error } = await supabase.from('card').select('*')
-			if (error) {
-				console.error(error)
+			const { data: cardData, error: cardError } = await supabase
+				.from('card')
+				.select('*')
+			const { data: seriesData, error: seriesError } = await supabase
+				.from('series')
+				.select('*')
+			if (cardError) {
+				console.error(cardError)
 			}
-			if (data) {
-				const premiumCards = data.filter(item => item.premium)
-				setCards(premiumCards)
+			if (seriesError) {
+				console.error(seriesError)
+			}
+			if (cardData && seriesData) {
+				const premiumCards = cardData.filter(item => item.premium)
+				const premiumSeries = seriesData.filter(item => item.premium)
+				setItems([...premiumCards, ...premiumSeries])
 			}
 		} catch (err) {
 			console.error(err)
@@ -37,7 +46,7 @@ function SliderPremiumCard() {
 		<div className='slider-container' id='premium'>
 			{loading ? (
 				<div>Loading...</div>
-			) : cards.length > 0 ? (
+			) : items.length > 0 ? (
 				<Swiper
 					spaceBetween={30}
 					slidesPerView={1.4}
@@ -45,27 +54,24 @@ function SliderPremiumCard() {
 						delay: 2500,
 						disableOnInteraction: false,
 					}}
-					modules={[Autoplay]}
+					modules={[Autoplay, Navigation]}
 					onBeforeInit={swiper => {
 						swiperRef.current = swiper
 					}}
+					style={{ height: '100%' }}
 					breakpoints={{
-						// when window width is >= 320px
 						320: {
 							slidesPerView: 1,
 							spaceBetween: 20,
 						},
-						// when window width is >= 480px
 						480: {
 							slidesPerView: 2,
 							spaceBetween: 30,
 						},
-						// when window width is >= 768px
 						768: {
 							slidesPerView: 3,
 							spaceBetween: 40,
 						},
-						// when window width is >= 1024px
 						1024: {
 							slidesPerView: 4,
 							spaceBetween: 50,
@@ -73,7 +79,7 @@ function SliderPremiumCard() {
 					}}
 					className='mySwiper'
 				>
-					{cards.map(item => (
+					{items.map(item => (
 						<SwiperSlide key={item.id}>
 							<Card card={item} />
 						</SwiperSlide>
@@ -81,7 +87,9 @@ function SliderPremiumCard() {
 				</Swiper>
 			) : (
 				<div>
-					<p className='text-red-500 font-Montserrat text-[18px] text-center md:text-start'>Premium kartalar mavjud emas</p>
+					<p className='text-red-500 font-Montserrat text-[18px] text-center md:text-start'>
+						Premium kartalar mavjud emas
+					</p>
 				</div>
 			)}
 		</div>
