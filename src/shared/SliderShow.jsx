@@ -20,7 +20,6 @@ const SliderShow = () => {
 				console.error(error)
 			}
 			if (data) {
-				console.log('Fetched Data:', data) // Log fetched data
 				setSwipers(data)
 			}
 		} catch (err) {

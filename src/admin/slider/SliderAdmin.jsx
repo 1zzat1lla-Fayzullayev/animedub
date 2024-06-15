@@ -20,7 +20,6 @@ function SliderAdmin() {
 			if (error) throw error
 			if (data) {
 				setSliderData(data)
-				console.log(data)
 			}
 		} catch (err) {
 			console.log(err)
