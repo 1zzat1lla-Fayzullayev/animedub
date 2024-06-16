@@ -17,7 +17,10 @@ function AllDorama({ user, onSignOut }) {
 		try {
 			const { data, error } = await supabase.from('series').select('*')
 			if (error) throw error
-			if (data) setDorama(data)
+			if (data) {
+				const nonPremiumCards = data.filter(item => !item.premium)
+				setDorama(nonPremiumCards)
+			}
 		} catch (err) {
 			console.log(err)
 		} finally {
