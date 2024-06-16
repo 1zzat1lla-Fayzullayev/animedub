@@ -27,6 +27,7 @@ function Admin() {
 		localStorage.removeItem('isLoggedIn')
 		setIsLoggedIn(false)
 	}
+
 	return (
 		<>
 			{isLoggedIn ? (

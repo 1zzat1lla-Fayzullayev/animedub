@@ -4,16 +4,25 @@ import supabase from '../../supabase/data'
 
 function UserAdmin({ tab }) {
 	const [userData, setUserData] = useState([])
+	const [filteredUsers, setFilteredUsers] = useState([]) // New state for filtered users
 	const [editIndex, setEditIndex] = useState(null)
 	const [userForm, setUserForm] = useState({
 		username: '',
 		password: '',
 		hiddenpremium: false,
 	})
+	const [searchUser, setSearchUser] = useState('')
 
 	useEffect(() => {
 		fetchUserData()
 	}, [])
+
+	useEffect(() => {
+		const filtered = userData.filter(user =>
+			user.username.toLowerCase().includes(searchUser.toLowerCase())
+		)
+		setFilteredUsers(filtered)
+	}, [searchUser, userData])
 
 	const fetchUserData = async () => {
 		try {
@@ -22,6 +31,7 @@ function UserAdmin({ tab }) {
 				console.error(error)
 			} else {
 				setUserData(data)
+				setFilteredUsers(data)
 			}
 		} catch (err) {
 			console.error(err)
@@ -31,6 +41,7 @@ function UserAdmin({ tab }) {
 	const handleChange = e => {
 		const { name, value } = e.target
 		setUserForm(prevState => ({ ...prevState, [name]: value }))
+		setSearchUser(e.target.value)
 	}
 
 	const handleSubmit = async e => {
@@ -95,7 +106,7 @@ function UserAdmin({ tab }) {
 		try {
 			const { error } = await supabase.from('users').delete().eq('id', id)
 			if (error) throw error
-			setUserData(userData.filter((_, i) => i !== index))
+			setUserData(userData => userData.filter((_, i) => i !== index))
 		} catch (err) {
 			console.error(err)
 		}
@@ -164,6 +175,13 @@ function UserAdmin({ tab }) {
 			<h2 className='text-white font-bold font-Poppins text-2xl my-4'>
 				User Section
 			</h2>
+			<input
+				type='text'
+				value={searchUser}
+				placeholder="Foydalanuvchi nomi bo'yicha qidirish"
+				onChange={handleChange}
+				className='bg-inherit outline-none text-white py-3 transition-colors duration-300 input-wrapper border rounded-[5px] px-[10px] w-full mb-5'
+			/>
 			<div className='overflow-y-scroll h-96'>
 				<table className='table'>
 					<thead>
@@ -175,7 +193,7 @@ function UserAdmin({ tab }) {
 						</tr>
 					</thead>
 					<tbody>
-						{userData.map((item, index) => (
+						{filteredUsers.map((item, index) => (
 							<tr key={item.id} className='text-white font-Poppins'>
 								<td>{item.username}</td>
 								<td>{item.password}</td>
