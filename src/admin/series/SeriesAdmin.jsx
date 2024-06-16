@@ -318,36 +318,36 @@ function SeriesAdmin({ tab }) {
 					<tbody>
 						{seriesData.map((series, index) => (
 							<tr key={series.id} className='text-white'>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.seriestitle}
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.seriesdescription}
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.seriesage}
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.seriesganre}
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.serieslang}
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									<img
 										src={series.seriesphoto}
 										alt={series.seriestitle}
-										className='w-[50px] h-[50px] object-cover rounded-full'
+										className='w-[50px] h-[50px] object-cover'
 									/>
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.seriesyear}
 								</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									{series.seriesstate}
 								</td>
 								<td>{series.premium ? 'Ha' : "Yo'q"}</td>
-								<td className='px-6 py-4 whitespace-nowrap text-sm'>
+								<td className='px-6 py-4 text-sm'>
 									<div className='flex items-center gap-3'>
 										<button
 											onClick={() => handleEdit(index, series)}

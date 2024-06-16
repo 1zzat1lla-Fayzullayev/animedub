@@ -8,6 +8,7 @@ function AllPremiumCards({ user, onSignOut }) {
 	const [cards, setCards] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [isPremiumCard, setIsPremiumCard] = useState(true)
+	const [series, setSeries] = useState([])
 
 	useEffect(() => {
 		getAllCards()
@@ -15,18 +16,25 @@ function AllPremiumCards({ user, onSignOut }) {
 
 	async function getAllCards() {
 		try {
-			const { data, error } = await supabase.from('card').select('*')
-			if (error) {
-				console.error(error)
-			}
-			if (data) {
-				const premiumCards = data.filter(item => item.premium)
+			const { data: cardData, error: cardError } = await supabase
+				.from('card')
+				.select('*')
+			const { data: seriesData, error: seriesError } = await supabase
+				.from('series')
+				.select('*')
+
+			if (cardData && seriesData) {
+				const premiumCards = cardData.filter(item => item.premium)
+				const premiumSeries = seriesData.filter(item => item.premium)
+
 				setCards(premiumCards)
-				setIsPremiumCard(premiumCards.length > 0) // Check if there are premium cards
+				setSeries(premiumSeries)
+				setIsPremiumCard(premiumCards.length > 0 || premiumSeries.length > 0)
 			}
+
+			setLoading(false)
 		} catch (err) {
 			console.log(err)
-		} finally {
 			setLoading(false)
 		}
 	}
@@ -50,15 +58,23 @@ function AllPremiumCards({ user, onSignOut }) {
 								<h1 className='text-white font-Poppins text-[25px] font-bold'>
 									Barcha Premium Animelar
 								</h1>
-								<div
-									className={`flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]`}
-								>
+								<div className='flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]'>
 									{cards.map(card => (
 										<div
 											className='w-[250px] flex md:block justify-center items-center'
 											key={card.id}
 										>
-											<Card key={card.id} card={card} />
+											<Card card={card} />
+										</div>
+									))}
+								</div>
+								<div className='flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px] mt-5'>
+									{series.map(serie => (
+										<div
+											className='w-[250px] flex md:block justify-center items-center'
+											key={serie.id}
+										>
+											<Card card={serie} />
 										</div>
 									))}
 								</div>

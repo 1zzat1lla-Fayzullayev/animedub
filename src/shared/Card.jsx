@@ -1,17 +1,25 @@
 import React, { memo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useUser } from '../context/UsersContext'
 import Wrapper from '../layout/Wrapper'
 import PicturesData from '../PicturesData'
-import { useUser } from '../context/UsersContext'
+import { useNavigate } from 'react-router-dom'
 
 function Card({ card }) {
 	const { isPremiumUser } = useUser()
+	const navigate = useNavigate()
 
 	const handleCardClick = () => {
 		if (card.premium && !isPremiumUser) {
 			alert(
 				'Bu premium karta. Ushbu kontentga kirish uchun premiumga yangilang.'
 			)
+		} else {
+			const title = card.cardname || card.seriestitle
+			if (card.cardname) {
+				navigate(`/card/${title}`)
+			} else if (card.seriestitle) {
+				navigate(`/series/${title}`)
+			}
 		}
 	}
 
@@ -40,10 +48,10 @@ function Card({ card }) {
 						/>
 					)}
 					<div className='card__content rounded-[17px] w-full h-full overflow-hidden'>
-						{card.cardpicture && (
+						{(card.cardpicture || card.seriesphoto) && (
 							<img
-								src={card.cardpicture}
-								alt={card.cardname}
+								src={card.cardpicture || card.seriesphoto}
+								alt={card.cardname || card.seriestitle || 'Card Image'}
 								className='h-full w-[300px] object-cover rounded-[17px] transition-all ease-in hover:scale-105'
 							/>
 						)}
@@ -54,16 +62,12 @@ function Card({ card }) {
 								</h1>
 							</div>
 						) : (
-							card.cardname && (
-								<div className='absolute bottom-0 rounded-b-[17px] text-white font-bold drop-shadow-lg bg-[#02000095] w-full flex items-center justify-around'>
-									<h1 className='p-2 pl-[20px] text-[20px]'>{card.cardname}</h1>
-									<img
-										src={PicturesData.play}
-										alt='play'
-										className='w-[40px]'
-									/>
-								</div>
-							)
+							<div className='absolute bottom-0 rounded-b-[17px] text-white font-bold drop-shadow-lg bg-[#02000095] w-full p-2 flex justify-between items-center'>
+								<h1 className='text-[20px]'>
+									{card.cardname || card.seriestitle}
+								</h1>
+								<img src={PicturesData.play} alt='play' className='w-[40px]' />
+							</div>
 						)}
 					</div>
 				</div>
