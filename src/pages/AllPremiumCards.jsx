@@ -58,25 +58,27 @@ function AllPremiumCards({ user, onSignOut }) {
 								<h1 className='text-white font-Poppins text-[25px] font-bold'>
 									Barcha Premium Animelar
 								</h1>
-								<div className='flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]'>
-									{cards.map(card => (
-										<div
-											className='w-[250px] flex md:block justify-center items-center'
-											key={card.id}
-										>
-											<Card card={card} />
-										</div>
-									))}
-								</div>
-								<div className='flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px] mt-5'>
-									{series.map(serie => (
-										<div
-											className='w-[250px] flex md:block justify-center items-center'
-											key={serie.id}
-										>
-											<Card card={serie} />
-										</div>
-									))}
+								<div className='flex items-center gap-[20px]'>
+									<div className='flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]'>
+										{cards.map(card => (
+											<div
+												className='w-[250px] flex md:block justify-center items-center'
+												key={card.id}
+											>
+												<Card card={card} />
+											</div>
+										))}
+									</div>
+									<div className='flex flex-col md:flex-row flex-wrap justify-center items-center font-Poppins cursor-pointer gap-[20px]'>
+										{series.map(serie => (
+											<div
+												className='w-[250px] flex md:block justify-center items-center'
+												key={serie.id}
+											>
+												<Card card={serie} />
+											</div>
+										))}
+									</div>
 								</div>
 							</div>
 						)}
