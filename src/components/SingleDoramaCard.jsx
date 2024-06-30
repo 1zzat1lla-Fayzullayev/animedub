@@ -124,7 +124,7 @@ const SingleDoramaCard = memo(({ user, onSignOut }) => {
 						<div className='mt-[40px] flex justify-center md:justify-start rounded-[10px] w-full'>
 							{user ? (
 								<div>
-									<div className='flex gap-[10px]'>
+									<div className='flex gap-[10px] flex-wrap mx-[20px] md:mx-0'>
 										{seriesParts.map((part, index) => (
 											<Link to={`/parts/${part.id}`} key={part.id}>
 												<div className='flex border justify-center items-center text-white w-[60px] h-[30px] text-[14px] rounded-[5px] cursor-pointer border-green-500'>
