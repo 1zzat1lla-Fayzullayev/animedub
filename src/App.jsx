@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, useCallback } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { UserProvider } from './context/UsersContext'
@@ -23,6 +23,8 @@ function App() {
 		JSON.parse(localStorage.getItem('user') || 'null')
 	)
 
+	const [stop, setStop] = useState(true)
+
 	useEffect(() => {
 		localStorage.setItem('user', JSON.stringify(user))
 	}, [user])
@@ -33,6 +35,10 @@ function App() {
 
 	const handleSignOut = () => {
 		setUser(null)
+	}
+
+	if (stop) {
+		return <h2 className='h-screen text-green-500 font-Montserrat text-[25px] flex justify-center items-center'>Sayt vaqtinchaga to'xtatildi!</h2>
 	}
 
 	return (
@@ -78,7 +84,6 @@ function App() {
 							path='/*'
 							element={<Layout user={user} onSignOut={handleSignOut} />}
 						/>
-
 						<Route
 							path='/signin'
 							element={<SignIn onSignIn={handleSignIn} />}
