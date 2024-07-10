@@ -23,7 +23,7 @@ function App() {
 		JSON.parse(localStorage.getItem('user') || 'null')
 	)
 
-	const [stop, setStop] = useState(true)
+	// const [stop, setStop] = useState(true)
 
 	useEffect(() => {
 		localStorage.setItem('user', JSON.stringify(user))
@@ -37,9 +37,9 @@ function App() {
 		setUser(null)
 	}
 
-	if (stop) {
-		return <h2 className='h-screen text-green-500 font-Montserrat text-[25px] flex justify-center items-center'>Sayt vaqtinchaga to'xtatildi!</h2>
-	}
+	// if (stop) {
+	// 	return <h2 className='h-screen text-green-500 font-Montserrat text-[25px] flex justify-center items-center'>Sayt vaqtinchaga to'xtatildi!</h2>
+	// }
 
 	return (
 		<BrowserRouter>
